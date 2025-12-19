@@ -2,97 +2,176 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>تسجيل الدخول | 2BAC</title>
+<title>الدخول | 2BAC</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* RESET */
+*{box-sizing:border-box}
+
+/* BODY */
 body{
   margin:0;
   height:100vh;
+  font-family:'Segoe UI',Tahoma;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(108,160,220,.15), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(124,200,164,.15), transparent 40%),
+    linear-gradient(135deg,#eef2f3,#dfe9f3);
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#eef2f3,#dfe9f3);
-  font-family:'Segoe UI',Tahoma;
+  overflow:hidden;
 }
 
+/* BACKGROUND ICONS */
+.bg{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.bg span{
+  position:absolute;
+  font-size:40px;
+  opacity:.08;
+  animation:float 12s infinite linear;
+}
+.bg span:nth-child(1){top:10%;left:15%}
+.bg span:nth-child(2){top:70%;left:10%}
+.bg span:nth-child(3){top:20%;right:15%}
+.bg span:nth-child(4){bottom:15%;right:20%}
+
+@keyframes float{
+  from{transform:translateY(0)}
+  to{transform:translateY(-40px)}
+}
+
+/* CARD */
 .card{
   width:340px;
   background:#fff;
-  padding:30px 25px;
-  border-radius:22px;
+  padding:30px 26px;
+  border-radius:26px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
-  animation:fade .8s ease;
+  box-shadow:
+    0 25px 50px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.6);
+  animation:enter .8s ease;
+  z-index:2;
 }
 
-@keyframes fade{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
+@keyframes enter{
+  from{opacity:0; transform:translateY(30px) scale(.95)}
+  to{opacity:1; transform:translateY(0) scale(1)}
 }
 
-h2{color:#2c3e50;}
+h2{
+  margin-bottom:20px;
+  color:#2c3e50;
+}
 
+/* INPUTS */
 input{
   width:100%;
   padding:14px;
   margin:12px 0;
-  border-radius:16px;
+  border-radius:18px;
   border:1px solid #ccc;
   font-size:15px;
+  text-align:center;
+}
+input:focus{
+  outline:none;
+  border-color:#6ca0dc;
+  box-shadow:0 0 0 3px rgba(108,160,220,.25);
 }
 
+/* BUTTON */
 button{
   width:100%;
   padding:15px;
   border:none;
-  border-radius:18px;
+  border-radius:20px;
   font-size:17px;
   cursor:pointer;
   background:linear-gradient(135deg,#6ca0dc,#4a7bd0);
   color:white;
-  box-shadow:0 12px 25px rgba(74,123,208,.4);
+  box-shadow:
+    0 0 15px rgba(74,123,208,.6),
+    0 15px 30px rgba(74,123,208,.4);
   transition:.3s;
 }
 button:hover{
   transform:translateY(-4px);
+}
+
+/* ERROR */
+.error{
+  margin-top:15px;
+  font-size:14px;
+  color:#e74c3c;
+  display:none;
+  animation:shake .4s;
+}
+
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  50%{transform:translateX(5px)}
+  75%{transform:translateX(-5px)}
+  100%{transform:translateX(0)}
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h2>الدخول</h2>
+<!-- BACKGROUND ICONS -->
+<div class="bg">
+  <span>📘</span>
+  <span>📐</span>
+  <span>⚛️</span>
+  <span>🧪</span>
+</div>
 
-  <input id="email" type="email" placeholder="البريد الإلكتروني">
+<!-- CARD -->
+<div class="card">
+  <h2>تسجيل الدخول</h2>
+
+  <input id="email" type="email" placeholder="البريد الإلكتروني (Gmail)">
   <input id="code" type="text" placeholder="الكود">
 
   <button onclick="login()">سجّل</button>
+
+  <div id="error" class="error">❌ هدا الحساب مكاينش</div>
 </div>
 
 <script>
 function login(){
-  const email = emailInput.value.trim();
-  const code = codeInput.value.trim();
+  const email = document.getElementById("email").value.trim();
+  const code  = document.getElementById("code").value.trim();
+  const error = document.getElementById("error");
 
   const users = JSON.parse(localStorage.getItem("users")) || [];
   const codes = JSON.parse(localStorage.getItem("codes")) || [];
 
-  if(!email || !code){
-    alert("عمّر المعلومات");
+  error.style.display="none";
+
+  // Gmail validation
+  if(!email.endsWith("@gmail.com")){
+    error.innerHTML="❌ خاص يكون Gmail صحيح";
+    error.style.display="block";
     return;
   }
 
+  // Check admin data
   if(users.includes(email) && codes.includes(code)){
-    window.location.href = "subjects.html";
+    window.location.href="subjects.html";
   }else{
-    alert("الإيميل أو الكود غير صحيح");
+    error.innerHTML="❌ هدا الحساب مكاينش";
+    error.style.display="block";
   }
 }
-
-const emailInput = document.getElementById("email");
-const codeInput = document.getElementById("code");
 </script>
 
 </body>
