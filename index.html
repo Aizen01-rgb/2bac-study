@@ -6,9 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-  box-sizing:border-box;
-}
 body{
   margin:0;
   height:100vh;
@@ -17,87 +14,72 @@ body{
   align-items:center;
   background:linear-gradient(135deg,#eef2f3,#dfe9f3);
   font-family:'Segoe UI',Tahoma;
-  animation:fadeIn 1s ease;
-}
-
-/* Animation */
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
 }
 
 .card{
   width:340px;
-  background:#ffffff;
+  background:#fff;
   padding:30px 25px;
-  border-radius:20px;
+  border-radius:22px;
   text-align:center;
-  box-shadow:
-    0 20px 40px rgba(0,0,0,.15),
-    inset 0 1px 0 rgba(255,255,255,.6);
-  transform-style:preserve-3d;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
 }
 
-/* Title */
-.card h2{
+h2{
   margin-bottom:20px;
   color:#2c3e50;
 }
 
-/* Inputs */
 input{
   width:100%;
-  padding:12px;
+  padding:13px;
   margin:10px 0;
-  border-radius:12px;
+  border-radius:14px;
   border:1px solid #ccc;
   font-size:15px;
-  transition:.3s;
 }
+
 input:focus{
   outline:none;
   border-color:#6ca0dc;
   box-shadow:0 0 0 3px rgba(108,160,220,.2);
 }
 
-/* Buttons */
 button{
   width:100%;
-  padding:12px;
-  margin-top:12px;
+  padding:14px;
   border:none;
-  border-radius:14px;
+  border-radius:16px;
   font-size:16px;
   cursor:pointer;
   transition:.3s;
 }
 
-/* Normal login */
+/* زر تسجيل */
 .login-btn{
   background:linear-gradient(135deg,#6ca0dc,#4a7bd0);
   color:white;
-  box-shadow:0 10px 20px rgba(74,123,208,.4);
+  box-shadow:0 12px 25px rgba(74,123,208,.4);
 }
 .login-btn:hover{
-  transform:translateY(-3px);
+  transform:translateY(-4px);
 }
 
-/* Google login */
-.google-btn{
-  background:white;
-  color:#444;
-  border:1px solid #ddd;
+/* زر Gmail */
+.gmail-btn{
   margin-top:15px;
+  background:#fff;
+  border:1px solid #ddd;
+  color:#444;
 }
-.google-btn:hover{
+.gmail-btn:hover{
   background:#f5f5f5;
 }
 
-/* Small text */
 .small{
+  margin-top:15px;
   font-size:13px;
   color:#666;
-  margin-top:15px;
 }
 </style>
 </head>
@@ -114,7 +96,7 @@ button{
 
   <div class="small">أو</div>
 
-  <button class="google-btn" onclick="go()">الدخول عبر Gmail</button>
+  <button class="gmail-btn" onclick="go()">الدخول عبر Gmail</button>
 </div>
 
 <script>
