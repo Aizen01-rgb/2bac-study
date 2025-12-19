@@ -23,63 +23,39 @@ body{
   border-radius:22px;
   text-align:center;
   box-shadow:0 20px 40px rgba(0,0,0,.15);
+  animation:fade .8s ease;
 }
 
-h2{
-  margin-bottom:20px;
-  color:#2c3e50;
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
+
+h2{color:#2c3e50;}
 
 input{
   width:100%;
-  padding:13px;
-  margin:10px 0;
-  border-radius:14px;
+  padding:14px;
+  margin:12px 0;
+  border-radius:16px;
   border:1px solid #ccc;
   font-size:15px;
 }
 
-input:focus{
-  outline:none;
-  border-color:#6ca0dc;
-  box-shadow:0 0 0 3px rgba(108,160,220,.2);
-}
-
 button{
   width:100%;
-  padding:14px;
+  padding:15px;
   border:none;
-  border-radius:16px;
-  font-size:16px;
+  border-radius:18px;
+  font-size:17px;
   cursor:pointer;
-  transition:.3s;
-}
-
-/* زر تسجيل */
-.login-btn{
   background:linear-gradient(135deg,#6ca0dc,#4a7bd0);
   color:white;
   box-shadow:0 12px 25px rgba(74,123,208,.4);
+  transition:.3s;
 }
-.login-btn:hover{
+button:hover{
   transform:translateY(-4px);
-}
-
-/* زر Gmail */
-.gmail-btn{
-  margin-top:15px;
-  background:#fff;
-  border:1px solid #ddd;
-  color:#444;
-}
-.gmail-btn:hover{
-  background:#f5f5f5;
-}
-
-.small{
-  margin-top:15px;
-  font-size:13px;
-  color:#666;
 }
 </style>
 </head>
@@ -87,22 +63,36 @@ button{
 <body>
 
 <div class="card">
-  <h2>تسجيل الدخول</h2>
+  <h2>الدخول</h2>
 
-  <input type="email" placeholder="البريد الإلكتروني">
-  <input type="password" placeholder="كلمة المرور">
+  <input id="email" type="email" placeholder="البريد الإلكتروني">
+  <input id="code" type="text" placeholder="الكود">
 
-  <button class="login-btn" onclick="go()">سجّل الدخول</button>
-
-  <div class="small">أو</div>
-
-  <button class="gmail-btn" onclick="go()">الدخول عبر Gmail</button>
+  <button onclick="login()">سجّل</button>
 </div>
 
 <script>
-function go(){
-  window.location.href = "subjects.html";
+function login(){
+  const email = emailInput.value.trim();
+  const code = codeInput.value.trim();
+
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const codes = JSON.parse(localStorage.getItem("codes")) || [];
+
+  if(!email || !code){
+    alert("عمّر المعلومات");
+    return;
+  }
+
+  if(users.includes(email) && codes.includes(code)){
+    window.location.href = "subjects.html";
+  }else{
+    alert("الإيميل أو الكود غير صحيح");
+  }
 }
+
+const emailInput = document.getElementById("email");
+const codeInput = document.getElementById("code");
 </script>
 
 </body>
