@@ -18,10 +18,10 @@ body{
 
 .container{
   width:90%;
-  max-width:360px;
+  max-width:380px;
 }
 
-/* Language */
+/* Lang */
 .lang{
   text-align:center;
   margin-bottom:15px;
@@ -45,9 +45,9 @@ body{
 
 /* Card */
 .card{
-  height:110px;
+  height:120px;
   margin-bottom:22px;
-  border-radius:22px;
+  border-radius:30px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -60,18 +60,18 @@ body{
 }
 
 .card:hover{
-  transform:translateY(-12px) scale(1.05);
+  transform:translateY(-10px) scale(1.04);
 }
 
 .card:active{
-  transform:scale(0.95);
+  transform:scale(0.96);
 }
 
 .small{
-  font-size:14px;
+  font-size:15px;
   font-weight:normal;
   margin-top:6px;
-  opacity:.8;
+  opacity:.85;
 }
 
 /* Colors */
@@ -81,7 +81,7 @@ body{
 .math{
   background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
 }
-.svt{
+.phy{
   background:linear-gradient(135deg,#fff3e0,#ffe0b2);
 }
 
@@ -107,7 +107,8 @@ footer{
   <p class="desc">Choisissez une matière pour accéder aux cours et exercices</p>
 
   <!-- Cards -->
-  <div class="card pc" onclick="location.href='pc.html'">
+
+  <div class="card pc">
     <div>
       💻 Informatique
       <div class="small">Cours • Exercices • Résumés</div>
@@ -121,10 +122,11 @@ footer{
     </div>
   </div>
 
-  <div class="card svt">
+  <!-- Physique et Chimie (بدل Informatique فالصورة) -->
+  <div class="card phy">
     <div>
-      🧬 SVT
-      <div class="small">Leçons • Schémas • Révisions</div>
+      ⚛️ Physique et Chimie
+      <div class="small">Cours • Exercices • Résumés</div>
     </div>
   </div>
 
