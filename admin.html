@@ -8,21 +8,22 @@
 <style>
 *{box-sizing:border-box}
 
-/* ===== COLORS ===== */
+/* ===== THEME VARS ===== */
 :root{
   --bg:#0b1020;
   --card:#111936;
   --text:#e5e7eb;
-  --primary:#7c3aed;      /* بنفسجي فخم */
-  --accent:#22d3ee;       /* نيون */
-  --danger:#ef4444;
+  --primary:#7c3aed;
+  --accent:#22d3ee;
+  --shadow:0 30px 60px rgba(0,0,0,.6);
 }
 body.light{
-  --bg:#f3f4f6;
+  --bg:#f4f6fb;
   --card:#ffffff;
   --text:#1e293b;
   --primary:#4f46e5;
   --accent:#2563eb;
+  --shadow:0 25px 50px rgba(0,0,0,.25);
 }
 
 /* ===== BODY ===== */
@@ -31,7 +32,7 @@ body{
   font-family:'Segoe UI',Tahoma;
   background:linear-gradient(135deg,var(--bg),#020617);
   color:var(--text);
-  transition:.5s;
+  transition:.6s;
 }
 
 /* ===== HEADER ===== */
@@ -39,35 +40,35 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px;
+  padding:22px;
 }
 header h1{
   font-size:22px;
   letter-spacing:1px;
 }
 .toggle{
+  padding:10px 18px;
+  border-radius:16px;
   cursor:pointer;
-  padding:10px 16px;
-  border-radius:14px;
   background:var(--card);
-  box-shadow:0 10px 25px rgba(0,0,0,.5);
-  transition:.3s;
+  box-shadow:var(--shadow);
+  transition:.4s;
 }
 .toggle:hover{transform:scale(1.05)}
 
 /* ===== LAYOUT ===== */
 .container{
-  padding:20px;
+  padding:22px;
   display:grid;
-  gap:25px;
+  gap:28px;
 }
 
 /* ===== CARD ===== */
 .card{
   background:var(--card);
-  padding:20px;
-  border-radius:26px;
-  box-shadow:0 25px 50px rgba(0,0,0,.5);
+  padding:22px;
+  border-radius:28px;
+  box-shadow:var(--shadow);
   animation:fade .6s ease;
 }
 @keyframes fade{
@@ -80,74 +81,51 @@ header h1{
 }
 
 /* ===== INPUTS ===== */
-input{
+input,select{
   width:100%;
   padding:12px;
   margin:8px 0;
-  border-radius:14px;
+  border-radius:16px;
   border:none;
   outline:none;
 }
 
 /* ===== BUTTON ===== */
 button{
-  padding:12px;
   width:100%;
+  padding:12px;
   border:none;
-  border-radius:16px;
-  cursor:pointer;
+  border-radius:18px;
   font-weight:bold;
+  cursor:pointer;
   background:linear-gradient(135deg,var(--primary),var(--accent));
   color:white;
-  box-shadow:0 10px 25px rgba(0,0,0,.4);
+  box-shadow:0 12px 30px rgba(0,0,0,.5);
   transition:.3s;
 }
-button:hover{transform:translateY(-3px)}
+button:hover{transform:translateY(-4px)}
 
-/* ===== LIST ===== */
+/* ===== ITEMS ===== */
 .item{
-  background:rgba(255,255,255,.06);
-  padding:10px;
-  border-radius:14px;
   margin-top:10px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+  padding:12px;
+  border-radius:18px;
+  background:rgba(255,255,255,.05);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);
+  animation:fade .4s;
 }
-.row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-.badge{
-  padding:4px 10px;
-  border-radius:12px;
-  background:rgba(34,211,238,.15);
-  color:var(--accent);
-  font-size:13px;
-}
+.item b{color:var(--accent)}
 
-/* DELETE */
-.delete{
-  background:var(--danger);
-  padding:6px 12px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:13px;
-}
-
-/* TOAST */
+/* ===== TOAST ===== */
 .toast{
   position:fixed;
   bottom:20px;
   right:20px;
   background:var(--card);
   padding:14px 22px;
-  border-radius:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,.6);
+  border-radius:18px;
+  box-shadow:var(--shadow);
   display:none;
-  animation:fade .4s;
 }
 </style>
 </head>
@@ -155,7 +133,7 @@ button:hover{transform:translateY(-3px)}
 <body>
 
 <header>
-  <h1>👑 ADMIN CONTROL</h1>
+  <h1>👑 ADMIN CONTROL PANEL</h1>
   <div class="toggle" onclick="toggleTheme()">🌙</div>
 </header>
 
@@ -172,23 +150,39 @@ button:hover{transform:translateY(-3px)}
 <!-- CODES -->
 <div class="card">
   <h2>🔑 Codes</h2>
-
-  <input id="manualCode" placeholder="Manual code (اختياري)">
+  <input id="manualCode" placeholder="Manual Code (اختياري)">
   <button onclick="addManualCode()">✍️ Add Manual Code</button>
-
   <button style="margin-top:10px" onclick="generateCode()">⚡ Generate Code</button>
+</div>
 
-  <div id="codesList"></div>
+<!-- FILE MANAGER -->
+<div class="card">
+  <h2>📂 Add PDF / Lesson</h2>
+
+  <select id="subject">
+    <option value="pc">PC</option>
+    <option value="math">Math</option>
+    <option value="svt">SVT</option>
+    <option value="exam">Examens Nationaux</option>
+  </select>
+
+  <input id="fileName" placeholder="Nom du fichier / الدرس">
+  <button onclick="addFile()">➕ Add</button>
+
+  <div id="filesList"></div>
 </div>
 
 </div>
 
-<div class="toast" id="toast">Done</div>
+<div class="toast" id="toast"></div>
 
 <script>
 /* ===== DATA ===== */
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let codes = JSON.parse(localStorage.getItem("codes")) || {};
+let files = JSON.parse(localStorage.getItem("files")) || {
+  pc:[], math:[], svt:[], exam:[]
+};
 
 /* ===== USERS ===== */
 function addUser(){
@@ -200,65 +194,56 @@ function addUser(){
   toast("👤 User added");
 }
 
-function deleteUser(email){
-  if(!confirm("حذف المستخدم؟")) return;
-  users = users.filter(u=>u!==email);
-  delete codes[email];
-  localStorage.setItem("users",JSON.stringify(users));
-  localStorage.setItem("codes",JSON.stringify(codes));
-  render();
-  toast("🗑️ User deleted");
-}
-
 /* ===== CODES ===== */
 function generateCode(){
   if(users.length===0){toast("❌ Add user first");return;}
-  const email = users[users.length-1];
-  const code = "CODE-"+Math.random().toString(36).substring(2,8).toUpperCase();
-  codes[email]=code;
+  const email=users[users.length-1];
+  codes[email]="CODE-"+Math.random().toString(36).substring(2,8).toUpperCase();
   saveCodes();
   toast("⚡ Code generated");
 }
-
 function addManualCode(){
-  if(users.length===0 || !manualCode.value){toast("❌ Missing data");return;}
-  const email = users[users.length-1];
+  if(users.length===0||!manualCode.value)return;
+  const email=users[users.length-1];
   codes[email]=manualCode.value;
   manualCode.value="";
   saveCodes();
-  toast("✍️ Code added manually");
+  toast("✍️ Code added");
 }
-
-function deleteCode(email){
-  if(!confirm("حذف الكود؟")) return;
-  delete codes[email];
-  saveCodes();
-  toast("🗑️ Code deleted");
-}
-
 function saveCodes(){
   localStorage.setItem("codes",JSON.stringify(codes));
   render();
 }
 
+/* ===== FILES ===== */
+function addFile(){
+  const subject=document.getElementById("subject").value;
+  const name=document.getElementById("fileName").value;
+  if(!name)return;
+  files[subject].push(name);
+  localStorage.setItem("files",JSON.stringify(files));
+  fileName.value="";
+  renderFiles();
+  toast("📂 Added to "+subject.toUpperCase());
+}
+
 /* ===== RENDER ===== */
 function render(){
   usersList.innerHTML="";
-  users.forEach(email=>{
+  users.forEach(u=>{
     usersList.innerHTML+=`
       <div class="item">
-        <div class="row">
-          <span>${email}</span>
-          <span class="badge">${codes[email]||"NO CODE"}</span>
-        </div>
-        <div class="row">
-          <div class="delete" onclick="deleteUser('${email}')">🗑️ Delete User</div>
-          ${codes[email]?`<div class="delete" onclick="deleteCode('${email}')">❌ Delete Code</div>`:""}
-        </div>
+        ${u} — <b>${codes[u]||"NO CODE"}</b>
       </div>`;
   });
 }
-render();
+function renderFiles(){
+  filesList.innerHTML="";
+  for(let s in files){
+    filesList.innerHTML+=`<div class="item"><b>${s.toUpperCase()}</b>: ${files[s].join(" , ")||"—"}</div>`;
+  }
+}
+render(); renderFiles();
 
 /* ===== TOAST ===== */
 function toast(msg){
