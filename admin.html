@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<style>
+body{
+  font-family:Arial;
+  background:#f5f5f5;
+  padding:20px;
+}
+.box{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  max-width:400px;
+}
+input,button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+}
+button{
+  background:#4A90E2;
+  color:white;
+  border:none;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Admin Panel</h2>
+
+<div class="box">
+  <h3>Ajouter Utilisateur</h3>
+  <input id="uemail" placeholder="Email utilisateur">
+  <input id="ucode" placeholder="Code utilisateur">
+  <button onclick="addUser()">Ajouter</button>
+</div>
+
+<script>
+firebase.initializeApp({
+  apiKey: "YOUR_KEY",
+  projectId: "YOUR_PROJECT_ID",
+});
+const db = firebase.firestore();
+
+function addUser(){
+  db.collection("users").doc(uemail.value).set({
+    code: ucode.value,
+    created: new Date()
+  }).then(()=>{
+    alert("Utilisateur ajouté");
+    uemail.value="";
+    ucode.value="";
+  });
+}
+</script>
+
+</body>
+</html>
