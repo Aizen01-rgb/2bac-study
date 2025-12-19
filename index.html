@@ -6,58 +6,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* RESET */
 *{box-sizing:border-box}
+
+/* ========== COLOR VARIABLES ========== */
+:root{
+  --bg-main: linear-gradient(135deg,#f7f9fc,#e6ecf5);
+  --card-bg: rgba(255,255,255,.96);
+  --text-main:#2c3e50;
+  --primary:#5b8def;
+  --primary-dark:#3f6fd1;
+  --shadow-main:0 30px 60px rgba(0,0,0,.18);
+  --input-bg:#fff;
+  --input-border:#ccc;
+}
+
+/* DARK MODE */
+body.dark{
+  --bg-main: linear-gradient(135deg,#0f172a,#020617);
+  --card-bg: rgba(15,23,42,.95);
+  --text-main:#e5e7eb;
+  --primary:#38bdf8;
+  --primary-dark:#0ea5e9;
+  --shadow-main:0 30px 60px rgba(0,0,0,.6);
+  --input-bg:#020617;
+  --input-border:#334155;
+}
 
 /* BODY */
 body{
   margin:0;
   height:100vh;
   font-family:'Segoe UI',Tahoma;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(108,160,220,.15), transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(124,200,164,.15), transparent 40%),
-    linear-gradient(135deg,#eef2f3,#dfe9f3);
+  background:var(--bg-main);
   display:flex;
   justify-content:center;
   align-items:center;
+  transition:background .6s ease;
   overflow:hidden;
 }
 
-/* BACKGROUND ICONS */
-.bg{
+/* BACKGROUND SHAPES */
+.bg-shapes{
   position:absolute;
   inset:0;
-  pointer-events:none;
+  z-index:0;
 }
-.bg span{
+.shape{
   position:absolute;
-  font-size:40px;
-  opacity:.08;
-  animation:float 12s infinite linear;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  filter:blur(70px);
+  opacity:.35;
+  animation:float 18s infinite alternate ease-in-out;
 }
-.bg span:nth-child(1){top:10%;left:15%}
-.bg span:nth-child(2){top:70%;left:10%}
-.bg span:nth-child(3){top:20%;right:15%}
-.bg span:nth-child(4){bottom:15%;right:20%}
+.shape.one{background:#5b8def;top:-80px;left:-80px}
+.shape.two{background:#38bdf8;bottom:-100px;right:-80px}
 
 @keyframes float{
   from{transform:translateY(0)}
-  to{transform:translateY(-40px)}
+  to{transform:translateY(-50px)}
 }
 
 /* CARD */
 .card{
-  width:340px;
-  background:#fff;
-  padding:30px 26px;
-  border-radius:26px;
+  width:350px;
+  background:var(--card-bg);
+  padding:34px 26px;
+  border-radius:30px;
   text-align:center;
-  box-shadow:
-    0 25px 50px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.6);
+  box-shadow:var(--shadow-main);
   animation:enter .8s ease;
   z-index:2;
+  transition:background .5s, box-shadow .5s;
 }
 
 @keyframes enter{
@@ -65,9 +86,27 @@ body{
   to{opacity:1; transform:translateY(0) scale(1)}
 }
 
+/* LOGO */
+.logo{
+  width:82px;
+  height:82px;
+  margin:0 auto 10px;
+  border-radius:22px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  font-size:28px;
+  font-weight:bold;
+  box-shadow:0 15px 30px rgba(0,0,0,.35);
+}
+
+/* TITLE */
 h2{
-  margin-bottom:20px;
-  color:#2c3e50;
+  margin:10px 0 22px;
+  color:var(--text-main);
+  transition:color .5s;
 }
 
 /* INPUTS */
@@ -76,14 +115,17 @@ input{
   padding:14px;
   margin:12px 0;
   border-radius:18px;
-  border:1px solid #ccc;
+  border:1px solid var(--input-border);
   font-size:15px;
   text-align:center;
+  background:var(--input-bg);
+  color:var(--text-main);
+  transition:.4s;
 }
 input:focus{
   outline:none;
-  border-color:#6ca0dc;
-  box-shadow:0 0 0 3px rgba(108,160,220,.25);
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(91,141,239,.3);
 }
 
 /* BUTTON */
@@ -91,14 +133,14 @@ button{
   width:100%;
   padding:15px;
   border:none;
-  border-radius:20px;
+  border-radius:22px;
   font-size:17px;
   cursor:pointer;
-  background:linear-gradient(135deg,#6ca0dc,#4a7bd0);
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
   color:white;
   box-shadow:
-    0 0 15px rgba(74,123,208,.6),
-    0 15px 30px rgba(74,123,208,.4);
+    0 0 18px rgba(91,141,239,.6),
+    0 18px 35px rgba(0,0,0,.3);
   transition:.3s;
 }
 button:hover{
@@ -109,7 +151,7 @@ button:hover{
 .error{
   margin-top:15px;
   font-size:14px;
-  color:#e74c3c;
+  color:#ef4444;
   display:none;
   animation:shake .4s;
 }
@@ -121,21 +163,47 @@ button:hover{
   75%{transform:translateX(-5px)}
   100%{transform:translateX(0)}
 }
+
+/* THEME TOGGLE */
+.toggle{
+  position:absolute;
+  top:20px;
+  right:20px;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:var(--card-bg);
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:22px;
+  cursor:pointer;
+  transition:.4s;
+  z-index:3;
+}
+.toggle:hover{
+  transform:rotate(20deg) scale(1.1);
+}
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND ICONS -->
-<div class="bg">
-  <span>📘</span>
-  <span>📐</span>
-  <span>⚛️</span>
-  <span>🧪</span>
+<!-- THEME TOGGLE -->
+<div class="toggle" onclick="toggleTheme()">🌙</div>
+
+<!-- BACKGROUND -->
+<div class="bg-shapes">
+  <div class="shape one"></div>
+  <div class="shape two"></div>
 </div>
 
 <!-- CARD -->
 <div class="card">
+
+  <div class="logo">2B</div>
+
   <h2>تسجيل الدخول</h2>
 
   <input id="email" type="email" placeholder="البريد الإلكتروني (Gmail)">
@@ -147,6 +215,7 @@ button:hover{
 </div>
 
 <script>
+/* LOGIN LOGIC (كما هو) */
 function login(){
   const email = document.getElementById("email").value.trim();
   const code  = document.getElementById("code").value.trim();
@@ -157,20 +226,25 @@ function login(){
 
   error.style.display="none";
 
-  // Gmail validation
   if(!email.endsWith("@gmail.com")){
     error.innerHTML="❌ خاص يكون Gmail صحيح";
     error.style.display="block";
     return;
   }
 
-  // Check admin data
   if(users.includes(email) && codes.includes(code)){
     window.location.href="subjects.html";
   }else{
     error.innerHTML="❌ هدا الحساب مكاينش";
     error.style.display="block";
   }
+}
+
+/* THEME TOGGLE */
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  const t = document.querySelector(".toggle");
+  t.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
 }
 </script>
 
