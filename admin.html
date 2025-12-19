@@ -15,6 +15,7 @@
   --text:#e5e7eb;
   --primary:#7c3aed;
   --accent:#22d3ee;
+  --danger:#ef4444;
   --shadow:0 30px 60px rgba(0,0,0,.6);
 }
 body.light{
@@ -23,6 +24,7 @@ body.light{
   --text:#1e293b;
   --primary:#4f46e5;
   --accent:#2563eb;
+  --danger:#dc2626;
   --shadow:0 25px 50px rgba(0,0,0,.25);
 }
 
@@ -105,16 +107,35 @@ button{
 }
 button:hover{transform:translateY(-4px)}
 
+.btn-danger{
+  background:linear-gradient(135deg,var(--danger),#b91c1c);
+  box-shadow:0 12px 30px rgba(239,68,68,.5);
+}
+.btn-danger:hover{transform:translateY(-4px)}
+
 /* ===== ITEMS ===== */
 .item{
   margin-top:10px;
-  padding:12px;
+  padding:14px;
   border-radius:18px;
   background:rgba(255,255,255,.05);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);
   animation:fade .4s;
 }
-.item b{color:var(--accent)}
+.item-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:8px;
+}
+.badge{
+  padding:4px 12px;
+  border-radius:14px;
+  background:rgba(34,211,238,.15);
+  color:var(--accent);
+  font-size:13px;
+}
 
 /* ===== TOAST ===== */
 .toast{
@@ -157,7 +178,7 @@ button:hover{transform:translateY(-4px)}
 
 <!-- FILE MANAGER -->
 <div class="card">
-  <h2>📂 Add PDF / Lesson</h2>
+  <h2>📂 PC / Math / SVT / Examens</h2>
 
   <select id="subject">
     <option value="pc">PC</option>
@@ -166,7 +187,7 @@ button:hover{transform:translateY(-4px)}
     <option value="exam">Examens Nationaux</option>
   </select>
 
-  <input id="fileName" placeholder="Nom du fichier / الدرس">
+  <input id="fileName" placeholder="Nom du PDF / درس / تمرين">
   <button onclick="addFile()">➕ Add</button>
 
   <div id="filesList"></div>
@@ -177,7 +198,6 @@ button:hover{transform:translateY(-4px)}
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===== DATA ===== */
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let codes = JSON.parse(localStorage.getItem("codes")) || {};
 let files = JSON.parse(localStorage.getItem("files")) || {
@@ -190,8 +210,15 @@ function addUser(){
   users.push(userEmail.value);
   localStorage.setItem("users",JSON.stringify(users));
   userEmail.value="";
-  render();
+  renderUsers();
   toast("👤 User added");
+}
+function deleteUser(email){
+  if(!confirm("حذف المستخدم؟")) return;
+  users = users.filter(u=>u!==email);
+  delete codes[email];
+  saveAll();
+  toast("🗑️ User deleted");
 }
 
 /* ===== CODES ===== */
@@ -199,7 +226,7 @@ function generateCode(){
   if(users.length===0){toast("❌ Add user first");return;}
   const email=users[users.length-1];
   codes[email]="CODE-"+Math.random().toString(36).substring(2,8).toUpperCase();
-  saveCodes();
+  saveAll();
   toast("⚡ Code generated");
 }
 function addManualCode(){
@@ -207,43 +234,72 @@ function addManualCode(){
   const email=users[users.length-1];
   codes[email]=manualCode.value;
   manualCode.value="";
-  saveCodes();
+  saveAll();
   toast("✍️ Code added");
 }
-function saveCodes(){
-  localStorage.setItem("codes",JSON.stringify(codes));
-  render();
+function deleteCode(email){
+  if(!confirm("حذف الكود؟")) return;
+  delete codes[email];
+  saveAll();
+  toast("🗑️ Code deleted");
 }
 
 /* ===== FILES ===== */
 function addFile(){
-  const subject=document.getElementById("subject").value;
-  const name=document.getElementById("fileName").value;
-  if(!name)return;
-  files[subject].push(name);
-  localStorage.setItem("files",JSON.stringify(files));
+  const s=subject.value;
+  if(!fileName.value) return;
+  files[s].push(fileName.value);
   fileName.value="";
-  renderFiles();
-  toast("📂 Added to "+subject.toUpperCase());
+  saveAll();
+  toast("📂 Added");
+}
+function deleteFile(subject,index){
+  if(!confirm("حذف الملف؟")) return;
+  files[subject].splice(index,1);
+  saveAll();
+  toast("🗑️ File deleted");
 }
 
-/* ===== RENDER ===== */
-function render(){
+/* ===== SAVE & RENDER ===== */
+function saveAll(){
+  localStorage.setItem("users",JSON.stringify(users));
+  localStorage.setItem("codes",JSON.stringify(codes));
+  localStorage.setItem("files",JSON.stringify(files));
+  renderUsers();
+  renderFiles();
+}
+function renderUsers(){
   usersList.innerHTML="";
-  users.forEach(u=>{
+  users.forEach(email=>{
     usersList.innerHTML+=`
       <div class="item">
-        ${u} — <b>${codes[u]||"NO CODE"}</b>
+        <div class="item-row">
+          <span>${email}</span>
+          <span class="badge">${codes[email]||"NO CODE"}</span>
+        </div>
+        <div class="item-row">
+          <button class="btn-danger" onclick="deleteUser('${email}')">🗑️ Delete User</button>
+          ${codes[email]?`<button class="btn-danger" onclick="deleteCode('${email}')">❌ Delete Code</button>`:""}
+        </div>
       </div>`;
   });
 }
 function renderFiles(){
   filesList.innerHTML="";
   for(let s in files){
-    filesList.innerHTML+=`<div class="item"><b>${s.toUpperCase()}</b>: ${files[s].join(" , ")||"—"}</div>`;
+    filesList.innerHTML+=`<div class="item"><b>${s.toUpperCase()}</b></div>`;
+    files[s].forEach((f,i)=>{
+      filesList.innerHTML+=`
+        <div class="item">
+          <div class="item-row">
+            <span>${f}</span>
+            <button class="btn-danger" onclick="deleteFile('${s}',${i})">🗑️ Delete</button>
+          </div>
+        </div>`;
+    });
   }
 }
-render(); renderFiles();
+renderUsers(); renderFiles();
 
 /* ===== TOAST ===== */
 function toast(msg){
