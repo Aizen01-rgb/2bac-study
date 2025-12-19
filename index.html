@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Login Étudiant</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#F4F6F8;
+  font-family:Arial;
+}
+.card{
+  background:#fff;
+  padding:30px;
+  width:320px;
+  border-radius:15px;
+  box-shadow:0 15px 40px rgba(0,0,0,.1);
+  text-align:center;
+}
+input,button{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+button{
+  background:#4A90E2;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Connexion Étudiant</h2>
+
+  <input id="email" type="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Mot de passe">
+  <input id="code" type="text" placeholder="Code personnel">
+
+  <button onclick="login()">Connexion</button>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+};
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+function login(){
+  auth.signInWithEmailAndPassword(email.value, password.value)
+  .then(cred=>{
+    db.collection("users").doc(cred.user.email).get()
+    .then(doc=>{
+      if(doc.exists && doc.data().code === code.value){
+        location.href="subjects.html";
+      }else{
+        alert("Code incorrect");
+        auth.signOut();
+      }
+    })
+  })
+  .catch(e=>alert(e.message));
+}
+</script>
+
+</body>
+</html>
