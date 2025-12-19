@@ -18,15 +18,7 @@ body{
 
 .container{
   width:90%;
-  max-width:380px;
-}
-
-/* Language */
-.lang{
-  text-align:center;
-  margin-bottom:15px;
-  font-size:14px;
-  color:#333;
+  max-width:420px;
 }
 
 /* Title */
@@ -39,49 +31,56 @@ body{
 .desc{
   text-align:center;
   color:#555;
-  margin-bottom:25px;
+  margin-bottom:30px;
   font-size:15px;
 }
 
 /* Card */
 .card{
-  height:120px;
+  height:110px;
   margin-bottom:22px;
-  border-radius:30px;
+  border-radius:35px;
   display:flex;
-  justify-content:center;
   align-items:center;
-  font-size:24px;
-  font-weight:bold;
-  cursor:pointer;
+  padding-left:30px;
   box-shadow:0 18px 35px rgba(0,0,0,.18);
-  transition:.4s;
-  text-align:center;
+  transition:.35s;
+  cursor:pointer;
 }
 
 .card:hover{
-  transform:translateY(-10px) scale(1.04);
+  transform:translateY(-8px) scale(1.03);
 }
 
 .card:active{
-  transform:scale(0.96);
+  transform:scale(0.97);
 }
 
-.small{
+.icon{
+  font-size:34px;
+  margin-right:18px;
+}
+
+.text h2{
+  margin:0;
+  font-size:24px;
+}
+
+.text p{
+  margin:6px 0 0;
   font-size:15px;
-  font-weight:normal;
-  margin-top:6px;
-  opacity:.85;
+  color:#333;
+  opacity:.8;
 }
 
 /* Colors */
-.pc{
+.phy{
   background:linear-gradient(135deg,#e3f2fd,#bbdefb);
 }
 .math{
   background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
 }
-.phy{
+.svt{
   background:linear-gradient(135deg,#fff3e0,#ffe0b2);
 }
 .exam{
@@ -102,45 +101,45 @@ footer{
 
 <div class="container">
 
-  <!-- Language -->
-  <div class="lang">🌐 FR | AR</div>
-
-  <!-- Title -->
   <h1 class="title">Matières – 2ème Baccalauréat</h1>
-  <p class="desc">Choisissez une section pour accéder au contenu</p>
+  <p class="desc">Choisissez une matière pour accéder au contenu</p>
 
-  <!-- Cards -->
-
-  <div class="card pc">
-    <div>
-      💻 Physique et Chimie 
-      <div class="small">Cours • Exercices • Résumés</div>
-    </div>
-  </div>
-
-  <div class="card math">
-    <div>
-      📐 Mathématiques
-      <div class="small">Cours • Exercices • Examens</div>
-    </div>
-  </div>
-
+  <!-- Physique et Chimie -->
   <div class="card phy">
-    <div>
-      ⚛️ Physique et Chimie
-      <div class="small">Cours • Exercices • Résumés</div>
+    <div class="icon">⚛️</div>
+    <div class="text">
+      <h2>Physique et Chimie</h2>
+      <p>Cours • Exercices • Résumés</p>
+    </div>
+  </div>
+
+  <!-- Mathématiques -->
+  <div class="card math">
+    <div class="icon">📐</div>
+    <div class="text">
+      <h2>Mathématiques</h2>
+      <p>Cours • Exercices • Examens</p>
+    </div>
+  </div>
+
+  <!-- SVT -->
+  <div class="card svt">
+    <div class="icon">🧬</div>
+    <div class="text">
+      <h2>SVT</h2>
+      <p>Cours • Exercices • Résumés</p>
     </div>
   </div>
 
   <!-- Examens -->
   <div class="card exam">
-    <div>
-      📑 Examens Officiels
-      <div class="small">Nationaux • Régionaux • Corrigés</div>
+    <div class="icon">📑</div>
+    <div class="text">
+      <h2>Examens Officiels</h2>
+      <p>Nationaux • Régionaux • Corrigés</p>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     © 2025 – Plateforme 2BAC
   </footer>
