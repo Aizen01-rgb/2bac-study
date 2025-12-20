@@ -1,319 +1,260 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Admin Panel | 2BAC</title>
+<title>2BAC Admin Panel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box}
-
-/* ===== THEME VARS ===== */
-:root{
-  --bg:#0b1020;
-  --card:#111936;
-  --text:#e5e7eb;
-  --primary:#7c3aed;
-  --accent:#22d3ee;
-  --danger:#ef4444;
-  --shadow:0 30px 60px rgba(0,0,0,.6);
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
 }
+
+/* ================= THEME ================= */
+:root{
+  --bg:#0b0f1a;
+  --card:#12182b;
+  --text:#e5e7eb;
+  --primary:#6366f1;
+  --accent:#22d3ee;
+  --shadow:0 20px 40px rgba(0,0,0,.6);
+}
+
 body.light{
   --bg:#f4f6fb;
   --card:#ffffff;
-  --text:#1e293b;
+  --text:#0f172a;
   --primary:#4f46e5;
-  --accent:#2563eb;
-  --danger:#dc2626;
-  --shadow:0 25px 50px rgba(0,0,0,.25);
+  --accent:#0284c7;
+  --shadow:0 20px 40px rgba(0,0,0,.15);
 }
 
-/* ===== BODY ===== */
 body{
-  margin:0;
-  font-family:'Segoe UI',Tahoma;
-  background:linear-gradient(135deg,var(--bg),#020617);
+  background:var(--bg);
   color:var(--text);
-  transition:.6s;
+  min-height:100vh;
+  display:flex;
 }
 
-/* ===== HEADER ===== */
-header{
+/* ================= SIDEBAR ================= */
+.sidebar{
+  width:230px;
+  background:linear-gradient(180deg,#0f172a,#020617);
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.sidebar h2{
+  text-align:center;
+  margin-bottom:30px;
+  color:var(--accent);
+}
+
+.sidebar button{
+  width:100%;
+  margin-bottom:12px;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.sidebar button:hover{
+  transform:translateX(6px);
+  background:var(--primary);
+}
+
+/* ================= MAIN ================= */
+.main{
+  flex:1;
+  padding:20px;
+}
+
+/* ================= TOP BAR ================= */
+.topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:22px;
+  margin-bottom:25px;
 }
-header h1{
-  font-size:22px;
+
+/* ===== LOGO TAG 3D ===== */
+.logo-tag{
+  background:linear-gradient(145deg,var(--primary),var(--accent));
+  padding:14px 28px;
+  border-radius:14px;
+  color:#fff;
+  font-weight:bold;
   letter-spacing:1px;
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.5),
+    inset 0 2px 4px rgba(255,255,255,.3);
+  transform:perspective(600px) rotateX(10deg);
 }
-.toggle{
-  padding:10px 18px;
-  border-radius:16px;
-  cursor:pointer;
+
+.theme-toggle{
   background:var(--card);
+  padding:10px 16px;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+/* ================= CARDS ================= */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  margin-bottom:30px;
+}
+
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:18px;
   box-shadow:var(--shadow);
   transition:.4s;
 }
-.toggle:hover{transform:scale(1.05)}
 
-/* ===== LAYOUT ===== */
-.container{
-  padding:22px;
-  display:grid;
-  gap:28px;
+.card:hover{
+  transform:translateY(-8px) scale(1.03);
 }
 
-/* ===== CARD ===== */
-.card{
-  background:var(--card);
-  padding:22px;
-  border-radius:28px;
-  box-shadow:var(--shadow);
-  animation:fade .6s ease;
-}
-@keyframes fade{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.card h2{
-  margin-bottom:15px;
+.card h3{
+  margin-bottom:10px;
   color:var(--accent);
 }
 
-/* ===== INPUTS ===== */
-input,select{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border-radius:16px;
-  border:none;
-  outline:none;
+/* ================= SECTIONS ================= */
+.section{
+  background:var(--card);
+  padding:20px;
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  margin-bottom:25px;
 }
 
-/* ===== BUTTON ===== */
-button{
-  width:100%;
-  padding:12px;
+.section h3{
+  margin-bottom:15px;
+  color:var(--primary);
+}
+
+.action-btn{
+  padding:10px 16px;
   border:none;
-  border-radius:18px;
-  font-weight:bold;
+  border-radius:10px;
+  margin-right:8px;
+  margin-bottom:8px;
   cursor:pointer;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  color:white;
-  box-shadow:0 12px 30px rgba(0,0,0,.5);
-  transition:.3s;
+  background:var(--primary);
+  color:#fff;
+  box-shadow:0 8px 20px rgba(0,0,0,.4);
 }
-button:hover{transform:translateY(-4px)}
 
-.btn-danger{
-  background:linear-gradient(135deg,var(--danger),#b91c1c);
-  box-shadow:0 12px 30px rgba(239,68,68,.5);
+.action-btn.delete{
+  background:#dc2626;
 }
-.btn-danger:hover{transform:translateY(-4px)}
 
-/* ===== ITEMS ===== */
+.list{
+  margin-top:15px;
+}
+
 .item{
-  margin-top:10px;
-  padding:14px;
-  border-radius:18px;
-  background:rgba(255,255,255,.05);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);
-  animation:fade .4s;
-}
-.item-row{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
-  margin-top:8px;
-}
-.badge{
-  padding:4px 12px;
-  border-radius:14px;
-  background:rgba(34,211,238,.15);
-  color:var(--accent);
-  font-size:13px;
+  background:rgba(255,255,255,.05);
+  padding:10px 14px;
+  border-radius:10px;
+  margin-bottom:8px;
 }
 
-/* ===== TOAST ===== */
-.toast{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--card);
-  padding:14px 22px;
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  display:none;
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .sidebar{display:none;}
 }
 </style>
 </head>
 
-<body>
+<body class="dark">
 
-<header>
-  <h1>👑 ADMIN CONTROL PANEL</h1>
-  <div class="toggle" onclick="toggleTheme()">🌙</div>
-</header>
-
-<div class="container">
-
-<!-- USERS -->
-<div class="card">
-  <h2>👤 Users</h2>
-  <input id="userEmail" placeholder="user@gmail.com">
-  <button onclick="addUser()">➕ Add User</button>
-  <div id="usersList"></div>
+<!-- ========== SIDEBAR ========== -->
+<div class="sidebar">
+  <h2>2BAC ADMIN</h2>
+  <button onclick="alert('Dashboard')">Dashboard</button>
+  <button>Users</button>
+  <button>Codes</button>
+  <button>PDFs</button>
+  <button>Examens</button>
+  <button>Settings</button>
 </div>
 
-<!-- CODES -->
-<div class="card">
-  <h2>🔑 Codes</h2>
-  <input id="manualCode" placeholder="Manual Code (اختياري)">
-  <button onclick="addManualCode()">✍️ Add Manual Code</button>
-  <button style="margin-top:10px" onclick="generateCode()">⚡ Generate Code</button>
+<!-- ========== MAIN ========== -->
+<div class="main">
+
+  <!-- TOP -->
+  <div class="topbar">
+    <div class="logo-tag">🎓 2BAC STUDY</div>
+    <div class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️</div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="cards">
+    <div class="card"><h3>Users</h3><p>Manage students</p></div>
+    <div class="card"><h3>Codes</h3><p>Generate & delete</p></div>
+    <div class="card"><h3>PDFs</h3><p>PC · Math · SVT</p></div>
+    <div class="card"><h3>Examens</h3><p>Nationaux</p></div>
+  </div>
+
+  <!-- USERS -->
+  <div class="section">
+    <h3>👥 Users</h3>
+    <button class="action-btn">Add User</button>
+    <div class="list">
+      <div class="item">
+        User Example
+        <button class="action-btn delete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CODES -->
+  <div class="section">
+    <h3>🔑 Codes</h3>
+    <button class="action-btn">Add Code</button>
+    <button class="action-btn">Generate Code</button>
+    <div class="list">
+      <div class="item">
+        CODE-1234
+        <button class="action-btn delete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF -->
+  <div class="section">
+    <h3>📄 PDFs</h3>
+    <button class="action-btn">Add PDF</button>
+    <div class="list">
+      <div class="item">
+        PC Math SVT – Examens Nationaux
+        <button class="action-btn delete">Delete PDF</button>
+      </div>
+    </div>
+  </div>
+
 </div>
-
-<!-- FILE MANAGER -->
-<div class="card">
-  <h2>📂 PC / Math / SVT / Examens</h2>
-
-  <select id="subject">
-    <option value="pc">PC</option>
-    <option value="math">Math</option>
-    <option value="svt">SVT</option>
-    <option value="exam">Examens Nationaux</option>
-  </select>
-
-  <input id="fileName" placeholder="Nom du PDF / درس / تمرين">
-  <button onclick="addFile()">➕ Add</button>
-
-  <div id="filesList"></div>
-</div>
-
-</div>
-
-<div class="toast" id="toast"></div>
 
 <script>
-let users = JSON.parse(localStorage.getItem("users")) || [];
-let codes = JSON.parse(localStorage.getItem("codes")) || {};
-let files = JSON.parse(localStorage.getItem("files")) || {
-  pc:[], math:[], svt:[], exam:[]
-};
-
-/* ===== USERS ===== */
-function addUser(){
-  if(!userEmail.value) return;
-  users.push(userEmail.value);
-  localStorage.setItem("users",JSON.stringify(users));
-  userEmail.value="";
-  renderUsers();
-  toast("👤 User added");
-}
-function deleteUser(email){
-  if(!confirm("حذف المستخدم؟")) return;
-  users = users.filter(u=>u!==email);
-  delete codes[email];
-  saveAll();
-  toast("🗑️ User deleted");
-}
-
-/* ===== CODES ===== */
-function generateCode(){
-  if(users.length===0){toast("❌ Add user first");return;}
-  const email=users[users.length-1];
-  codes[email]="CODE-"+Math.random().toString(36).substring(2,8).toUpperCase();
-  saveAll();
-  toast("⚡ Code generated");
-}
-function addManualCode(){
-  if(users.length===0||!manualCode.value)return;
-  const email=users[users.length-1];
-  codes[email]=manualCode.value;
-  manualCode.value="";
-  saveAll();
-  toast("✍️ Code added");
-}
-function deleteCode(email){
-  if(!confirm("حذف الكود؟")) return;
-  delete codes[email];
-  saveAll();
-  toast("🗑️ Code deleted");
-}
-
-/* ===== FILES ===== */
-function addFile(){
-  const s=subject.value;
-  if(!fileName.value) return;
-  files[s].push(fileName.value);
-  fileName.value="";
-  saveAll();
-  toast("📂 Added");
-}
-function deleteFile(subject,index){
-  if(!confirm("حذف الملف؟")) return;
-  files[subject].splice(index,1);
-  saveAll();
-  toast("🗑️ File deleted");
-}
-
-/* ===== SAVE & RENDER ===== */
-function saveAll(){
-  localStorage.setItem("users",JSON.stringify(users));
-  localStorage.setItem("codes",JSON.stringify(codes));
-  localStorage.setItem("files",JSON.stringify(files));
-  renderUsers();
-  renderFiles();
-}
-function renderUsers(){
-  usersList.innerHTML="";
-  users.forEach(email=>{
-    usersList.innerHTML+=`
-      <div class="item">
-        <div class="item-row">
-          <span>${email}</span>
-          <span class="badge">${codes[email]||"NO CODE"}</span>
-        </div>
-        <div class="item-row">
-          <button class="btn-danger" onclick="deleteUser('${email}')">🗑️ Delete User</button>
-          ${codes[email]?`<button class="btn-danger" onclick="deleteCode('${email}')">❌ Delete Code</button>`:""}
-        </div>
-      </div>`;
-  });
-}
-function renderFiles(){
-  filesList.innerHTML="";
-  for(let s in files){
-    filesList.innerHTML+=`<div class="item"><b>${s.toUpperCase()}</b></div>`;
-    files[s].forEach((f,i)=>{
-      filesList.innerHTML+=`
-        <div class="item">
-          <div class="item-row">
-            <span>${f}</span>
-            <button class="btn-danger" onclick="deleteFile('${s}',${i})">🗑️ Delete</button>
-          </div>
-        </div>`;
-    });
-  }
-}
-renderUsers(); renderFiles();
-
-/* ===== TOAST ===== */
-function toast(msg){
-  const t=document.getElementById("toast");
-  t.textContent=msg;
-  t.style.display="block";
-  setTimeout(()=>t.style.display="none",2500);
-}
-
-/* ===== THEME ===== */
 function toggleTheme(){
   document.body.classList.toggle("light");
-  document.querySelector(".toggle").textContent=
-    document.body.classList.contains("light")?"🌙":"☀️";
 }
 </script>
 
