@@ -2,284 +2,102 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Admin Panel | 2BAC</title>
+<title>Admin | 2BAC</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-*{box-sizing:border-box}
-
-:root{
-  --bg:#0b1020;
-  --card:#111936;
-  --text:#e5e7eb;
-  --primary:#7c3aed;
-  --accent:#22d3ee;
-  --danger:#ef4444;
-  --shadow:0 30px 60px rgba(0,0,0,.6);
-}
-body.light{
-  --bg:#f4f6fb;
-  --card:#ffffff;
-  --text:#1e293b;
-  --primary:#4f46e5;
-  --accent:#2563eb;
-  --danger:#dc2626;
-  --shadow:0 25px 50px rgba(0,0,0,.25);
-}
-
-body{
-  margin:0;
-  font-family:'Segoe UI',Tahoma;
-  background:linear-gradient(135deg,var(--bg),#020617);
-  color:var(--text);
-  transition:.6s;
-}
-
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:22px;
-}
-.toggle{
-  padding:10px 18px;
-  border-radius:16px;
-  cursor:pointer;
-  background:var(--card);
-  box-shadow:var(--shadow);
-}
-
-.container{
-  padding:22px;
-  display:grid;
-  gap:28px;
-}
-
-.card{
-  background:var(--card);
-  padding:22px;
-  border-radius:28px;
-  box-shadow:var(--shadow);
-}
-
-input,select{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border-radius:16px;
-  border:none;
-}
-
-button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:18px;
-  cursor:pointer;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  color:white;
-  font-weight:bold;
-  box-shadow:0 12px 30px rgba(0,0,0,.5);
-}
-
-.btn-danger{
-  background:linear-gradient(135deg,var(--danger),#b91c1c);
-}
-
-.item{
-  margin-top:10px;
-  padding:14px;
-  border-radius:18px;
-  background:rgba(255,255,255,.05);
-}
-.item-row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  margin-top:6px;
-}
-.badge{
-  padding:4px 12px;
-  border-radius:14px;
-  background:rgba(34,211,238,.15);
-  color:var(--accent);
-  font-size:13px;
-}
-
-.toast{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--card);
-  padding:14px 22px;
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  display:none;
-}
+body{margin:0;font-family:Arial;background:#0b1020;color:#fff}
+.container{padding:20px}
+.card{background:#111936;padding:20px;border-radius:16px;margin-bottom:20px}
+input,select,button{width:100%;padding:10px;margin:6px 0;border-radius:10px;border:none}
+button{background:#7c3aed;color:white;font-weight:bold;cursor:pointer}
+.danger{background:#ef4444}
+.item{background:#1a244a;padding:10px;border-radius:10px;margin-top:8px}
+.row{display:flex;justify-content:space-between;gap:6px}
 </style>
 </head>
 
 <body>
-
-<header>
-  <h2>👑 ADMIN CONTROL PANEL</h2>
-  <div class="toggle" onclick="toggleTheme()">🌙</div>
-</header>
-
 <div class="container">
 
-<!-- USERS -->
 <div class="card">
-  <h3>👤 Users</h3>
-  <input id="userEmail" placeholder="user@gmail.com">
-  <button onclick="addUser()">➕ Add User</button>
-  <div id="usersList"></div>
+<h3>👤 Users</h3>
+<input id="userEmail" placeholder="user@gmail.com">
+<button onclick="addUser()">Add User</button>
+<div id="usersList"></div>
 </div>
 
-<!-- CODES -->
 <div class="card">
-  <h3>🔑 Codes</h3>
-
-  <select id="codeUser"></select>
-
-  <input id="manualCode" placeholder="Manual Code (اختياري)">
-  <button onclick="addManualCode()">✍️ Add Manual Code</button>
-
-  <button style="margin-top:10px" onclick="generateCode()">⚡ Generate Code</button>
-</div>
-
-<!-- FILES -->
-<div class="card">
-  <h3>📂 Files</h3>
-
-  <select id="subject">
-    <option value="pc">PC</option>
-    <option value="math">Math</option>
-    <option value="svt">SVT</option>
-    <option value="exam">Examens Nationaux</option>
-  </select>
-
-  <input id="fileName" placeholder="Nom du fichier">
-  <button onclick="addFile()">➕ Add</button>
-
-  <div id="filesList"></div>
+<h3>🔑 Codes</h3>
+<select id="codeUser"></select>
+<input id="manualCode" placeholder="Manual Code">
+<button onclick="addManualCode()">Add Manual Code</button>
+<button onclick="generateCode()">Generate Code</button>
 </div>
 
 </div>
-
-<div class="toast" id="toast"></div>
 
 <script>
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let codes = JSON.parse(localStorage.getItem("codes")) || {};
-let files = JSON.parse(localStorage.getItem("files")) || {
-  pc:[], math:[], svt:[], exam:[]
-};
 
-/* USERS */
-function addUser(){
-  if(!userEmail.value || users.includes(userEmail.value)) return;
-  users.push(userEmail.value);
-  saveAll();
-  userEmail.value="";
-  toast("User added");
-}
-function deleteUser(email){
-  users = users.filter(u=>u!==email);
-  delete codes[email];
-  saveAll();
-}
-
-/* CODES */
-function generateCode(){
-  const email = codeUser.value;
-  if(!email) return toast("Choose user");
-  codes[email] = "CODE-" + Math.random().toString(36).substring(2,8).toUpperCase();
-  saveAll();
-}
-function addManualCode(){
-  const email = codeUser.value;
-  if(!email || !manualCode.value) return;
-  codes[email] = manualCode.value;
-  manualCode.value="";
-  saveAll();
-}
-function deleteCode(email){
-  delete codes[email];
-  saveAll();
-}
-
-/* FILES */
-function addFile(){
-  if(!fileName.value) return;
-  files[subject.value].push(fileName.value);
-  fileName.value="";
-  saveAll();
-}
-function deleteFile(s,i){
-  files[s].splice(i,1);
-  saveAll();
-}
-
-/* SAVE & RENDER */
-function saveAll(){
+function save(){
   localStorage.setItem("users",JSON.stringify(users));
   localStorage.setItem("codes",JSON.stringify(codes));
-  localStorage.setItem("files",JSON.stringify(files));
-  renderUsers();
-  renderFiles();
+  render();
 }
 
-function renderUsers(){
+function addUser(){
+  const e=userEmail.value.trim();
+  if(!e||users.includes(e))return;
+  users.push(e);
+  save();
+  userEmail.value="";
+}
+
+function generateCode(){
+  const u=codeUser.value;
+  if(!u)return;
+  codes[u]="CODE-"+Math.random().toString(36).substr(2,6).toUpperCase();
+  save();
+}
+
+function addManualCode(){
+  const u=codeUser.value;
+  if(!u||!manualCode.value)return;
+  codes[u]=manualCode.value;
+  manualCode.value="";
+  save();
+}
+
+function deleteUser(u){
+  users=users.filter(x=>x!==u);
+  delete codes[u];
+  save();
+}
+
+function deleteCode(u){
+  delete codes[u];
+  save();
+}
+
+function render(){
   usersList.innerHTML="";
-  codeUser.innerHTML='<option value="">-- Choose User --</option>';
+  codeUser.innerHTML='<option value="">-- choose user --</option>';
   users.forEach(u=>{
     codeUser.innerHTML+=`<option value="${u}">${u}</option>`;
     usersList.innerHTML+=`
       <div class="item">
-        <div class="item-row">
-          <span>${u}</span>
-          <span class="badge">${codes[u]||"NO CODE"}</span>
-        </div>
-        <div class="item-row">
-          <button class="btn-danger" onclick="deleteUser('${u}')">🗑️ User</button>
-          ${codes[u]?`<button class="btn-danger" onclick="deleteCode('${u}')">❌ Code</button>`:""}
+        <div>${u}</div>
+        <div>${codes[u]||"NO CODE"}</div>
+        <div class="row">
+          <button class="danger" onclick="deleteUser('${u}')">Delete User</button>
+          ${codes[u]?`<button class="danger" onclick="deleteCode('${u}')">Delete Code</button>`:""}
         </div>
       </div>`;
   });
 }
 
-function renderFiles(){
-  filesList.innerHTML="";
-  for(let s in files){
-    filesList.innerHTML+=`<div class="item"><b>${s.toUpperCase()}</b></div>`;
-    files[s].forEach((f,i)=>{
-      filesList.innerHTML+=`
-        <div class="item">
-          <div class="item-row">
-            <span>${f}</span>
-            <button class="btn-danger" onclick="deleteFile('${s}',${i})">🗑️</button>
-          </div>
-        </div>`;
-    });
-  }
-}
-
-/* UI */
-function toast(msg){
-  const t=document.getElementById("toast");
-  t.textContent=msg;
-  t.style.display="block";
-  setTimeout(()=>t.style.display="none",2000);
-}
-function toggleTheme(){
-  document.body.classList.toggle("light");
-  document.querySelector(".toggle").textContent=
-    document.body.classList.contains("light")?"🌙":"☀️";
-}
-
-renderUsers(); renderFiles();
+render();
 </script>
-
 </body>
 </html>
