@@ -8,7 +8,6 @@
 <style>
 *{box-sizing:border-box}
 
-/* ===== THEME VARS ===== */
 :root{
   --bg:#0b1020;
   --card:#111936;
@@ -28,7 +27,6 @@ body.light{
   --shadow:0 25px 50px rgba(0,0,0,.25);
 }
 
-/* ===== BODY ===== */
 body{
   margin:0;
   font-family:'Segoe UI',Tahoma;
@@ -37,16 +35,11 @@ body{
   transition:.6s;
 }
 
-/* ===== HEADER ===== */
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:22px;
-}
-header h1{
-  font-size:22px;
-  letter-spacing:1px;
 }
 .toggle{
   padding:10px 18px;
@@ -54,80 +47,56 @@ header h1{
   cursor:pointer;
   background:var(--card);
   box-shadow:var(--shadow);
-  transition:.4s;
 }
-.toggle:hover{transform:scale(1.05)}
 
-/* ===== LAYOUT ===== */
 .container{
   padding:22px;
   display:grid;
   gap:28px;
 }
 
-/* ===== CARD ===== */
 .card{
   background:var(--card);
   padding:22px;
   border-radius:28px;
   box-shadow:var(--shadow);
-  animation:fade .6s ease;
-}
-@keyframes fade{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.card h2{
-  margin-bottom:15px;
-  color:var(--accent);
 }
 
-/* ===== INPUTS ===== */
 input,select{
   width:100%;
   padding:12px;
   margin:8px 0;
   border-radius:16px;
   border:none;
-  outline:none;
 }
 
-/* ===== BUTTON ===== */
 button{
   width:100%;
   padding:12px;
   border:none;
   border-radius:18px;
-  font-weight:bold;
   cursor:pointer;
   background:linear-gradient(135deg,var(--primary),var(--accent));
   color:white;
+  font-weight:bold;
   box-shadow:0 12px 30px rgba(0,0,0,.5);
-  transition:.3s;
 }
-button:hover{transform:translateY(-4px)}
 
 .btn-danger{
   background:linear-gradient(135deg,var(--danger),#b91c1c);
-  box-shadow:0 12px 30px rgba(239,68,68,.5);
 }
-.btn-danger:hover{transform:translateY(-4px)}
 
-/* ===== ITEMS ===== */
 .item{
   margin-top:10px;
   padding:14px;
   border-radius:18px;
   background:rgba(255,255,255,.05);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);
-  animation:fade .4s;
 }
 .item-row{
   display:flex;
   justify-content:space-between;
-  align-items:center;
   gap:10px;
-  margin-top:8px;
+  margin-top:6px;
 }
 .badge{
   padding:4px 12px;
@@ -137,7 +106,6 @@ button:hover{transform:translateY(-4px)}
   font-size:13px;
 }
 
-/* ===== TOAST ===== */
 .toast{
   position:fixed;
   bottom:20px;
@@ -154,7 +122,7 @@ button:hover{transform:translateY(-4px)}
 <body>
 
 <header>
-  <h1>👑 ADMIN CONTROL PANEL</h1>
+  <h2>👑 ADMIN CONTROL PANEL</h2>
   <div class="toggle" onclick="toggleTheme()">🌙</div>
 </header>
 
@@ -162,7 +130,7 @@ button:hover{transform:translateY(-4px)}
 
 <!-- USERS -->
 <div class="card">
-  <h2>👤 Users</h2>
+  <h3>👤 Users</h3>
   <input id="userEmail" placeholder="user@gmail.com">
   <button onclick="addUser()">➕ Add User</button>
   <div id="usersList"></div>
@@ -170,15 +138,19 @@ button:hover{transform:translateY(-4px)}
 
 <!-- CODES -->
 <div class="card">
-  <h2>🔑 Codes</h2>
+  <h3>🔑 Codes</h3>
+
+  <select id="codeUser"></select>
+
   <input id="manualCode" placeholder="Manual Code (اختياري)">
   <button onclick="addManualCode()">✍️ Add Manual Code</button>
+
   <button style="margin-top:10px" onclick="generateCode()">⚡ Generate Code</button>
 </div>
 
-<!-- FILE MANAGER -->
+<!-- FILES -->
 <div class="card">
-  <h2>📂 PC / Math / SVT / Examens</h2>
+  <h3>📂 Files</h3>
 
   <select id="subject">
     <option value="pc">PC</option>
@@ -187,7 +159,7 @@ button:hover{transform:translateY(-4px)}
     <option value="exam">Examens Nationaux</option>
   </select>
 
-  <input id="fileName" placeholder="Nom du PDF / درس / تمرين">
+  <input id="fileName" placeholder="Nom du fichier">
   <button onclick="addFile()">➕ Add</button>
 
   <div id="filesList"></div>
@@ -204,63 +176,52 @@ let files = JSON.parse(localStorage.getItem("files")) || {
   pc:[], math:[], svt:[], exam:[]
 };
 
-/* ===== USERS ===== */
+/* USERS */
 function addUser(){
-  if(!userEmail.value) return;
+  if(!userEmail.value || users.includes(userEmail.value)) return;
   users.push(userEmail.value);
-  localStorage.setItem("users",JSON.stringify(users));
+  saveAll();
   userEmail.value="";
-  renderUsers();
-  toast("👤 User added");
+  toast("User added");
 }
 function deleteUser(email){
-  if(!confirm("حذف المستخدم؟")) return;
   users = users.filter(u=>u!==email);
   delete codes[email];
   saveAll();
-  toast("🗑️ User deleted");
 }
 
-/* ===== CODES ===== */
+/* CODES */
 function generateCode(){
-  if(users.length===0){toast("❌ Add user first");return;}
-  const email=users[users.length-1];
-  codes[email]="CODE-"+Math.random().toString(36).substring(2,8).toUpperCase();
+  const email = codeUser.value;
+  if(!email) return toast("Choose user");
+  codes[email] = "CODE-" + Math.random().toString(36).substring(2,8).toUpperCase();
   saveAll();
-  toast("⚡ Code generated");
 }
 function addManualCode(){
-  if(users.length===0||!manualCode.value)return;
-  const email=users[users.length-1];
-  codes[email]=manualCode.value;
+  const email = codeUser.value;
+  if(!email || !manualCode.value) return;
+  codes[email] = manualCode.value;
   manualCode.value="";
   saveAll();
-  toast("✍️ Code added");
 }
 function deleteCode(email){
-  if(!confirm("حذف الكود؟")) return;
   delete codes[email];
   saveAll();
-  toast("🗑️ Code deleted");
 }
 
-/* ===== FILES ===== */
+/* FILES */
 function addFile(){
-  const s=subject.value;
   if(!fileName.value) return;
-  files[s].push(fileName.value);
+  files[subject.value].push(fileName.value);
   fileName.value="";
   saveAll();
-  toast("📂 Added");
 }
-function deleteFile(subject,index){
-  if(!confirm("حذف الملف؟")) return;
-  files[subject].splice(index,1);
+function deleteFile(s,i){
+  files[s].splice(i,1);
   saveAll();
-  toast("🗑️ File deleted");
 }
 
-/* ===== SAVE & RENDER ===== */
+/* SAVE & RENDER */
 function saveAll(){
   localStorage.setItem("users",JSON.stringify(users));
   localStorage.setItem("codes",JSON.stringify(codes));
@@ -268,22 +229,26 @@ function saveAll(){
   renderUsers();
   renderFiles();
 }
+
 function renderUsers(){
   usersList.innerHTML="";
-  users.forEach(email=>{
+  codeUser.innerHTML='<option value="">-- Choose User --</option>';
+  users.forEach(u=>{
+    codeUser.innerHTML+=`<option value="${u}">${u}</option>`;
     usersList.innerHTML+=`
       <div class="item">
         <div class="item-row">
-          <span>${email}</span>
-          <span class="badge">${codes[email]||"NO CODE"}</span>
+          <span>${u}</span>
+          <span class="badge">${codes[u]||"NO CODE"}</span>
         </div>
         <div class="item-row">
-          <button class="btn-danger" onclick="deleteUser('${email}')">🗑️ Delete User</button>
-          ${codes[email]?`<button class="btn-danger" onclick="deleteCode('${email}')">❌ Delete Code</button>`:""}
+          <button class="btn-danger" onclick="deleteUser('${u}')">🗑️ User</button>
+          ${codes[u]?`<button class="btn-danger" onclick="deleteCode('${u}')">❌ Code</button>`:""}
         </div>
       </div>`;
   });
 }
+
 function renderFiles(){
   filesList.innerHTML="";
   for(let s in files){
@@ -293,28 +258,27 @@ function renderFiles(){
         <div class="item">
           <div class="item-row">
             <span>${f}</span>
-            <button class="btn-danger" onclick="deleteFile('${s}',${i})">🗑️ Delete</button>
+            <button class="btn-danger" onclick="deleteFile('${s}',${i})">🗑️</button>
           </div>
         </div>`;
     });
   }
 }
-renderUsers(); renderFiles();
 
-/* ===== TOAST ===== */
+/* UI */
 function toast(msg){
   const t=document.getElementById("toast");
   t.textContent=msg;
   t.style.display="block";
-  setTimeout(()=>t.style.display="none",2500);
+  setTimeout(()=>t.style.display="none",2000);
 }
-
-/* ===== THEME ===== */
 function toggleTheme(){
   document.body.classList.toggle("light");
   document.querySelector(".toggle").textContent=
     document.body.classList.contains("light")?"🌙":"☀️";
 }
+
+renderUsers(); renderFiles();
 </script>
 
 </body>
