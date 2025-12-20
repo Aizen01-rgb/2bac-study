@@ -18,7 +18,6 @@
   --input-bg:#fff;
   --input-border:#cbd5e1;
 }
-
 body.dark{
   --bg-main:linear-gradient(135deg,#020617,#0f172a);
   --card-bg:rgba(15,23,42,.95);
@@ -54,27 +53,11 @@ body{
   filter:blur(50px);
   animation:float 18s infinite alternate;
 }
-.shape.blue{
-  width:320px;height:320px;
-  background:var(--primary);
-  top:-80px;left:-80px;
-}
-.shape.green{
-  width:280px;height:280px;
-  background:#7bc8a4;
-  bottom:-90px;right:-70px;
-}
-.shape.purple{
-  width:220px;height:220px;
-  background:#9fa8da;
-  top:45%;left:65%;
-}
+.shape.blue{width:320px;height:320px;background:var(--primary);top:-80px;left:-80px}
+.shape.green{width:280px;height:280px;background:#7bc8a4;bottom:-90px;right:-70px}
+.shape.purple{width:220px;height:220px;background:#9fa8da;top:45%;left:65%}
 
-/* EXTRA 3D */
-.decor{
-  position:absolute;
-  opacity:.2;
-}
+.decor{position:absolute;opacity:.2}
 .cube{
   width:120px;height:120px;
   background:linear-gradient(135deg,var(--primary),var(--primary-dark));
@@ -94,7 +77,6 @@ body{
   background:linear-gradient(90deg,transparent,var(--primary),transparent);
   top:55%;left:40%;
 }
-
 body.dark .decor{opacity:.35}
 
 @keyframes float{
@@ -113,7 +95,6 @@ body.dark .decor{opacity:.35}
   z-index:2;
   animation:enter .8s ease;
 }
-
 @keyframes enter{
   from{opacity:0;transform:translateY(30px) scale(.95)}
   to{opacity:1;transform:translateY(0) scale(1)}
@@ -134,12 +115,6 @@ body.dark .decor{opacity:.35}
   box-shadow:0 15px 30px rgba(0,0,0,.35);
 }
 
-/* TITLE */
-h2{
-  color:var(--text-main);
-  margin-bottom:22px;
-}
-
 /* INPUT */
 input{
   width:100%;
@@ -150,15 +125,7 @@ input{
   background:var(--input-bg);
   color:var(--text-main);
   text-align:center;
-  font-size:15px;
 }
-input:focus{
-  outline:none;
-  border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(91,141,239,.3);
-}
-
-/* BUTTON */
 button{
   width:100%;
   padding:15px;
@@ -173,7 +140,6 @@ button{
 }
 button:hover{transform:translateY(-4px)}
 
-/* ERROR */
 .error{
   display:none;
   margin-top:14px;
@@ -215,7 +181,6 @@ button:hover{transform:translateY(-4px)}
   <div class="shape blue"></div>
   <div class="shape green"></div>
   <div class="shape purple"></div>
-
   <div class="decor cube"></div>
   <div class="decor ring"></div>
   <div class="decor line"></div>
@@ -229,38 +194,38 @@ button:hover{transform:translateY(-4px)}
   <input id="code" type="text" placeholder="Code">
 
   <button onclick="login()">سجّل</button>
-  <div id="error" class="error">❌ Adresse Gmail invalide</div>
+  <div id="error" class="error"></div>
 </div>
 
 <script>
 function login(){
-  const email=document.getElementById("email").value.trim();
-  const code=document.getElementById("code").value.trim();
-  const error=document.getElementById("error");
+  const email = document.getElementById("email").value.trim();
+  const code  = document.getElementById("code").value.trim();
+  const error = document.getElementById("error");
 
-  const users=JSON.parse(localStorage.getItem("users"))||[];
-  const codes=JSON.parse(localStorage.getItem("codes"))||[];
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const codes = JSON.parse(localStorage.getItem("codes")) || {}; // ✅ OBJECT
 
   error.style.display="none";
 
   if(!email.endsWith("@gmail.com")){
-    error.innerHTML="❌ Adresse Gmail invalide";
+    error.textContent="❌ Adresse Gmail invalide";
     error.style.display="block";
     return;
   }
 
-  if(users.includes(email)&&codes.includes(code)){
+  if(users.includes(email) && codes[email] === code){
     window.location.href="subjects.html";
   }else{
-    error.innerHTML="❌ Ce compte n'existe pas";
+    error.textContent="❌ Ce compte n'existe pas";
     error.style.display="block";
   }
 }
 
 function toggleTheme(){
   document.body.classList.toggle("dark");
-  document.querySelector(".toggle").textContent=
-    document.body.classList.contains("dark")?"☀️":"🌙";
+  document.querySelector(".toggle").textContent =
+    document.body.classList.contains("dark") ? "☀️" : "🌙";
 }
 </script>
 
