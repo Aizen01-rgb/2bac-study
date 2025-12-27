@@ -1,150 +1,256 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>Matières 2BAC</title>
+<title>Subjects | 2bac-study</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
+
+:root{
+  --bg-main:linear-gradient(135deg,#e0f7f4,#eef2ff);
+  --glass:rgba(255,255,255,.75);
+  --text:#1e293b;
+  --muted:#64748b;
+  --primary:#10b981;
+  --secondary:#2563eb;
+  --shadow:0 25px 60px rgba(0,0,0,.18);
+}
+
+body.dark{
+  --bg-main:linear-gradient(135deg,#020617,#0f172a);
+  --glass:rgba(2,6,23,.75);
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+}
+
 body{
-  margin:0;
   min-height:100vh;
-  background:linear-gradient(135deg,#fdfbfb,#ebedee);
-  font-family:'Segoe UI',Tahoma;
+  background:var(--bg-main);
   display:flex;
   justify-content:center;
-  align-items:center;
+  padding:24px 14px;
+  color:var(--text);
+  overflow:hidden;
 }
 
-.container{
-  width:90%;
-  max-width:420px;
-}
+/* background shapes */
+.bg-shape{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;animation:float 12s infinite}
+.shape1{width:180px;height:180px;background:linear-gradient(135deg,#34d399,#60a5fa);top:70%;right:-60px}
+.shape2{width:140px;height:140px;background:linear-gradient(135deg,#a78bfa,#22d3ee);top:15%;left:-50px;animation-delay:3s}
+.shape3{width:90px;height:90px;background:linear-gradient(135deg,#facc15,#fb7185);bottom:15%;left:40%;animation-delay:6s}
+@keyframes float{50%{transform:translateY(-25px)}}
 
-/* Title */
-.title{
-  text-align:center;
-  font-size:28px;
-  margin-bottom:6px;
-}
+.app{width:100%;max-width:430px;position:relative;z-index:1}
 
-.desc{
-  text-align:center;
-  color:#555;
-  margin-bottom:30px;
-  font-size:15px;
-}
-
-/* Card */
-.card{
-  height:110px;
-  margin-bottom:22px;
-  border-radius:35px;
+/* TOP MENU (نفس index) */
+.top-menu{
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:22px;
+  padding:12px 16px;
   display:flex;
   align-items:center;
-  padding-left:30px;
-  box-shadow:0 18px 35px rgba(0,0,0,.18);
-  transition:.35s;
-  cursor:pointer;
+  justify-content:space-between;
+  box-shadow:var(--shadow);
+  margin-bottom:26px;
 }
 
-.card:hover{
-  transform:translateY(-8px) scale(1.03);
+.brand span{
+  font-weight:900;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.card:active{
-  transform:scale(0.97);
+/* left menu */
+.menu-left{position:relative}
+.hamburger{
+  width:34px;height:26px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  cursor:pointer;padding:6px;border-radius:12px;
+  background:rgba(255,255,255,.6);
+  box-shadow:var(--shadow);
+}
+.hamburger span{height:4px;background:var(--text);border-radius:6px}
+
+.dropdown{
+  position:absolute;top:50px;left:0;
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  padding:12px;display:none;flex-direction:column;gap:10px;
+  min-width:160px;
+}
+.dropdown a{
+  text-decoration:none;color:var(--text);
+  font-weight:600;padding:8px 14px;border-radius:12px;
+}
+.dropdown a:hover{background:rgba(255,255,255,.5)}
+
+/* right actions */
+.actions{display:flex;align-items:center;gap:8px}
+.actions button{
+  border:none;background:rgba(255,255,255,.6);
+  padding:7px 10px;border-radius:12px;cursor:pointer;font-weight:600;
 }
 
-.icon{
-  font-size:34px;
-  margin-right:18px;
-}
-
-.text h2{
-  margin:0;
-  font-size:24px;
-}
-
-.text p{
-  margin:6px 0 0;
-  font-size:15px;
-  color:#333;
-  opacity:.8;
-}
-
-/* Colors */
-.phy{
-  background:linear-gradient(135deg,#e3f2fd,#bbdefb);
-}
-.math{
-  background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
-}
-.svt{
-  background:linear-gradient(135deg,#fff3e0,#ffe0b2);
-}
-.exam{
-  background:linear-gradient(135deg,#ede7f6,#d1c4e9);
-}
-
-/* Footer */
-footer{
+/* PAGE TITLE */
+.page-title{
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border-radius:28px;
+  padding:26px;
   text-align:center;
-  font-size:13px;
-  color:#666;
-  margin-top:30px;
+  box-shadow:var(--shadow);
+  margin-bottom:26px;
 }
+.page-title h1{font-size:24px;margin-bottom:8px}
+.page-title p{color:var(--muted);font-size:14px}
+
+/* SUBJECT CARDS (أفقية) */
+.subjects{
+  display:grid;
+  gap:18px;
+}
+
+.subject{
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:26px;
+  padding:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  transition:.3s;
+}
+.subject:hover{transform:translateY(-4px)}
+
+.sub-left{
+  display:flex;align-items:center;gap:16px;
+}
+.icon{
+  width:52px;height:52px;border-radius:16px;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:22px;
+}
+.sub-left h3{font-size:18px}
+.sub-left span{color:var(--muted);font-size:13px}
+
+.arrow{font-size:22px;color:var(--muted)}
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="bg-shape shape1"></div>
+<div class="bg-shape shape2"></div>
+<div class="bg-shape shape3"></div>
 
-  <h1 class="title">Matières – 2ème Baccalauréat</h1>
-  <p class="desc">Choisissez une matière pour accéder au contenu</p>
+<div class="app">
 
-  <!-- Physique et Chimie -->
-  <div class="card phy">
-    <div class="icon">⚛️</div>
-    <div class="text">
-      <h2>Physique et Chimie</h2>
-      <p>Cours • Exercices • Résumés</p>
+<!-- TOP MENU -->
+<div class="top-menu">
+
+  <div class="menu-left">
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="dropdown" id="menu">
+      <a href="index.html">Home</a>
+      <a href="subjects.html">Subjects</a>
+      <a href="resume.html">Resume</a>
+      <a href="exams.html">Exams</a>
+      <a href="about.html">About</a>
     </div>
   </div>
 
-  <!-- Mathématiques -->
-  <div class="card math">
-    <div class="icon">📐</div>
-    <div class="text">
-      <h2>Mathématiques</h2>
-      <p>Cours • Exercices • Examens</p>
-    </div>
+  <div class="brand">
+    <span>2bac-study</span>
   </div>
 
-  <!-- SVT -->
-  <div class="card svt">
-    <div class="icon">🧬</div>
-    <div class="text">
-      <h2>SVT</h2>
-      <p>Cours • Exercices • Résumés</p>
-    </div>
+  <div class="actions">
+    <button onclick="setLang('ar')">AR</button>
+    <button onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="toggleDark()">🌙</button>
   </div>
-
-  <!-- Examens -->
-  <div class="card exam">
-    <div class="icon">📑</div>
-    <div class="text">
-      <h2>Examens Officiels</h2>
-      <p>Nationaux • Régionaux • Corrigés</p>
-    </div>
-  </div>
-
-  <footer>
-    © 2025 – Plateforme 2BAC
-  </footer>
 
 </div>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h1 data-key="title">📚 اختر المادة</h1>
+  <p data-key="desc">اختر المادة لي بغيتي وخدم عليها مباشرة</p>
+</div>
+
+<!-- SUBJECTS -->
+<div class="subjects">
+
+  <div class="subject" onclick="location.href='pc.html'">
+    <div class="sub-left">
+      <div class="icon">💻</div>
+      <div>
+        <h3 data-key="pc">PC</h3>
+        <span data-key="pc_d">علوم الحاسوب</span>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+  <div class="subject" onclick="location.href='math.html'">
+    <div class="sub-left">
+      <div class="icon">📐</div>
+      <div>
+        <h3 data-key="math">Math</h3>
+        <span data-key="math_d">الرياضيات</span>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+  <div class="subject" onclick="location.href='svt.html'">
+    <div class="sub-left">
+      <div class="icon">🧬</div>
+      <div>
+        <h3 data-key="svt">SVT</h3>
+        <span data-key="svt_d">علوم الحياة والأرض</span>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+function toggleMenu(){
+  const m=document.getElementById("menu");
+  m.style.display = m.style.display==="flex" ? "none" : "flex";
+}
+
+const t={
+  ar:{title:"📚 اختر المادة",desc:"اختر المادة لي بغيتي وخدم عليها مباشرة",pc:"PC",pc_d:"علوم الحاسوب",math:"Math",math_d:"الرياضيات",svt:"SVT",svt_d:"علوم الحياة والأرض"},
+  fr:{title:"📚 Choisir la matière",desc:"Choisissez une matière pour commencer",pc:"PC",pc_d:"Informatique",math:"Math",math_d:"Mathématiques",svt:"SVT",svt_d:"Sciences de la vie et de la terre"},
+  en:{title:"📚 Choose a subject",desc:"Select a subject to start studying",pc:"PC",pc_d:"Computer Science",math:"Math",math_d:"Mathematics",svt:"SVT",svt_d:"Life & Earth Science"}
+};
+
+function setLang(l){
+  document.querySelectorAll("[data-key]").forEach(e=>{
+    e.innerText=t[l][e.dataset.key];
+  });
+}
+</script>
 
 </body>
 </html>
