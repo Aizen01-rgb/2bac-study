@@ -1,243 +1,268 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>2BAC | اختر النسخة</title>
+<title>2bac-study | Prep & Success</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
 
 :root{
-  --bg-main:#f6f8fc;
-  --bg-grad1:#e8efff;
-  --bg-grad2:#fdfefe;
-  --card-bg:rgba(255,255,255,.78);
+  --bg-main:linear-gradient(135deg,#e0f7f4,#eef2ff);
+  --glass:rgba(255,255,255,.75);
   --text:#1e293b;
-  --primary:#5b8def;
-  --secondary:#10b981;
-  --neon:#b6ccff; /* نيون مخفف */
+  --muted:#64748b;
+  --primary:#10b981;
+  --secondary:#2563eb;
+  --shadow:0 25px 60px rgba(0,0,0,.18);
 }
 
-/* ============ DARK MODE ============ */
 body.dark{
-  --bg-main:#060b1a;
-  --bg-grad1:#0b122f;
-  --bg-grad2:#020617;
-  --card-bg:rgba(255,255,255,.09);
+  --bg-main:linear-gradient(135deg,#020617,#0f172a);
+  --glass:rgba(2,6,23,.75);
   --text:#e5e7eb;
-  --neon:#5fa3ff;
+  --muted:#94a3b8;
 }
 
 body{
-  margin:0;
   min-height:100vh;
+  background:var(--bg-main);
   display:flex;
   justify-content:center;
-  align-items:center;
-  font-family:'Segoe UI',Tahoma;
-  background:
-    radial-gradient(circle at 20% 20%,var(--bg-grad1),transparent 45%),
-    radial-gradient(circle at 80% 80%,var(--bg-grad2),transparent 45%),
-    var(--bg-main);
-  overflow:hidden;
+  padding:24px 14px;
   color:var(--text);
+  overflow:hidden;
 }
 
-/* ============ PARTICLES ============ */
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:0;
-}
+/* shapes */
+.bg-shape{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;animation:float 12s infinite}
+.shape1{width:180px;height:180px;background:linear-gradient(135deg,#34d399,#60a5fa);top:70%;right:-60px}
+.shape2{width:140px;height:140px;background:linear-gradient(135deg,#a78bfa,#22d3ee);top:15%;left:-50px;animation-delay:3s}
+.shape3{width:90px;height:90px;background:linear-gradient(135deg,#facc15,#fb7185);bottom:15%;left:40%;animation-delay:6s}
+@keyframes float{50%{transform:translateY(-25px)}}
 
-/* ============ STUDY SHAPES ============ */
-body::before,
-body::after{
-  content:"";
-  position:absolute;
-  width:220px;
-  height:220px;
-  border-radius:40px;
-  background:linear-gradient(135deg,#5b8def33,#10b98133);
-  box-shadow:0 40px 80px rgba(0,0,0,.12);
-  transform:rotate(25deg);
-}
-body::before{
-  top:10%;
-  left:8%;
-}
-body::after{
-  bottom:12%;
-  right:10%;
-  transform:rotate(-18deg);
-}
+.app{width:100%;max-width:430px;position:relative;z-index:1}
 
-/* ============ CARD ============ */
-.box{
-  position:relative;
-  z-index:2;
-  background:var(--card-bg);
-  backdrop-filter:blur(22px);
-  padding:50px 35px;
-  border-radius:34px;
-  width:360px;
-  text-align:center;
-  box-shadow:
-    0 40px 90px rgba(0,0,0,.22),
-    inset 0 0 0 1px rgba(255,255,255,.35);
-  animation:float 6s ease-in-out infinite;
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-12px)}
-}
-
-/* aura مخففة */
-.box::after{
-  content:"";
-  position:absolute;
-  inset:-3px;
-  border-radius:36px;
-  background:linear-gradient(120deg,var(--primary),var(--secondary),var(--neon));
-  filter:blur(32px);
-  opacity:.25;
-  z-index:-1;
-}
-
-/* ============ LOGO 3D ============ */
-.logo{
-  width:110px;
-  height:110px;
-  margin:0 auto 20px;
-  border-radius:26px;
-  background:linear-gradient(135deg,var(--primary),var(--secondary));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-  color:#fff;
-  font-weight:900;
-  letter-spacing:1px;
-  transform-style:preserve-3d;
-  animation:spin 8s linear infinite;
-  box-shadow:0 25px 45px rgba(0,0,0,.28);
-}
-
-@keyframes spin{
-  from{transform:rotateY(0deg)}
-  to{transform:rotateY(360deg)}
-}
-
-/* ============ TITLE ============ */
-h2{
-  margin-bottom:28px;
-  font-size:25px;
-  letter-spacing:.5px;
-}
-
-/* ============ BUTTONS ============ */
-button{
-  width:100%;
-  padding:18px;
-  margin:16px 0;
-  border:none;
+/* TOP MENU */
+.top-menu{
+  background:var(--glass);
+  backdrop-filter:blur(16px);
   border-radius:22px;
-  font-size:16.5px;
-  font-weight:700;
-  cursor:pointer;
-  color:#fff;
-  transition:.3s;
-}
-
-button:hover{
-  transform:translateY(-3px) scale(1.02);
-}
-
-/* FREE (دراسي) */
-.free{
-  background:linear-gradient(135deg,#34d399,#10b981);
-}
-
-/* PREMIUM */
-.premium{
-  background:linear-gradient(135deg,#60a5fa,#5b8def);
-}
-
-/* ============ DARK/LIGHT TOGGLE ============ */
-.toggle{
-  position:fixed;
-  top:20px;
-  right:20px;
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:var(--card-bg);
-  backdrop-filter:blur(12px);
+  padding:12px 16px;
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:space-between;
+  box-shadow:var(--shadow);
+  margin-bottom:26px;
+}
+
+.brand span{
+  font-weight:900;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* RIGHT ACTIONS */
+.actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.actions button{
+  border:none;
+  background:rgba(255,255,255,.6);
+  padding:7px 10px;
+  border-radius:12px;
   cursor:pointer;
-  z-index:3;
-  box-shadow:0 10px 25px rgba(0,0,0,.22);
+  font-weight:600;
+}
+
+/* LEFT MENU BUTTON */
+.menu-left{
+  position:relative;
+}
+
+/* HAMBURGER */
+.hamburger{
+  width:34px;
+  height:26px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  cursor:pointer;
+  padding:6px;
+  border-radius:12px;
+  background:rgba(255,255,255,.6);
+  box-shadow:var(--shadow);
+}
+
+.hamburger span{
+  height:4px;
+  background:var(--text);
+  border-radius:6px;
+}
+
+/* DROPDOWN */
+.dropdown{
+  position:absolute;
+  top:50px;
+  left:0;
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  padding:12px;
+  display:none;
+  flex-direction:column;
+  gap:10px;
+  min-width:160px;
+}
+
+.dropdown a{
+  text-decoration:none;
+  color:var(--text);
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:12px;
+}
+
+.dropdown a:hover{
+  background:rgba(255,255,255,.5);
+}
+
+/* HERO */
+.hero{
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border-radius:32px;
+  padding:42px 26px;
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+
+.hero h1{font-size:26px;margin-bottom:14px}
+.hero p{color:var(--muted);margin-bottom:30px}
+
+.hero button{
+  border:none;
+  padding:16px 30px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#10b981,#34d399);
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* CARDS */
+.cards{margin-top:34px;display:grid;gap:18px}
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(14px);
+  border-radius:26px;
+  padding:22px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  box-shadow:var(--shadow);
+}
+.icon-3d{
+  width:44px;height:44px;border-radius:14px;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;
+}
+
+.footer-text{
+  margin-top:30px;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="particles"></canvas>
+<div class="bg-shape shape1"></div>
+<div class="bg-shape shape2"></div>
+<div class="bg-shape shape3"></div>
 
-<div class="toggle" onclick="toggleMode()">🌓</div>
+<div class="app">
 
-<div class="box">
-  <div class="logo">2BAC-AGLØUS</div>
+<div class="top-menu">
 
-  <h2>اختر النسخة</h2>
+  <!-- MENU LEFT -->
+  <div class="menu-left">
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
 
-  <button class="free" onclick="goFree()">📘 Accès aux cours</button>
-  <button class="premium" onclick="goPremium()">⭐ Premium Version</button>
+    <div class="dropdown" id="menu">
+      <a href="index.html">Home</a>
+      <a href="subjects.html">Subjects</a>
+      <a href="resume.html">Resume</a>
+      <a href="exams.html">Exams</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+
+  <!-- BRAND -->
+  <div class="brand">
+    <span>2bac-study</span>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="actions">
+    <button onclick="setLang('ar')">AR</button>
+    <button onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="toggleDark()">🌙</button>
+  </div>
+
+</div>
+
+<section class="hero">
+  <h1 data-key="title">🎓 طريقك نحو التفوق في البكالوريا</h1>
+  <p data-key="desc">خدم بخطة ذكية اليوم… ونجح بثقة غداً</p>
+  <button data-key="btn" onclick="location.href='subjects.html'">ابدأ الآن 🚀</button>
+</section>
+
+<section class="cards">
+  <div class="card"><div class="icon-3d">📊</div><h3 data-key="c1">دروس منظمة بطريقة ذكية</h3></div>
+  <div class="card"><div class="icon-3d">🧠</div><h3 data-key="c2">ملخصات مركزة وسهلة</h3></div>
+  <div class="card"><div class="icon-3d">⚙️</div><h3 data-key="c3">تمارين محلولة بمنهجية</h3></div>
+</section>
+
+<div class="footer-text" data-key="footer">
+  ماشي غير قراية… هاد المنصة طريقك لنتيجة تفتخر بها 🎓
+</div>
+
 </div>
 
 <script>
-function goFree(){
-  window.location.href = "sub.html";
-}
-function goPremium(){
-  window.location.href = "login.html";
-}
-function toggleMode(){
+function toggleDark(){
   document.body.classList.toggle("dark");
 }
 
-/* PARTICLES */
-const c = document.getElementById("particles"),
-ctx = c.getContext("2d");
-c.width = innerWidth;
-c.height = innerHeight;
-let particles = Array.from({length:50},()=>({
-  x:Math.random()*c.width,
-  y:Math.random()*c.height,
-  r:Math.random()*2+1,
-  dx:(Math.random()-.5)*0.4,
-  dy:(Math.random()-.5)*0.4
-}));
-
-function animate(){
-  ctx.clearRect(0,0,c.width,c.height);
-  particles.forEach(p=>{
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle="rgba(120,160,255,.28)";
-    ctx.fill();
-    p.x+=p.dx; p.y+=p.dy;
-    if(p.x<0||p.x>c.width) p.dx*=-1;
-    if(p.y<0||p.y>c.height) p.dy*=-1;
-  });
-  requestAnimationFrame(animate);
+function toggleMenu(){
+  const m=document.getElementById("menu");
+  m.style.display = m.style.display==="flex" ? "none" : "flex";
 }
-animate();
+
+const t={
+  ar:{title:"🎓 طريقك نحو التفوق في البكالوريا",desc:"خدم بخطة ذكية اليوم… ونجح بثقة غداً",btn:"ابدأ الآن 🚀",c1:"دروس منظمة بطريقة ذكية",c2:"ملخصات مركزة وسهلة",c3:"تمارين محلولة بمنهجية",footer:"ماشي غير قراية… هاد المنصة طريقك لنتيجة تفتخر بها 🎓"},
+  fr:{title:"🎓 Votre chemin vers la réussite au Bac",desc:"Travaillez intelligemment aujourd’hui, réussissez demain",btn:"Commencer 🚀",c1:"Cours bien organisés",c2:"Résumés clairs",c3:"Exercices corrigés",footer:"Une plateforme pour réussir"},
+  en:{title:"🎓 Your path to success",desc:"Study smart today, succeed tomorrow",btn:"Start now 🚀",c1:"Organized lessons",c2:"Clear summaries",c3:"Solved exercises",footer:"A platform for success"}
+};
+
+function setLang(l){
+  document.querySelectorAll("[data-key]").forEach(e=>{
+    e.innerText=t[l][e.dataset.key];
+  });
+}
 </script>
 
 </body>
