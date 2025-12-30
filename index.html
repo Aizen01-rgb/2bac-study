@@ -80,35 +80,38 @@ body{
   font-weight:600;
 }
 
-/* LEFT MENU BUTTON */
+/* LEFT MENU */
 .menu-left{
   position:relative;
 }
 
-/* HAMBURGER */
-.hamburger{
-  width:34px;
-  height:26px;
+/* NEW MENU BUTTON */
+.menu-btn{
+  width:48px;
+  height:48px;
+  background:#2ecf8f;
+  border:none;
+  border-radius:16px;
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
   cursor:pointer;
-  padding:6px;
-  border-radius:12px;
-  background:rgba(255,255,255,.6);
-  box-shadow:var(--shadow);
+  box-shadow:0 10px 25px rgba(46,207,143,.45);
 }
 
-.hamburger span{
+.menu-btn span{
+  width:22px;
   height:4px;
-  background:var(--text);
-  border-radius:6px;
+  background:#fff;
+  border-radius:4px;
 }
 
 /* DROPDOWN */
 .dropdown{
   position:absolute;
-  top:50px;
+  top:55px;
   left:0;
   background:var(--glass);
   backdrop-filter:blur(16px);
@@ -196,9 +199,11 @@ body{
 
   <!-- MENU LEFT -->
   <div class="menu-left">
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
     <div class="dropdown" id="menu">
       <a href="index.html">Home</a>
@@ -209,10 +214,9 @@ body{
     </div>
   </div>
 
-  <!-- BRAND (زيدنا غير اللوغو الدائري) -->
+  <!-- BRAND -->
   <div class="brand">
-    <img src="logo.png"
-         style="height:28px;width:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-left:8px;">
+    <img src="logo.png" style="height:28px;width:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-left:8px;">
     <span>2bac-study</span>
   </div>
 
