@@ -1,156 +1,325 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>PC | Dipôle RC</title>
+<title>PC | 2bac-study</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
+
+/* ===== COLORS ===== */
+:root{
+  --bg-main:linear-gradient(135deg,#e0f7f4,#eef2ff);
+  --glass:rgba(255,255,255,.78);
+  --text:#1e293b;
+  --muted:#64748b;
+  --primary:#10b981;
+  --secondary:#2563eb;
+  --shadow:0 25px 60px rgba(0,0,0,.18);
+}
+
+body.dark{
+  --bg-main:linear-gradient(135deg,#020617,#0f172a);
+  --glass:rgba(2,6,23,.8);
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+}
+
+/* ===== BODY ===== */
 body{
-  margin:0;
-  font-family:'Segoe UI',Tahoma;
-  background:linear-gradient(135deg,#f7f9fc,#eef2f7);
-  padding:20px;
+  min-height:100vh;
+  background:var(--bg-main);
+  display:flex;
+  justify-content:center;
+  padding:20px 12px;
+  color:var(--text);
+  overflow-y:auto;
+  position:relative;
 }
 
-h1{
-  text-align:center;
-  color:#2c3e50;
-  margin-bottom:25px;
+/* ===== BACKGROUND SHAPES ===== */
+.bg-shape{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(2px);
+  opacity:.35;
+  animation:float 12s infinite;
+  z-index:0;
+}
+.shape1{
+  width:180px;height:180px;
+  background:linear-gradient(135deg,#34d399,#60a5fa);
+  top:70%;right:-60px;
+}
+.shape2{
+  width:140px;height:140px;
+  background:linear-gradient(135deg,#a78bfa,#22d3ee);
+  top:15%;left:-50px;
+  animation-delay:3s;
+}
+.shape3{
+  width:90px;height:90px;
+  background:linear-gradient(135deg,#facc15,#fb7185);
+  bottom:15%;left:40%;
+  animation-delay:6s;
+}
+@keyframes float{
+  50%{transform:translateY(-25px)}
 }
 
-.section{
-  background:#fff;
-  padding:20px;
+.app{
+  width:100%;
+  max-width:440px;
+  position:relative;
+  z-index:1;
+}
+
+/* ===== TOP MENU ===== */
+.top-menu{
+  background:var(--glass);
+  backdrop-filter:blur(16px);
   border-radius:22px;
-  margin-bottom:25px;
-  box-shadow:0 18px 35px rgba(0,0,0,.15);
-  animation:fade .7s ease;
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:var(--shadow);
+  margin-bottom:26px;
 }
 
-@keyframes fade{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
+.menu-left{position:relative}
+.hamburger{
+  width:34px;height:26px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:6px;
+  border-radius:12px;
+  background:rgba(255,255,255,.6);
+  box-shadow:var(--shadow);
+  cursor:pointer;
+}
+.hamburger span{
+  height:4px;
+  background:var(--text);
+  border-radius:6px;
 }
 
-.section h2{
-  color:#4a7bd0;
-  margin-bottom:15px;
+.dropdown{
+  position:absolute;
+  top:50px;left:0;
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  padding:12px;
+  display:none;
+  flex-direction:column;
+  gap:10px;
+  min-width:160px;
 }
-
-.pdf-link{
-  display:block;
-  padding:14px;
-  background:linear-gradient(135deg,#6ca0dc,#4a7bd0);
-  color:#fff;
+.dropdown a{
   text-decoration:none;
-  border-radius:16px;
+  color:var(--text);
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:12px;
+}
+.dropdown a:hover{
+  background:rgba(255,255,255,.5);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.brand span{
+  font-weight:900;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.actions button{
+  border:none;
+  background:rgba(255,255,255,.6);
+  padding:6px 9px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  margin-left:4px;
+}
+
+/* ===== SECTION ===== */
+.section{
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:30px;
+  padding:22px;
+  box-shadow:var(--shadow);
+  margin-bottom:26px;
+}
+
+.section-title{
+  font-size:20px;
+  font-weight:900;
+  margin-bottom:18px;
   text-align:center;
-  font-weight:bold;
-  box-shadow:0 10px 25px rgba(74,123,208,.4);
-}
-.pdf-link:hover{
-  transform:translateY(-3px);
 }
 
-.rule{
-  background:#f4f6fb;
-  padding:15px;
-  border-radius:16px;
-  margin-bottom:15px;
+.subject{margin-bottom:22px}
+.subject h3{
+  color:var(--secondary);
+  margin-bottom:12px;
 }
 
-.rule strong{
-  color:#2c3e50;
+/* ===== LESSONS 3D ===== */
+.lessons{
+  display:grid;
+  gap:12px;
+}
+.lesson{
+  background:rgba(255,255,255,.65);
+  padding:14px 16px;
+  border-radius:18px;
+  box-shadow:0 14px 30px rgba(0,0,0,.12);
+  cursor:pointer;
+  transition:.35s;
+}
+.lesson:hover{
+  transform:translateY(-6px);
+  box-shadow:0 25px 45px rgba(0,0,0,.22);
 }
 </style>
 </head>
 
 <body>
 
-<h1>Physique-Chimie – Dipôle RC</h1>
+<!-- BACKGROUND -->
+<div class="bg-shape shape1"></div>
+<div class="bg-shape shape2"></div>
+<div class="bg-shape shape3"></div>
 
-<!-- PDF -->
-<div class="section">
-  <h2>📄 PDF du cours</h2>
-  <!-- من بعد الأدمين غادي يحط PDF هنا -->
-  <a class="pdf-link" href="pdf/dipole-rc.pdf" target="_blank">
-    Télécharger le cours (PDF)
-  </a>
+<div class="app">
+
+<!-- ===== TOP MENU ===== -->
+<div class="top-menu">
+  <div class="menu-left">
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="dropdown" id="menu">
+      <a href="index.html">Home</a>
+      <a href="subjects.html">Subjects</a>
+      <a href="resume.html">Resume</a>
+      <a href="exams.html">Exams</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+
+  <div class="brand">
+    <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
+    <span>2bac-study</span>
+  </div>
+
+  <div class="actions">
+    <button onclick="setLang('ar')">AR</button>
+    <button onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="toggleDark()">🌙</button>
+  </div>
 </div>
 
-<!-- Résumé -->
+<!-- ===== الدورة الأولى ===== -->
 <div class="section">
-  <h2>📝 Résumé du cours : Dipôle RC</h2>
-  <p>
-    Le dipôle RC est l’association en série d’un conducteur ohmique de
-    résistance <strong>R</strong> et d’un condensateur de capacité
-    <strong>C</strong>.
-  </p>
-  <p>
-    Lorsqu’on applique un échelon de tension, le condensateur se
-    <strong>charge</strong> ou se <strong>décharge</strong> progressivement.
-  </p>
-  <p>
-    Le comportement du dipôle RC est caractérisé par une constante du temps
-    <strong>τ = R·C</strong> qui détermine la rapidité de la charge ou de la
-    décharge.
-  </p>
+  <div class="section-title" data-key="s1">📘 الدورة الأولى</div>
+
+  <div class="subject">
+    <h3 data-key="phy">⚡ Physique</h3>
+    <div class="lessons">
+      <div class="lesson">Les ondes mécaniques progressives</div>
+      <div class="lesson">Les ondes mécaniques progressives périodiques</div>
+      <div class="lesson">Propagation des ondes lumineuses</div>
+      <div class="lesson">Dipôle RC</div>
+      <div class="lesson">Dipôle RL</div>
+      <div class="lesson">Oscillations libres RLC</div>
+      <div class="lesson">RLC sinusoïdal forcé</div>
+      <div class="lesson">Ondes électromagnétiques</div>
+      <div class="lesson">Modulation d’amplitude</div>
+      <div class="lesson">Décroissance radioactive</div>
+      <div class="lesson">Noyaux, masse et énergie</div>
+    </div>
+  </div>
+
+  <div class="subject">
+    <h3 data-key="chim">🧪 Chimie</h3>
+    <div class="lessons">
+      <div class="lesson">Transformations lentes et rapides</div>
+      <div class="lesson">Suivi temporel</div>
+      <div class="lesson">Transformations chimiques réversibles</div>
+      <div class="lesson">État d’équilibre</div>
+      <div class="lesson">Réactions acide-base</div>
+      <div class="lesson">Dosage acido-basique</div>
+    </div>
+  </div>
 </div>
 
-<!-- Règles -->
+<!-- ===== الدورة الثانية ===== -->
 <div class="section">
-  <h2>📌 Règles importantes (à retenir)</h2>
+  <div class="section-title" data-key="s2">📕 الدورة الثانية</div>
 
-  <div class="rule">
-    <strong>1️⃣ Charge électrique du condensateur</strong><br>
-    La charge du condensateur est notée <strong>q</strong> et s’exprime en
-    coulomb (C).  
-    Elle est liée à l’intensité du courant par :
-    <br><strong>q(t) = I · t</strong> (courant constant).
+  <div class="subject">
+    <h3 data-key="phy">⚙️ Physique – Mécanique</h3>
+    <div class="lessons">
+      <div class="lesson">Lois de Newton</div>
+      <div class="lesson">Chute libre</div>
+      <div class="lesson">Mouvements plans</div>
+      <div class="lesson">Satellites et planètes</div>
+      <div class="lesson">Rotation d’un solide</div>
+      <div class="lesson">Systèmes oscillants</div>
+      <div class="lesson">Aspects énergétiques</div>
+      <div class="lesson">Atome et mécanique de Newton</div>
+    </div>
   </div>
 
-  <div class="rule">
-    <strong>2️⃣ Relation charge – tension</strong><br>
-    La charge du condensateur est proportionnelle à la tension entre ses bornes :
-    <br><strong>q(t) = C · u<sub>C</sub>(t)</strong>
+  <div class="subject">
+    <h3 data-key="chim">🧪 Chimie</h3>
+    <div class="lessons">
+      <div class="lesson">Dosage acido-basique</div>
+      <div class="lesson">Évolution spontanée</div>
+      <div class="lesson">Piles et énergie</div>
+      <div class="lesson">Électrolyse</div>
+      <div class="lesson">Estérification & hydrolyse</div>
+      <div class="lesson">Contrôle de l’évolution</div>
+    </div>
   </div>
-
-  <div class="rule">
-    <strong>3️⃣ Capacité du condensateur</strong><br>
-    La capacité <strong>C</strong> caractérise le condensateur.
-    Elle est constante et ne dépend ni de la tension ni du temps.
-    Son unité est le <strong>Farad (F)</strong>.
-  </div>
-
-  <div class="rule">
-    <strong>4️⃣ Constante du temps</strong><br>
-    Le dipôle RC est caractérisé par :
-    <br><strong>τ = R · C</strong><br>
-    À <strong>t = τ</strong> :
-    <ul>
-      <li>u<sub>C</sub> = 0,63 · E (charge)</li>
-      <li>u<sub>C</sub> = 0,37 · E (décharge)</li>
-    </ul>
-  </div>
-
-  <div class="rule">
-    <strong>5️⃣ Régimes</strong><br>
-    <ul>
-      <li><strong>Régime transitoire</strong> : t &lt; 5τ</li>
-      <li><strong>Régime permanent</strong> : t ≥ 5τ</li>
-    </ul>
-  </div>
-
-  <div class="rule">
-    <strong>6️⃣ Expressions importantes</strong><br>
-    Charge :
-    <br><strong>q(t) = C·E (1 − e<sup>−t/τ</sup>)</strong><br>
-    Intensité :
-    <br><strong>i(t) = (E/R)·e<sup>−t/τ</sup></strong>
-  </div>
+</div>
 
 </div>
+
+<script>
+function toggleMenu(){
+  const m=document.getElementById("menu");
+  m.style.display = m.style.display==="flex" ? "none" : "flex";
+}
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+
+/* ===== LANG ===== */
+const t={
+  ar:{s1:"📘 الدورة الأولى",s2:"📕 الدورة الثانية",phy:"Physique",chim:"Chimie"},
+  fr:{s1:"📘 Premier semestre",s2:"📕 Deuxième semestre",phy:"Physique",chim:"Chimie"},
+  en:{s1:"📘 First semester",s2:"📕 Second semester",phy:"Physics",chim:"Chemistry"}
+};
+function setLang(l){
+  document.querySelectorAll("[data-key]").forEach(e=>{
+    e.innerText=t[l][e.dataset.key];
+  });
+}
+</script>
 
 </body>
 </html>
