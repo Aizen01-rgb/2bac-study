@@ -36,7 +36,7 @@ body{
   position:relative;
 }
 
-/* ===== BACKGROUND SHAPES (بحال index) ===== */
+/* BACKGROUND SHAPES */
 .bg-shape{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;animation:float 12s infinite}
 .shape1{width:180px;height:180px;background:linear-gradient(135deg,#34d399,#60a5fa);top:70%;right:-60px}
 .shape2{width:140px;height:140px;background:linear-gradient(135deg,#a78bfa,#22d3ee);top:15%;left:-50px;animation-delay:3s}
@@ -45,7 +45,7 @@ body{
 
 .app{width:100%;max-width:430px;position:relative;z-index:1}
 
-/* ===== TOP MENU ===== */
+/* TOP MENU */
 .top-menu{
   background:var(--glass);
   backdrop-filter:blur(16px);
@@ -113,6 +113,11 @@ body{
   -webkit-text-fill-color:transparent;
 }
 
+.actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
 .actions button{
   border:none;
   background:rgba(255,255,255,.6);
@@ -122,7 +127,7 @@ body{
   font-weight:600;
 }
 
-/* ===== SECTIONS ===== */
+/* SECTIONS */
 .section{
   background:var(--glass);
   backdrop-filter:blur(18px);
@@ -166,9 +171,7 @@ body{
 }
 
 /* CTA */
-.cta{
-  text-align:center;
-}
+.cta{text-align:center}
 .cta button{
   border:none;
   padding:16px 32px;
@@ -190,7 +193,7 @@ body{
 
 <div class="app">
 
-<!-- ===== MENU ===== -->
+<!-- MENU -->
 <div class="top-menu">
   <div class="menu-left">
     <button class="menu-btn" onclick="toggleMenu()">
@@ -210,15 +213,19 @@ body{
     <span>2bac-study</span>
   </div>
 
+  <!-- ✅ أزرار اللغة تزادات -->
   <div class="actions">
+    <button onclick="setLang('ar')">AR</button>
+    <button onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('en')">EN</button>
     <button onclick="toggleDark()">🌙</button>
   </div>
 </div>
 
-<!-- ===== ABOUT ===== -->
+<!-- ABOUT CONTENT -->
 <div class="section">
-  <h2>🎓 شنو هي 2bac-study؟</h2>
-  <p>
+  <h2 data-key="t1">🎓 شنو هي 2bac-study؟</h2>
+  <p data-key="p1">
     2bac-study منصة تعليمية ذكية موجهة لتلاميذ الثانية باكالوريا،
     الهدف ديالها هو تسهيل الفهم وتنظيم المراجعة،
     ومساعدة التلميذ يوصل للنجاح بثقة وبمنهجية واضحة.
@@ -226,37 +233,20 @@ body{
 </div>
 
 <div class="section">
-  <h2>🚀 المنهجية ديالنا</h2>
+  <h2 data-key="t2">🚀 المنهجية ديالنا</h2>
   <div class="values">
-    <div class="value">
-      <div class="icon">📘</div>
-      <div>دروس مرتبة حسب المنهاج المغربي</div>
-    </div>
-    <div class="value">
-      <div class="icon">🧠</div>
-      <div>ملخصات مركزة للفهم السريع والمراجعة</div>
-    </div>
-    <div class="value">
-      <div class="icon">✍️</div>
-      <div>تمارين وطنية مصححة خطوة بخطوة</div>
-    </div>
-    <div class="value">
-      <div class="icon">🎯</div>
-      <div>توجيه عملي للنجاح في البكالوريا</div>
-    </div>
+    <div class="value"><div class="icon">📘</div><div data-key="v1">دروس مرتبة حسب المنهاج المغربي</div></div>
+    <div class="value"><div class="icon">🧠</div><div data-key="v2">ملخصات مركزة للفهم السريع</div></div>
+    <div class="value"><div class="icon">✍️</div><div data-key="v3">تمارين مصححة خطوة بخطوة</div></div>
+    <div class="value"><div class="icon">🎯</div><div data-key="v4">توجيه عملي للنجاح في البكالوريا</div></div>
   </div>
 </div>
 
 <div class="section cta">
-  <h2>🔥 واجد تبدا؟</h2>
-  <p>
-    خدم بخطة ذكية اليوم  
-    وخلّي النجاح يكون نتيجة طبيعية غداً.
-  </p>
+  <h2 data-key="t3">🔥 واجد تبدا؟</h2>
+  <p data-key="p2">خدم بخطة ذكية اليوم وخلّي النجاح يكون نتيجة طبيعية غداً.</p>
   <br>
-  <button onclick="location.href='subjects.html'">
-    ابدأ الآن 🚀
-  </button>
+  <button onclick="location.href='subjects.html'">ابدأ الآن 🚀</button>
 </div>
 
 </div>
@@ -266,7 +256,6 @@ function toggleMenu(){
   const m=document.getElementById("menu");
   m.style.display = m.style.display==="flex" ? "none" : "flex";
 }
-
 document.addEventListener("click",(e)=>{
   const m=document.getElementById("menu");
   const b=document.querySelector(".menu-btn");
@@ -274,9 +263,50 @@ document.addEventListener("click",(e)=>{
     m.style.display="none";
   }
 });
-
 function toggleDark(){
   document.body.classList.toggle("dark");
+}
+
+/* ===== LANG ===== */
+const t={
+  ar:{
+    t1:"🎓 شنو هي 2bac-study؟",
+    p1:"2bac-study منصة تعليمية ذكية موجهة لتلاميذ الثانية باكالوريا، الهدف ديالها هو تسهيل الفهم وتنظيم المراجعة، ومساعدة التلميذ يوصل للنجاح بثقة.",
+    t2:"🚀 المنهجية ديالنا",
+    v1:"دروس مرتبة حسب المنهاج المغربي",
+    v2:"ملخصات مركزة للفهم السريع",
+    v3:"تمارين مصححة خطوة بخطوة",
+    v4:"توجيه عملي للنجاح في البكالوريا",
+    t3:"🔥 واجد تبدا؟",
+    p2:"خدم بخطة ذكية اليوم وخلّي النجاح يكون نتيجة طبيعية غداً."
+  },
+  fr:{
+    t1:"🎓 Qu'est-ce que 2bac-study ?",
+    p1:"2bac-study est une plateforme éducative intelligente destinée aux élèves du baccalauréat, pour faciliter la compréhension et organiser la révision.",
+    t2:"🚀 Notre méthode",
+    v1:"Cours organisés selon le programme marocain",
+    v2:"Résumés clairs et efficaces",
+    v3:"Exercices corrigés pas à pas",
+    v4:"Orientation vers la réussite au Bac",
+    t3:"🔥 Prêt à commencer ?",
+    p2:"Travaillez intelligemment aujourd’hui et réussissez demain."
+  },
+  en:{
+    t1:"🎓 What is 2bac-study?",
+    p1:"2bac-study is a smart learning platform for baccalaureate students, helping them understand better and revise effectively.",
+    t2:"🚀 Our Method",
+    v1:"Well-organized lessons",
+    v2:"Clear and concise summaries",
+    v3:"Solved exercises step by step",
+    v4:"Guidance towards success",
+    t3:"🔥 Ready to start?",
+    p2:"Study smart today and succeed tomorrow."
+  }
+};
+function setLang(l){
+  document.querySelectorAll("[data-key]").forEach(e=>{
+    e.innerText=t[l][e.dataset.key];
+  });
 }
 </script>
 
