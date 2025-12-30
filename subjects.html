@@ -10,7 +10,7 @@
 
 :root{
   --bg-main:linear-gradient(135deg,#e0f7f4,#eef2ff);
-  --glass:rgba(255,255,255,.75);
+  --glass:rgba(255,255,255,.78);
   --text:#1e293b;
   --muted:#64748b;
   --primary:#10b981;
@@ -20,7 +20,7 @@
 
 body.dark{
   --bg-main:linear-gradient(135deg,#020617,#0f172a);
-  --glass:rgba(2,6,23,.75);
+  --glass:rgba(2,6,23,.78);
   --text:#e5e7eb;
   --muted:#94a3b8;
 }
@@ -33,6 +33,7 @@ body{
   padding:24px 14px;
   color:var(--text);
   overflow:hidden;
+  position:relative;
 }
 
 /* background shapes */
@@ -55,34 +56,42 @@ body{
   justify-content:space-between;
   box-shadow:var(--shadow);
   margin-bottom:26px;
+  position:relative;
+  z-index:50;
 }
 
-.brand span{
-  font-weight:900;
-  background:linear-gradient(135deg,#10b981,#2563eb);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-/* left menu */
+/* menu */
 .menu-left{position:relative}
-.hamburger{
-  width:34px;height:26px;
-  display:flex;flex-direction:column;justify-content:space-between;
-  cursor:pointer;padding:6px;border-radius:12px;
-  background:rgba(255,255,255,.6);
-  box-shadow:var(--shadow);
+.menu-btn{
+  width:46px;height:46px;
+  background:#2ecf8f;
+  border:none;
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(46,207,143,.45);
 }
-.hamburger span{height:4px;background:var(--text);border-radius:6px}
+.menu-btn span{width:22px;height:4px;background:#fff;border-radius:4px}
 
 .dropdown{
-  position:absolute;top:50px;left:0;
+  position:absolute;
+  top:58px;
+  right:50%;
+  transform:translateX(50%);
   background:var(--glass);
   backdrop-filter:blur(16px);
   border-radius:18px;
   box-shadow:var(--shadow);
-  padding:12px;display:none;flex-direction:column;gap:10px;
-  min-width:160px;
+  padding:12px;
+  display:none;
+  flex-direction:column;
+  gap:10px;
+  min-width:170px;
+  z-index:9999;
 }
 .dropdown a{
   text-decoration:none;color:var(--text);
@@ -90,8 +99,16 @@ body{
 }
 .dropdown a:hover{background:rgba(255,255,255,.5)}
 
-/* right actions */
-.actions{display:flex;align-items:center;gap:8px}
+.brand{
+  display:flex;align-items:center;gap:8px;
+}
+.brand span{
+  font-weight:900;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
 .actions button{
   border:none;background:rgba(255,255,255,.6);
   padding:7px 10px;border-radius:12px;cursor:pointer;font-weight:600;
@@ -101,48 +118,48 @@ body{
 .page-title{
   background:var(--glass);
   backdrop-filter:blur(18px);
-  border-radius:28px;
-  padding:26px;
+  border-radius:30px;
+  padding:30px 22px;
   text-align:center;
   box-shadow:var(--shadow);
-  margin-bottom:26px;
+  margin-bottom:28px;
 }
-.page-title h1{font-size:24px;margin-bottom:8px}
+.page-title h1{font-size:24px;margin-bottom:10px}
 .page-title p{color:var(--muted);font-size:14px}
 
-/* SUBJECT CARDS */
-.subjects{
-  display:grid;
-  gap:18px;
-}
+/* SUBJECTS */
+.subjects{display:grid;gap:18px}
 
 .subject{
   background:var(--glass);
   backdrop-filter:blur(16px);
-  border-radius:26px;
+  border-radius:28px;
   padding:22px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   box-shadow:var(--shadow);
   cursor:pointer;
-  transition:.3s;
+  transition:.35s;
 }
-.subject:hover{transform:translateY(-4px)}
+.subject:hover{
+  transform:translateY(-6px);
+  box-shadow:0 30px 60px rgba(0,0,0,.22);
+}
 
-.sub-left{
-  display:flex;align-items:center;gap:16px;
-}
+.sub-left{display:flex;align-items:center;gap:16px}
 .icon{
-  width:52px;height:52px;border-radius:16px;
+  width:54px;height:54px;border-radius:18px;
   background:linear-gradient(135deg,#10b981,#2563eb);
   display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:22px;
+  color:#fff;font-size:24px;
 }
 .sub-left h3{font-size:18px}
 .sub-left span{color:var(--muted);font-size:13px}
+.arrow{font-size:26px;color:var(--muted)}
 
-.arrow{font-size:22px;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(25px);transition:.6s ease}
+.reveal.show{opacity:1;transform:none}
 </style>
 </head>
 
@@ -156,11 +173,10 @@ body{
 
 <!-- TOP MENU -->
 <div class="top-menu">
-
   <div class="menu-left">
-    <div class="hamburger" onclick="toggleMenu()">
+    <button class="menu-btn" onclick="toggleMenu()">
       <span></span><span></span><span></span>
-    </div>
+    </button>
     <div class="dropdown" id="menu">
       <a href="index.html">Home</a>
       <a href="subjects.html">Subjects</a>
@@ -170,10 +186,8 @@ body{
     </div>
   </div>
 
-  <!-- BRAND + LOGO (غير تزاد) -->
   <div class="brand">
-    <img src="logo.png"
-         style="height:28px;width:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-left:8px;">
+    <img src="logo.png" style="height:28px;width:28px;border-radius:50%;object-fit:cover">
     <span>2bac-study</span>
   </div>
 
@@ -183,47 +197,55 @@ body{
     <button onclick="setLang('en')">EN</button>
     <button onclick="toggleDark()">🌙</button>
   </div>
-
 </div>
 
 <!-- TITLE -->
-<div class="page-title">
+<div class="page-title reveal">
   <h1 data-key="title">📚 اختر المادة</h1>
-  <p data-key="desc">اختر المادة لي بغيتي وخدم عليها مباشرة</p>
+  <p data-key="desc">اختَر المادة وخدم عليها بطريقة ذكية ومنظمة</p>
 </div>
 
 <!-- SUBJECTS -->
 <div class="subjects">
 
-  <div class="subject" onclick="location.href='pc.html'">
+  <div class="subject reveal" data-link="pc.html">
     <div class="sub-left">
       <div class="icon">💻</div>
-      <div>
-        <h3 data-key="pc">PC</h3>
-        <span data-key="pc_d">علوم الحاسوب</span>
-      </div>
+      <div><h3 data-key="pc">PC</h3><span data-key="pc_d">علوم الحاسوب</span></div>
     </div>
     <div class="arrow">›</div>
   </div>
 
-  <div class="subject" onclick="location.href='math.html'">
+  <div class="subject reveal" data-link="math.html">
     <div class="sub-left">
       <div class="icon">📐</div>
-      <div>
-        <h3 data-key="math">Math</h3>
-        <span data-key="math_d">الرياضيات</span>
-      </div>
+      <div><h3 data-key="math">Math</h3><span data-key="math_d">الرياضيات</span></div>
     </div>
     <div class="arrow">›</div>
   </div>
 
-  <div class="subject" onclick="location.href='svt.html'">
+  <div class="subject reveal" data-link="svt.html">
     <div class="sub-left">
       <div class="icon">🧬</div>
-      <div>
-        <h3 data-key="svt">SVT</h3>
-        <span data-key="svt_d">علوم الحياة والأرض</span>
-      </div>
+      <div><h3 data-key="svt">SVT</h3><span data-key="svt_d">علوم الحياة والأرض</span></div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+  <!-- 🧠 PHILOSOPHY -->
+  <div class="subject reveal" data-link="philo.html">
+    <div class="sub-left">
+      <div class="icon">🧠</div>
+      <div><h3 data-key="philo">Philosophy</h3><span data-key="philo_d">الفلسفة</span></div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+  <!-- 🇬🇧 ENGLISH -->
+  <div class="subject reveal" data-link="english.html">
+    <div class="sub-left">
+      <div class="icon">🇬🇧</div>
+      <div><h3 data-key="eng">English</h3><span data-key="eng_d">اللغة الإنجليزية</span></div>
     </div>
     <div class="arrow">›</div>
   </div>
@@ -233,20 +255,69 @@ body{
 </div>
 
 <script>
-function toggleDark(){
-  document.body.classList.toggle("dark");
-}
+/* ===== MENU ===== */
 function toggleMenu(){
   const m=document.getElementById("menu");
   m.style.display = m.style.display==="flex" ? "none" : "flex";
 }
+document.addEventListener("click",(e)=>{
+  const m=document.getElementById("menu");
+  const b=document.querySelector(".menu-btn");
+  if(!m.contains(e.target) && !b.contains(e.target)){
+    m.style.display="none";
+  }
+});
 
+/* ===== DARK MODE ===== */
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+
+/* ===== SUBJECT CLICK (UX احترافي) ===== */
+document.querySelectorAll(".subject").forEach(card=>{
+  card.addEventListener("click",()=>{
+    card.style.opacity="0.6";
+    setTimeout(()=>location.href=card.dataset.link,150);
+  });
+});
+
+/* ===== REVEAL ===== */
+const reveals=document.querySelectorAll(".reveal");
+window.addEventListener("scroll",()=>{
+  reveals.forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-60){
+      el.classList.add("show");
+    }
+  });
+});
+
+/* ===== LANG ===== */
 const t={
-  ar:{title:"📚 اختر المادة",desc:"اختر المادة لي بغيتي وخدم عليها مباشرة",pc:"PC",pc_d:"علوم الحاسوب",math:"Math",math_d:"الرياضيات",svt:"SVT",svt_d:"علوم الحياة والأرض"},
-  fr:{title:"📚 Choisir la matière",desc:"Choisissez une matière pour commencer",pc:"PC",pc_d:"Informatique",math:"Math",math_d:"Mathématiques",svt:"SVT",svt_d:"Sciences de la vie et de la terre"},
-  en:{title:"📚 Choose a subject",desc:"Select a subject to start studying",pc:"PC",pc_d:"Computer Science",math:"Math",math_d:"Mathematics",svt:"SVT",svt_d:"Life & Earth Science"}
+  ar:{
+    title:"📚 اختر المادة",desc:"اختَر المادة وخدم عليها بطريقة ذكية ومنظمة",
+    pc:"PC",pc_d:"علوم الحاسوب",
+    math:"Math",math_d:"الرياضيات",
+    svt:"SVT",svt_d:"علوم الحياة والأرض",
+    philo:"Philosophy",philo_d:"الفلسفة",
+    eng:"English",eng_d:"اللغة الإنجليزية"
+  },
+  fr:{
+    title:"📚 Choisir la matière",desc:"Choisissez une matière et travaillez intelligemment",
+    pc:"PC",pc_d:"Informatique",
+    math:"Math",math_d:"Mathématiques",
+    svt:"SVT",svt_d:"SVT",
+    philo:"Philosophie",philo_d:"Philosophie",
+    eng:"English",eng_d:"Anglais"
+  },
+  en:{
+    title:"📚 Choose a subject",desc:"Select a subject and study smartly",
+    pc:"PC",pc_d:"Computer Science",
+    math:"Math",math_d:"Mathematics",
+    svt:"SVT",svt_d:"Life & Earth Science",
+    philo:"Philosophy",philo_d:"Philosophy",
+    eng:"English",eng_d:"English Language"
+  }
 };
-
 function setLang(l){
   document.querySelectorAll("[data-key]").forEach(e=>{
     e.innerText=t[l][e.dataset.key];
