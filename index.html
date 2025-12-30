@@ -318,6 +318,38 @@ function setLang(l){
     e.innerText=t[l][e.dataset.key];
   });
 }
+</script><script>
+/* ===== GLOBAL SETTINGS ===== */
+
+// APPLY SAVED MODE
+if(localStorage.getItem("theme")==="dark"){
+  document.body.classList.add("dark");
+}
+
+// APPLY SAVED LANGUAGE
+const savedLang = localStorage.getItem("lang");
+if(savedLang && typeof setLang === "function"){
+  setLang(savedLang);
+}
+
+// TOGGLE DARK MODE
+function toggleDark(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+}
+
+// SET LANGUAGE
+function setLang(l){
+  localStorage.setItem("lang", l);
+  if(typeof t !== "undefined"){
+    document.querySelectorAll("[data-key]").forEach(e=>{
+      e.innerText = t[l][e.dataset.key];
+    });
+  }
+}
 </script>
 
 </body>
