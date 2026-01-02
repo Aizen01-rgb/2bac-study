@@ -25,6 +25,7 @@ body.dark{
   --muted:#94a3b8;
 }
 
+/* ✅ FIX ديال السكرول */
 body{
   min-height:100vh;
   background:var(--bg-main);
@@ -32,7 +33,9 @@ body{
   justify-content:center;
   padding:24px 14px;
   color:var(--text);
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
   position:relative;
 }
 
@@ -101,10 +104,14 @@ body{
 }
 .dropdown a:hover{background:rgba(255,255,255,.5)}
 
+/* BRAND */
 .brand{
   display:flex;
   align-items:center;
   gap:8px;
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
 }
 .brand span{
   font-weight:900;
@@ -193,7 +200,6 @@ body{
 
 <div class="app">
 
-<!-- MENU -->
 <div class="top-menu">
   <div class="menu-left">
     <button class="menu-btn" onclick="toggleMenu()">
@@ -208,12 +214,11 @@ body{
     </div>
   </div>
 
-  <div class="brand">
+  <a href="/2bac-study/" class="brand">
     <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
     <span>2bac-study</span>
-  </div>
+  </a>
 
-  <!-- ✅ أزرار اللغة تزادات -->
   <div class="actions">
     <button onclick="setLang('ar')">AR</button>
     <button onclick="setLang('fr')">FR</button>
@@ -222,7 +227,6 @@ body{
   </div>
 </div>
 
-<!-- ABOUT CONTENT -->
 <div class="section">
   <h2 data-key="t1">🎓 شنو هي 2bac-study؟</h2>
   <p data-key="p1">
@@ -263,11 +267,7 @@ document.addEventListener("click",(e)=>{
     m.style.display="none";
   }
 });
-function toggleDark(){
-  document.body.classList.toggle("dark");
-}
 
-/* ===== LANG ===== */
 const t={
   ar:{
     t1:"🎓 شنو هي 2bac-study؟",
@@ -282,63 +282,47 @@ const t={
   },
   fr:{
     t1:"🎓 Qu'est-ce que 2bac-study ?",
-    p1:"2bac-study est une plateforme éducative intelligente destinée aux élèves du baccalauréat, pour faciliter la compréhension et organiser la révision.",
+    p1:"2bac-study est une plateforme éducative intelligente destinée aux élèves du baccalauréat.",
     t2:"🚀 Notre méthode",
     v1:"Cours organisés selon le programme marocain",
     v2:"Résumés clairs et efficaces",
     v3:"Exercices corrigés pas à pas",
-    v4:"Orientation vers la réussite au Bac",
+    v4:"Orientation vers la réussite",
     t3:"🔥 Prêt à commencer ?",
     p2:"Travaillez intelligemment aujourd’hui et réussissez demain."
   },
   en:{
     t1:"🎓 What is 2bac-study?",
-    p1:"2bac-study is a smart learning platform for baccalaureate students, helping them understand better and revise effectively.",
+    p1:"2bac-study is a smart learning platform for baccalaureate students.",
     t2:"🚀 Our Method",
     v1:"Well-organized lessons",
-    v2:"Clear and concise summaries",
-    v3:"Solved exercises step by step",
+    v2:"Clear summaries",
+    v3:"Solved exercises",
     v4:"Guidance towards success",
     t3:"🔥 Ready to start?",
     p2:"Study smart today and succeed tomorrow."
   }
 };
+
 function setLang(l){
+  localStorage.setItem("lang",l);
   document.querySelectorAll("[data-key]").forEach(e=>{
     e.innerText=t[l][e.dataset.key];
   });
 }
-</script><script>
-/* ===== GLOBAL SETTINGS ===== */
 
-// APPLY SAVED MODE
 if(localStorage.getItem("theme")==="dark"){
   document.body.classList.add("dark");
 }
-
-// APPLY SAVED LANGUAGE
-const savedLang = localStorage.getItem("lang");
-if(savedLang && typeof setLang === "function"){
-  setLang(savedLang);
+if(localStorage.getItem("lang")){
+  setLang(localStorage.getItem("lang"));
 }
 
-// TOGGLE DARK MODE
 function toggleDark(){
   document.body.classList.toggle("dark");
-  localStorage.setItem(
-    "theme",
-    document.body.classList.contains("dark") ? "dark" : "light"
+  localStorage.setItem("theme",
+    document.body.classList.contains("dark")?"dark":"light"
   );
-}
-
-// SET LANGUAGE
-function setLang(l){
-  localStorage.setItem("lang", l);
-  if(typeof t !== "undefined"){
-    document.querySelectorAll("[data-key]").forEach(e=>{
-      e.innerText = t[l][e.dataset.key];
-    });
-  }
 }
 </script>
 
