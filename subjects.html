@@ -25,6 +25,7 @@ body.dark{
   --muted:#94a3b8;
 }
 
+/* ✅ FIX السكرول فالموبايل */
 body{
   min-height:100vh;
   background:var(--bg-main);
@@ -32,7 +33,9 @@ body{
   justify-content:center;
   padding:24px 14px;
   color:var(--text);
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
   position:relative;
 }
 
@@ -99,8 +102,14 @@ body{
 }
 .dropdown a:hover{background:rgba(255,255,255,.5)}
 
+/* ✅ BRAND قابل للكليك */
 .brand{
-  display:flex;align-items:center;gap:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
 }
 .brand span{
   font-weight:900;
@@ -186,10 +195,11 @@ body{
     </div>
   </div>
 
-  <div class="brand">
+  <!-- ✅ كيرجع للهوم -->
+  <a href="/2bac-study/" class="brand">
     <img src="logo.png" style="height:28px;width:28px;border-radius:50%;object-fit:cover">
     <span>2bac-study</span>
-  </div>
+  </a>
 
   <div class="actions">
     <button onclick="setLang('ar')">AR</button>
@@ -232,7 +242,6 @@ body{
     <div class="arrow">›</div>
   </div>
 
-  <!-- 🧠 PHILOSOPHY -->
   <div class="subject reveal" data-link="philo.html">
     <div class="sub-left">
       <div class="icon">🧠</div>
@@ -241,7 +250,6 @@ body{
     <div class="arrow">›</div>
   </div>
 
-  <!-- 🇬🇧 ENGLISH -->
   <div class="subject reveal" data-link="english.html">
     <div class="sub-left">
       <div class="icon">🇬🇧</div>
@@ -273,7 +281,7 @@ function toggleDark(){
   document.body.classList.toggle("dark");
 }
 
-/* ===== SUBJECT CLICK (UX احترافي) ===== */
+/* ===== SUBJECT CLICK ===== */
 document.querySelectorAll(".subject").forEach(card=>{
   card.addEventListener("click",()=>{
     card.style.opacity="0.6";
@@ -318,42 +326,28 @@ const t={
     eng:"English",eng_d:"English Language"
   }
 };
+
 function setLang(l){
+  localStorage.setItem("lang",l);
   document.querySelectorAll("[data-key]").forEach(e=>{
     e.innerText=t[l][e.dataset.key];
   });
 }
-</script><script>
-/* ===== GLOBAL SETTINGS ===== */
 
-// APPLY SAVED MODE
+/* GLOBAL SETTINGS */
 if(localStorage.getItem("theme")==="dark"){
   document.body.classList.add("dark");
 }
-
-// APPLY SAVED LANGUAGE
-const savedLang = localStorage.getItem("lang");
-if(savedLang && typeof setLang === "function"){
-  setLang(savedLang);
+if(localStorage.getItem("lang")){
+  setLang(localStorage.getItem("lang"));
 }
 
-// TOGGLE DARK MODE
 function toggleDark(){
   document.body.classList.toggle("dark");
   localStorage.setItem(
     "theme",
     document.body.classList.contains("dark") ? "dark" : "light"
   );
-}
-
-// SET LANGUAGE
-function setLang(l){
-  localStorage.setItem("lang", l);
-  if(typeof t !== "undefined"){
-    document.querySelectorAll("[data-key]").forEach(e=>{
-      e.innerText = t[l][e.dataset.key];
-    });
-  }
 }
 </script>
 
