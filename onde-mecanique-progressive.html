@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Les ondes mécaniques progressives | 2bac-study</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
+
+:root{
+  --bg:linear-gradient(135deg,#e0f7f4,#eef2ff);
+  --glass:rgba(255,255,255,.85);
+  --text:#1e293b;
+  --muted:#64748b;
+  --primary:#10b981;
+  --secondary:#2563eb;
+  --shadow:0 25px 60px rgba(0,0,0,.18);
+}
+body.dark{
+  --bg:linear-gradient(135deg,#020617,#0f172a);
+  --glass:rgba(2,6,23,.85);
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+}
+
+body{
+  min-height:100vh;
+  background:var(--bg);
+  padding:20px 12px;
+  color:var(--text);
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+}
+
+.brand{
+  font-weight:900;
+  font-size:18px;
+  text-decoration:none;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.actions button{
+  border:none;
+  background:rgba(255,255,255,.6);
+  padding:6px 10px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  margin-left:4px;
+}
+
+.card{
+  background:var(--glass);
+  border-radius:26px;
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+
+h1{color:var(--secondary);margin-bottom:12px}
+h3{margin-top:20px;color:var(--primary)}
+p,li{line-height:1.7;color:var(--muted)}
+ul{margin-left:20px}
+
+.formula{
+  display:inline-block;
+  background:rgba(0,0,0,.05);
+  padding:8px 12px;
+  border-radius:10px;
+  font-weight:700;
+  margin:8px 0;
+}
+body.dark .formula{background:rgba(255,255,255,.08)}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top">
+  <a href="pc.html" class="brand">⬅️ PC</a>
+
+  <div class="actions">
+    <button onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('ar')">AR</button>
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="toggleDark()">🌙</button>
+  </div>
+</div>
+
+<div class="card" id="content"></div>
+
+</div>
+
+<script>
+const content = {
+fr: `
+<h1>Les ondes mécaniques progressives</h1>
+
+<h3>Définition</h3>
+<p>Une onde mécanique est la propagation d’une perturbation dans un milieu matériel et élastique,
+sans transport de matière mais avec transport d’énergie.</p>
+
+<h3>Types d’ondes</h3>
+<ul>
+  <li>Onde transversale</li>
+  <li>Onde longitudinale</li>
+</ul>
+
+<h3>Dimension</h3>
+<ul>
+  <li>Unidimensionnelle</li>
+  <li>Bidimensionnelle</li>
+  <li>Tridimensionnelle</li>
+</ul>
+
+<h3>Célérité</h3>
+<div class="formula">v = d / Δt</div>
+
+<h3>Retard temporel</h3>
+<div class="formula">τ = d / v</div>
+`,
+
+ar: `
+<h1>الأمواج الميكانيكية المتقدمة</h1>
+
+<h3>التعريف</h3>
+<p>الموجة الميكانيكية هي انتقال اضطراب داخل وسط مادي ومرن دون انتقال المادة، ولكن مع انتقال الطاقة.</p>
+
+<h3>أنواع الموجات</h3>
+<ul>
+  <li>موجة مستعرضة</li>
+  <li>موجة طولية</li>
+</ul>
+
+<h3>الأبعاد</h3>
+<ul>
+  <li>أحادية البعد</li>
+  <li>ثنائية البعد</li>
+  <li>ثلاثية الأبعاد</li>
+</ul>
+
+<h3>سرعة الانتشار</h3>
+<div class="formula">v = d / Δt</div>
+
+<h3>التأخر الزمني</h3>
+<div class="formula">τ = d / v</div>
+`,
+
+en: `
+<h1>Progressive mechanical waves</h1>
+
+<h3>Definition</h3>
+<p>A mechanical wave is the propagation of a disturbance in an elastic medium
+without transport of matter but with transport of energy.</p>
+
+<h3>Types</h3>
+<ul>
+  <li>Transverse wave</li>
+  <li>Longitudinal wave</li>
+</ul>
+
+<h3>Speed</h3>
+<div class="formula">v = d / Δt</div>
+
+<h3>Time delay</h3>
+<div class="formula">τ = d / v</div>
+`
+};
+
+function setLang(l){
+  localStorage.setItem("lang", l);
+  document.getElementById("content").innerHTML = content[l];
+  document.documentElement.lang = l;
+  document.documentElement.dir = (l === "ar") ? "rtl" : "ltr";
+}
+
+function toggleDark(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+}
+
+if(localStorage.getItem("theme") === "dark"){
+  document.body.classList.add("dark");
+}
+
+setLang(localStorage.getItem("lang") || "fr");
+</script>
+
+</body>
+</html>
