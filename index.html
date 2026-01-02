@@ -19,7 +19,8 @@
   <meta property="og:type" content="website">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
 
@@ -122,7 +123,15 @@ body{
 }
 .dropdown a:hover{background:rgba(255,255,255,.5)}
 
-.brand{display:flex;align-items:center;gap:8px}
+/* ===== BRAND (قابلة للكليك) ===== */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
+}
 .brand span{
   font-weight:900;
   background:linear-gradient(135deg,#10b981,#2563eb);
@@ -193,67 +202,71 @@ body{
   color:var(--muted);
   font-size:14px;
 }
-</style> 
+</style>
 </head> 
 
 <body> 
-  <div class="bg-shape shape1"></div>
-  <div class="bg-shape shape2"></div>
-  <div class="bg-shape shape3"></div>
 
-  <div class="app">
-    <div class="top-menu">
-      <div class="menu-left">
-        <button class="menu-btn" onclick="toggleMenu()">
-          <span></span><span></span><span></span>
-        </button>
-        <div class="dropdown" id="menu">
-          <a href="index.html">Home</a>
-          <a href="subjects.html">Subjects</a>
-          <a href="resume.html">Resume</a>
-          <a href="exams.html">Exams</a>
-          <a href="about.html">About</a>
-        </div>
-      </div>
+<div class="bg-shape shape1"></div>
+<div class="bg-shape shape2"></div>
+<div class="bg-shape shape3"></div>
 
-      <div class="brand">
-        <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
-        <span>2bac-study</span>
-      </div>
+<div class="app">
 
-      <div class="actions">
-        <button onclick="setLang('ar')">AR</button>
-        <button onclick="setLang('fr')">FR</button>
-        <button onclick="setLang('en')">EN</button>
-        <button onclick="toggleDark()">🌙</button>
+  <div class="top-menu">
+    <div class="menu-left">
+      <button class="menu-btn" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="dropdown" id="menu">
+        <a href="index.html">Home</a>
+        <a href="subjects.html">Subjects</a>
+        <a href="resume.html">Resume</a>
+        <a href="exams.html">Exams</a>
+        <a href="about.html">About</a>
       </div>
     </div>
 
-    <section class="hero reveal">
-      <h1 data-key="title">🎓 طريقك نحو التفوق في البكالوريا</h1>
-      <p data-key="desc">منصة تعليمية ذكية لطلبة الثانية باكالوريا<br>دروس • ملخصات • تمارين محلولة</p>
-      <div class="btns">
-        <button onclick="location.href='subjects.html'">ابدأ الآن 🚀</button>
-        <button class="secondary" onclick="location.href='about.html'">لماذا 2bac-study؟</button>
-      </div>
-    </section>
+    <!-- ✅ BRAND قابل للكليك ويرجع للهوم -->
+    <a href="/2bac-study/" class="brand">
+      <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
+      <span>2bac-study</span>
+    </a>
 
-    <section class="cards reveal">
-      <div class="card"><div class="icon-3d">📘</div><h3>دروس مرتبة حسب المنهاج المغربي</h3></div>
-      <div class="card"><div class="icon-3d">🧠</div><h3>ملخصات للفهم السريع والمراجعة</h3></div>
-      <div class="card"><div class="icon-3d">✍️</div><h3>تمارين وطنية مصححة خطوة بخطوة</h3></div>
-    </section>
-
-    <section class="cards reveal">
-      <div class="card"><div class="icon-3d">📚</div><h3>+120 درس وملخص</h3></div>
-      <div class="card"><div class="icon-3d">📝</div><h3>تمارين وطنية وجهوية</h3></div>
-      <div class="card"><div class="icon-3d">🎯</div><h3>موجّهة للنجاح في البكالوريا</h3></div>
-    </section>
-
-    <div class="footer-text">
-      🚀 2bac-study ليست مجرد منصة،<br>بل رفيقك اليومي نحو النجاح في البكالوريا.
+    <div class="actions">
+      <button onclick="setLang('ar')">AR</button>
+      <button onclick="setLang('fr')">FR</button>
+      <button onclick="setLang('en')">EN</button>
+      <button onclick="toggleDark()">🌙</button>
     </div>
   </div>
+
+  <section class="hero reveal">
+    <h1 data-key="title">🎓 طريقك نحو التفوق في البكالوريا</h1>
+    <p data-key="desc">منصة تعليمية ذكية لطلبة الثانية باكالوريا<br>دروس • ملخصات • تمارين محلولة</p>
+    <div class="btns">
+      <button onclick="location.href='subjects.html'">ابدأ الآن 🚀</button>
+      <button class="secondary" onclick="location.href='about.html'">لماذا 2bac-study؟</button>
+    </div>
+  </section>
+
+  <section class="cards reveal">
+    <div class="card"><div class="icon-3d">📘</div><h3>دروس مرتبة حسب المنهاج المغربي</h3></div>
+    <div class="card"><div class="icon-3d">🧠</div><h3>ملخصات للفهم السريع والمراجعة</h3></div>
+    <div class="card"><div class="icon-3d">✍️</div><h3>تمارين وطنية مصححة خطوة بخطوة</h3></div>
+  </section>
+
+  <section class="cards reveal">
+    <div class="card"><div class="icon-3d">📚</div><h3>+120 درس وملخص</h3></div>
+    <div class="card"><div class="icon-3d">📝</div><h3>تمارين وطنية وجهوية</h3></div>
+    <div class="card"><div class="icon-3d">🎯</div><h3>موجّهة للنجاح في البكالوريا</h3></div>
+  </section>
+
+  <div class="footer-text">
+    🚀 2bac-study ليست مجرد منصة،<br>بل رفيقك اليومي نحو النجاح في البكالوريا.
+  </div>
+
+</div>
 
 <script>
 function toggleMenu(){
