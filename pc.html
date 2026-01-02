@@ -8,7 +8,6 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
 
-/* ===== COLORS ===== */
 :root{
   --bg-main:linear-gradient(135deg,#e0f7f4,#eef2ff);
   --glass:rgba(255,255,255,.78);
@@ -26,7 +25,7 @@ body.dark{
   --muted:#94a3b8;
 }
 
-/* ===== BODY ===== */
+/* BODY */
 body{
   min-height:100vh;
   background:var(--bg-main);
@@ -34,48 +33,22 @@ body{
   justify-content:center;
   padding:20px 12px;
   color:var(--text);
+  overflow-x:hidden;
   overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
   position:relative;
 }
 
-/* ===== BACKGROUND SHAPES ===== */
-.bg-shape{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(2px);
-  opacity:.35;
-  animation:float 12s infinite;
-  z-index:0;
-}
-.shape1{
-  width:180px;height:180px;
-  background:linear-gradient(135deg,#34d399,#60a5fa);
-  top:70%;right:-60px;
-}
-.shape2{
-  width:140px;height:140px;
-  background:linear-gradient(135deg,#a78bfa,#22d3ee);
-  top:15%;left:-50px;
-  animation-delay:3s;
-}
-.shape3{
-  width:90px;height:90px;
-  background:linear-gradient(135deg,#facc15,#fb7185);
-  bottom:15%;left:40%;
-  animation-delay:6s;
-}
-@keyframes float{
-  50%{transform:translateY(-25px)}
-}
+/* BACKGROUND */
+.bg-shape{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;animation:float 12s infinite}
+.shape1{width:180px;height:180px;background:linear-gradient(135deg,#34d399,#60a5fa);top:70%;right:-60px}
+.shape2{width:140px;height:140px;background:linear-gradient(135deg,#a78bfa,#22d3ee);top:15%;left:-50px;animation-delay:3s}
+.shape3{width:90px;height:90px;background:linear-gradient(135deg,#facc15,#fb7185);bottom:15%;left:40%;animation-delay:6s}
+@keyframes float{50%{transform:translateY(-25px)}}
 
-.app{
-  width:100%;
-  max-width:440px;
-  position:relative;
-  z-index:1;
-}
+.app{width:100%;max-width:440px;position:relative;z-index:1}
 
-/* ===== TOP MENU ===== */
+/* TOP MENU */
 .top-menu{
   background:var(--glass);
   backdrop-filter:blur(16px);
@@ -86,29 +59,30 @@ body{
   justify-content:space-between;
   box-shadow:var(--shadow);
   margin-bottom:26px;
+  position:relative;
+  z-index:1000;
 }
 
 .menu-left{position:relative}
 .hamburger{
-  width:34px;height:26px;
+  width:46px;height:46px;
+  background:#2ecf8f;
+  border:none;
+  border-radius:16px;
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
-  padding:6px;
-  border-radius:12px;
-  background:rgba(255,255,255,.6);
-  box-shadow:var(--shadow);
+  justify-content:center;
+  align-items:center;
+  gap:6px;
   cursor:pointer;
 }
-.hamburger span{
-  height:4px;
-  background:var(--text);
-  border-radius:6px;
-}
+.hamburger span{width:22px;height:4px;background:#fff;border-radius:4px}
 
 .dropdown{
   position:absolute;
-  top:50px;left:0;
+  top:60px;
+  right:50%;
+  transform:translateX(50%);
   background:var(--glass);
   backdrop-filter:blur(16px);
   border-radius:18px;
@@ -118,6 +92,7 @@ body{
   flex-direction:column;
   gap:10px;
   min-width:160px;
+  z-index:2000;
 }
 .dropdown a{
   text-decoration:none;
@@ -126,14 +101,15 @@ body{
   padding:8px 14px;
   border-radius:12px;
 }
-.dropdown a:hover{
-  background:rgba(255,255,255,.5);
-}
+.dropdown a:hover{background:rgba(255,255,255,.5)}
 
 .brand{
   display:flex;
   align-items:center;
   gap:8px;
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
 }
 .brand span{
   font-weight:900;
@@ -152,7 +128,7 @@ body{
   margin-left:4px;
 }
 
-/* ===== SECTION ===== */
+/* SECTIONS */
 .section{
   background:var(--glass);
   backdrop-filter:blur(16px);
@@ -170,16 +146,9 @@ body{
 }
 
 .subject{margin-bottom:22px}
-.subject h3{
-  color:var(--secondary);
-  margin-bottom:12px;
-}
+.subject h3{color:var(--secondary);margin-bottom:12px}
 
-/* ===== LESSONS 3D ===== */
-.lessons{
-  display:grid;
-  gap:12px;
-}
+.lessons{display:grid;gap:12px}
 .lesson{
   background:rgba(255,255,255,.65);
   padding:14px 16px;
@@ -197,19 +166,18 @@ body{
 
 <body>
 
-<!-- BACKGROUND -->
 <div class="bg-shape shape1"></div>
 <div class="bg-shape shape2"></div>
 <div class="bg-shape shape3"></div>
 
 <div class="app">
 
-<!-- ===== TOP MENU ===== -->
+<!-- MENU -->
 <div class="top-menu">
   <div class="menu-left">
-    <div class="hamburger" onclick="toggleMenu()">
+    <button class="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
-    </div>
+    </button>
     <div class="dropdown" id="menu">
       <a href="index.html">Home</a>
       <a href="subjects.html">Subjects</a>
@@ -219,10 +187,10 @@ body{
     </div>
   </div>
 
-  <div class="brand">
+  <a href="/2bac-study/" class="brand">
     <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
     <span>2bac-study</span>
-  </div>
+  </a>
 
   <div class="actions">
     <button onclick="setLang('ar')">AR</button>
@@ -234,10 +202,10 @@ body{
 
 <!-- ===== الدورة الأولى ===== -->
 <div class="section">
-  <div class="section-title" data-key="s1">📘 الدورة الأولى</div>
+  <div class="section-title">📘 الدورة الأولى</div>
 
   <div class="subject">
-    <h3 data-key="phy">⚡ Physique</h3>
+    <h3>⚡ Physique</h3>
     <div class="lessons">
       <div class="lesson">Les ondes mécaniques progressives</div>
       <div class="lesson">Les ondes mécaniques progressives périodiques</div>
@@ -254,7 +222,7 @@ body{
   </div>
 
   <div class="subject">
-    <h3 data-key="chim">🧪 Chimie</h3>
+    <h3>🧪 Chimie</h3>
     <div class="lessons">
       <div class="lesson">Transformations lentes et rapides</div>
       <div class="lesson">Suivi temporel</div>
@@ -268,10 +236,10 @@ body{
 
 <!-- ===== الدورة الثانية ===== -->
 <div class="section">
-  <div class="section-title" data-key="s2">📕 الدورة الثانية</div>
+  <div class="section-title">📕 الدورة الثانية</div>
 
   <div class="subject">
-    <h3 data-key="phy">⚙️ Physique – Mécanique</h3>
+    <h3>⚙️ Physique – Mécanique</h3>
     <div class="lessons">
       <div class="lesson">Lois de Newton</div>
       <div class="lesson">Chute libre</div>
@@ -285,7 +253,7 @@ body{
   </div>
 
   <div class="subject">
-    <h3 data-key="chim">🧪 Chimie</h3>
+    <h3>🧪 Chimie</h3>
     <div class="lessons">
       <div class="lesson">Dosage acido-basique</div>
       <div class="lesson">Évolution spontanée</div>
@@ -308,49 +276,43 @@ function toggleDark(){
   document.body.classList.toggle("dark");
 }
 
-/* ===== LANG ===== */
-const t={
-  ar:{s1:"📘 الدورة الأولى",s2:"📕 الدورة الثانية",phy:"Physique",chim:"Chimie"},
-  fr:{s1:"📘 Premier semestre",s2:"📕 Deuxième semestre",phy:"Physique",chim:"Chimie"},
-  en:{s1:"📘 First semester",s2:"📕 Second semester",phy:"Physics",chim:"Chemistry"}
-};
-function setLang(l){
-  document.querySelectorAll("[data-key]").forEach(e=>{
-    e.innerText=t[l][e.dataset.key];
-  });
-}
-</script><script>
-/* ===== GLOBAL SETTINGS ===== */
+/* ===== LANGUAGE FIX (ONLY JS) ===== */
+function setLang(lang){
+  localStorage.setItem("lang", lang);
+  document.documentElement.lang = lang;
 
-// APPLY SAVED MODE
-if(localStorage.getItem("theme")==="dark"){
-  document.body.classList.add("dark");
-}
-
-// APPLY SAVED LANGUAGE
-const savedLang = localStorage.getItem("lang");
-if(savedLang && typeof setLang === "function"){
-  setLang(savedLang);
-}
-
-// TOGGLE DARK MODE
-function toggleDark(){
-  document.body.classList.toggle("dark");
-  localStorage.setItem(
-    "theme",
-    document.body.classList.contains("dark") ? "dark" : "light"
-  );
-}
-
-// SET LANGUAGE
-function setLang(l){
-  localStorage.setItem("lang", l);
-  if(typeof t !== "undefined"){
-    document.querySelectorAll("[data-key]").forEach(e=>{
-      e.innerText = t[l][e.dataset.key];
-    });
+  if(lang === "ar"){
+    document.documentElement.dir = "rtl";
+    document.title = "PC | 2bac-study";
+  }else{
+    document.documentElement.dir = "ltr";
+    document.title = "PC | 2bac-study";
   }
 }
+
+/* APPLY SAVED LANG */
+const savedLang = localStorage.getItem("lang");
+if(savedLang){
+  setLang(savedLang);
+}
+</script><script>
+/* ===== LESSON CLICK FIX (بدون لمس HTML) ===== */
+function slugify(text){
+  return text
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // حيد ال accent
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
+document.querySelectorAll(".lesson").forEach(lesson=>{
+  lesson.addEventListener("click", ()=>{
+    const title = lesson.innerText;
+    const page = slugify(title) + ".html";
+    window.location.href = page;
+  });
+});
 </script>
 
 </body>
