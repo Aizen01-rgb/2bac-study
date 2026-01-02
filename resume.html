@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Resume | 2bac-study</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
+
+/* COLORS */
+:root{
+  --bg-main:linear-gradient(135deg,#e0f7f4,#eef2ff);
+  --glass:rgba(255,255,255,.78);
+  --text:#1e293b;
+  --muted:#64748b;
+  --primary:#10b981;
+  --secondary:#2563eb;
+  --shadow:0 25px 60px rgba(0,0,0,.18);
+}
+body.dark{
+  --bg-main:linear-gradient(135deg,#020617,#0f172a);
+  --glass:rgba(2,6,23,.8);
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+}
+
+/* BODY */
+body{
+  min-height:100vh;
+  background:var(--bg-main);
+  display:flex;
+  justify-content:center;
+  padding:20px 12px;
+  color:var(--text);
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* APP */
+.app{width:100%;max-width:430px}
+
+/* TOP MENU */
+.top-menu{
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:22px;
+  padding:12px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:var(--shadow);
+  margin-bottom:26px;
+  position:relative;
+  z-index:1000;
+}
+
+.menu-left{position:relative}
+.menu-btn{
+  width:46px;height:46px;
+  background:#2ecf8f;
+  border:none;
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+}
+.menu-btn span{width:22px;height:4px;background:#fff;border-radius:4px}
+
+.dropdown{
+  position:absolute;
+  top:60px;
+  right:50%;
+  transform:translateX(50%);
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  padding:12px;
+  display:none;
+  flex-direction:column;
+  gap:10px;
+  min-width:160px;
+  z-index:2000;
+}
+.dropdown a{
+  text-decoration:none;
+  color:var(--text);
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:12px;
+}
+.dropdown a:hover{background:rgba(255,255,255,.5)}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:inherit;
+}
+.brand span{
+  font-weight:900;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.actions button{
+  border:none;
+  background:rgba(255,255,255,.6);
+  padding:6px 9px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* TITLE */
+.page-title{
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border-radius:30px;
+  padding:28px 20px;
+  text-align:center;
+  box-shadow:var(--shadow);
+  margin-bottom:26px;
+}
+.page-title h1{font-size:22px;margin-bottom:8px}
+.page-title p{color:var(--muted);font-size:14px}
+
+/* CARDS */
+.cards{display:grid;gap:18px}
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:26px;
+  padding:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  transition:.35s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 30px 60px rgba(0,0,0,.22);
+}
+
+.card-left{display:flex;align-items:center;gap:16px}
+.icon{
+  width:54px;height:54px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:24px;
+}
+.arrow{font-size:26px;color:var(--muted)}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- MENU -->
+<div class="top-menu">
+  <div class="menu-left">
+    <button class="menu-btn" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="dropdown" id="menu">
+      <a href="index.html">Home</a>
+      <a href="subjects.html">Subjects</a>
+      <a href="resume.html">Resume</a>
+      <a href="exams.html">Exams</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+
+  <!-- LOGO -> HOME -->
+  <a href="/2bac-study/" class="brand">
+    <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
+    <span>2bac-study</span>
+  </a>
+
+  <div class="actions">
+    <button onclick="setLang('ar')">AR</button>
+    <button onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="toggleDark()">🌙</button>
+  </div>
+</div>
+
+<!-- TITLE -->
+<div class="page-title">
+  <h1>📂 اختَر التلاخيص</h1>
+  <p>دخّل للشعبة ديالك وحمّل التلاخيص</p>
+</div>
+
+<!-- CARDS -->
+<div class="cards">
+
+  <div class="card" onclick="go('resume-pc.html')">
+    <div class="card-left">
+      <div class="icon">💻</div>
+      <div>PC</div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+  <div class="card" onclick="go('resume-math.html')">
+    <div class="card-left">
+      <div class="icon">📐</div>
+      <div>Math</div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+  <div class="card" onclick="go('resume-svt.html')">
+    <div class="card-left">
+      <div class="icon">🧬</div>
+      <div>SVT</div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+  <div class="card" onclick="go('resume-philo.html')">
+    <div class="card-left">
+      <div class="icon">🧠</div>
+      <div>Philosophy</div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+  <div class="card" onclick="go('resume-english.html')">
+    <div class="card-left">
+      <div class="icon">🇬🇧</div>
+      <div>English</div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+function toggleMenu(){
+  const m=document.getElementById("menu");
+  m.style.display = m.style.display==="flex" ? "none" : "flex";
+}
+function go(page){
+  location.href = page;
+}
+function toggleDark(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("dark")?"dark":"light"
+  );
+}
+if(localStorage.getItem("theme")==="dark"){
+  document.body.classList.add("dark");
+}
+function setLang(l){
+  localStorage.setItem("lang",l);
+  document.documentElement.lang = l;
+  document.documentElement.dir = (l==="ar")?"rtl":"ltr";
+}
+const savedLang = localStorage.getItem("lang");
+if(savedLang){setLang(savedLang);}
+</script>
+
+</body>
+</html>
