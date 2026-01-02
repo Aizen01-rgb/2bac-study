@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<title>PC Lessons | 2bac-study</title>
+<title>PC – Lessons | 2bac-study</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
 
-/* ===== COLORS ===== */
+/* COLORS */
 :root{
-  --bg:linear-gradient(135deg,#e0f7f4,#eef2ff);
-  --glass:rgba(255,255,255,.78);
+  --bg-main:linear-gradient(135deg,#e0f7f4,#eef2ff);
+  --glass:rgba(255,255,255,.8);
   --text:#1e293b;
   --muted:#64748b;
   --primary:#10b981;
@@ -19,24 +19,27 @@
   --shadow:0 25px 60px rgba(0,0,0,.18);
 }
 body.dark{
-  --bg:linear-gradient(135deg,#020617,#0f172a);
-  --glass:rgba(2,6,23,.78);
+  --bg-main:linear-gradient(135deg,#020617,#0f172a);
+  --glass:rgba(2,6,23,.85);
   --text:#e5e7eb;
   --muted:#94a3b8;
 }
 
-/* ===== BODY ===== */
 body{
   min-height:100vh;
-  background:var(--bg);
-  padding:20px 12px;
+  background:var(--bg-main);
+  padding:20px 14px;
   display:flex;
   justify-content:center;
   color:var(--text);
 }
-.app{width:100%;max-width:900px}
 
-/* ===== TOP MENU ===== */
+.app{
+  width:100%;
+  max-width:440px;
+}
+
+/* TOP MENU */
 .top-menu{
   background:var(--glass);
   backdrop-filter:blur(16px);
@@ -46,17 +49,14 @@ body{
   justify-content:space-between;
   align-items:center;
   box-shadow:var(--shadow);
-  margin-bottom:26px;
+  margin-bottom:24px;
 }
-.menu-btn{
-  width:46px;height:46px;
-  background:#2ecf8f;
-  border:none;border-radius:16px;
-  color:#fff;font-size:22px;cursor:pointer;
-}
+
 .brand{
-  display:flex;align-items:center;gap:8px;
-  text-decoration:none;color:inherit;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
 }
 .brand span{
   font-weight:900;
@@ -64,64 +64,74 @@ body{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
+
 .actions button{
-  border:none;background:rgba(255,255,255,.6);
-  padding:6px 10px;border-radius:10px;
-  cursor:pointer;font-weight:700;
+  border:none;
+  background:rgba(255,255,255,.6);
+  padding:6px 9px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
 }
 
-/* ===== LAYOUT ===== */
-.grid{
+/* LAYOUT */
+.container{
   display:grid;
-  grid-template-columns:260px 1fr;
-  gap:22px;
-}
-@media(max-width:800px){
-  .grid{grid-template-columns:1fr}
+  gap:18px;
 }
 
-/* ===== SIDEBAR ===== */
-.sidebar{
+/* LESSON LIST */
+.lesson-list{
   background:var(--glass);
   border-radius:26px;
-  padding:18px;
+  padding:16px;
   box-shadow:var(--shadow);
 }
-.sidebar h3{margin-bottom:14px}
 .lesson-link{
   padding:12px 14px;
   border-radius:14px;
   cursor:pointer;
-  font-weight:600;
+  font-weight:700;
+  margin-bottom:8px;
+  transition:.25s;
 }
-.lesson-link:hover,
+.lesson-link:hover{
+  background:rgba(255,255,255,.6);
+}
 .lesson-link.active{
   background:linear-gradient(135deg,#10b981,#34d399);
   color:#fff;
 }
 
-/* ===== CONTENT ===== */
-.content{
+/* CONTENT */
+.lesson-content{
   background:var(--glass);
   border-radius:26px;
-  padding:26px;
+  padding:22px;
   box-shadow:var(--shadow);
+  line-height:1.7;
 }
-.content h2{margin-bottom:14px}
-.content h4{margin-top:18px;margin-bottom:8px}
-.content p, li{color:var(--muted);line-height:1.7}
-ul{margin-left:20px}
-
-/* ===== FORMULAS ===== */
+.lesson-content h2{
+  margin-bottom:12px;
+  color:var(--secondary);
+}
+.lesson-content h3{
+  margin-top:16px;
+  color:var(--primary);
+}
+.lesson-content ul{
+  margin-left:18px;
+}
+.lesson-content p{
+  margin:8px 0;
+}
 .formula{
   background:rgba(0,0,0,.05);
-  padding:10px 14px;
-  border-radius:12px;
+  padding:8px 12px;
+  border-radius:10px;
   font-weight:700;
-  margin:10px 0;
   display:inline-block;
 }
-body.dark .formula{background:rgba(255,255,255,.08)}
 </style>
 </head>
 
@@ -131,138 +141,108 @@ body.dark .formula{background:rgba(255,255,255,.08)}
 
 <!-- MENU -->
 <div class="top-menu">
-  <button class="menu-btn" onclick="toggleDark()">🌙</button>
-
   <a href="/2bac-study/" class="brand">
     <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
     <span>2bac-study</span>
   </a>
-
   <div class="actions">
-    <button onclick="setLang('ar')">AR</button>
     <button onclick="setLang('fr')">FR</button>
-    <button onclick="setLang('en')">EN</button>
+    <button onclick="setLang('ar')">AR</button>
+    <button onclick="toggleDark()">🌙</button>
   </div>
 </div>
 
-<div class="grid">
+<div class="container">
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <h3>📘 Physique</h3>
-  <div class="lesson-link active" onclick="openLesson('ondes')">
-    Ondes mécaniques progressives
+<!-- LESSONS -->
+<div class="lesson-list">
+  <div class="lesson-link active" onclick="openLesson('ondes', this)">
+    1️⃣ Les ondes mécaniques progressives
   </div>
-  <div class="lesson-link" onclick="openLesson('ondes-periodiques')">
-    Ondes mécaniques progressives périodiques
+  <div class="lesson-link" onclick="openLesson('ondes-periodiques', this)">
+    2️⃣ Ondes mécaniques progressives périodiques
   </div>
-
-  <h3 style="margin-top:18px">🧪 Chimie</h3>
-  <div class="lesson-link" onclick="openLesson('chimie')">
-    Transformations lentes et rapides
+  <div class="lesson-link" onclick="openLesson('chimie', this)">
+    🧪 Transformation lente et rapide
   </div>
 </div>
 
 <!-- CONTENT -->
-<div class="content" id="lessonContent"></div>
+<div class="lesson-content" id="lessonContent"></div>
 
 </div>
 </div>
 
 <script>
-/* ===== DARK MODE ===== */
+/* DARK MODE */
 function toggleDark(){
   document.body.classList.toggle("dark");
+  localStorage.setItem("theme",
+    document.body.classList.contains("dark")?"dark":"light"
+  );
+}
+if(localStorage.getItem("theme")==="dark"){
+  document.body.classList.add("dark");
 }
 
-/* ===== LESSON DATA ===== */
+/* LESSON DATA */
 const lessons = {
   ondes: `
     <h2>Les ondes mécaniques progressives</h2>
+    <h3>Définition</h3>
+    <p>Une onde mécanique est la propagation d’une perturbation dans un milieu matériel élastique sans transport de matière mais avec transport d’énergie.</p>
 
-    <h4>Définition</h4>
-    <p>Une onde mécanique est la propagation d’une perturbation dans un milieu matériel et élastique,
-    sans transport de matière mais avec transport d’énergie.</p>
-
-    <h4>Types d’ondes</h4>
+    <h3>Types</h3>
     <ul>
-      <li>Onde transversale : direction de propagation ⟂ perturbation</li>
-      <li>Onde longitudinale : direction de propagation ∥ perturbation</li>
+      <li>Onde transversale</li>
+      <li>Onde longitudinale</li>
     </ul>
 
-    <h4>Dimension</h4>
-    <ul>
-      <li>Unidimensionnelle : corde</li>
-      <li>Bidimensionnelle : surface de l’eau</li>
-      <li>Tridimensionnelle : son</li>
-    </ul>
-
-    <h4>Célérité</h4>
-    <div class="formula">v = d / Δt</div>
-
-    <p>La vitesse dépend de la nature du milieu.</p>
-
-    <h4>Retard temporel</h4>
-    <div class="formula">τ = d / v</div>
+    <h3>Célérité</h3>
+    <p class="formula">v = d / Δt</p>
   `,
 
   "ondes-periodiques": `
     <h2>Ondes mécaniques progressives périodiques</h2>
+    <h3>Période</h3>
+    <p>La période T est la durée minimale après laquelle le phénomène se répète.</p>
 
-    <h4>Définition</h4>
-    <p>Une onde périodique est une perturbation qui se répète à des intervalles de temps égaux.</p>
+    <h3>Longueur d’onde</h3>
+    <p class="formula">λ = v × T</p>
 
-    <h4>Grandeurs</h4>
-    <ul>
-      <li>Période T</li>
-      <li>Fréquence N = 1 / T</li>
-      <li>Longueur d’onde λ</li>
-    </ul>
-
-    <h4>Relation fondamentale</h4>
-    <div class="formula">v = λ × N</div>
-
-    <h4>État de vibration</h4>
-    <ul>
-      <li>En phase : d / λ = k</li>
-      <li>Opposition de phase : d / λ = k + 1/2</li>
-    </ul>
-
-    <h4>Diffraction</h4>
-    <p>Modification de la forme d’une onde au voisinage d’une ouverture ou d’un obstacle.</p>
+    <h3>Relation fondamentale</h3>
+    <p class="formula">v = λ × N</p>
   `,
 
   chimie: `
-    <h2>Transformations lentes et rapides</h2>
+    <h2>Transformation lente et rapide</h2>
+    <h3>Transformation rapide</h3>
+    <p>Elle se fait en un temps très court, impossible à suivre à l’œil.</p>
 
-    <h4>Transformation rapide</h4>
-    <p>Se fait en une courte durée, impossible de suivre son évolution dans le temps.</p>
+    <h3>Transformation lente</h3>
+    <p>Elle se fait sur une durée suffisante pour suivre son évolution.</p>
 
-    <h4>Transformation lente</h4>
-    <p>Se fait sur une durée suffisante permettant de suivre son évolution.</p>
-
-    <h4>Facteurs cinétiques</h4>
+    <h3>Facteurs cinétiques</h3>
     <ul>
       <li>Température</li>
-      <li>Pression</li>
-      <li>Quantité de matière</li>
       <li>Concentration</li>
+      <li>Pression</li>
+      <li>Catalyseur</li>
     </ul>
-
-    <h4>Catalyseur</h4>
-    <p>Accélère la réaction sans être consommé.</p>
   `
 };
 
-/* ===== OPEN LESSON ===== */
-function openLesson(id){
-  document.querySelectorAll(".lesson-link").forEach(l=>l.classList.remove("active"));
-  event.target.classList.add("active");
+/* OPEN LESSON (FIX 404) */
+function openLesson(id, el){
+  document.querySelectorAll(".lesson-link").forEach(l=>{
+    l.classList.remove("active");
+  });
+  el.classList.add("active");
   document.getElementById("lessonContent").innerHTML = lessons[id];
 }
 
 /* LOAD FIRST */
-document.getElementById("lessonContent").innerHTML = lessons.ondes;
+document.getElementById("lessonContent").innerHTML = lessons["ondes"];
 </script>
 
 </body>
