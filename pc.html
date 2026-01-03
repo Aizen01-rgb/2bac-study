@@ -25,7 +25,6 @@ body.dark{
   --muted:#94a3b8;
 }
 
-/* BODY */
 body{
   min-height:100vh;
   background:var(--bg-main);
@@ -35,7 +34,6 @@ body{
   color:var(--text);
   overflow-x:hidden;
   overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
   position:relative;
 }
 
@@ -108,8 +106,6 @@ body{
   align-items:center;
   gap:8px;
   text-decoration:none;
-  color:inherit;
-  cursor:pointer;
 }
 .brand span{
   font-weight:900;
@@ -181,13 +177,14 @@ body{
     <div class="dropdown" id="menu">
       <a href="index.html">Home</a>
       <a href="subjects.html">Subjects</a>
-      <a href="resume.html">Resume</a>
-      <a href="exams.html">Exams</a>
+      <a href="pc.html">PC</a>
+      <a href="math.html">Math</a>
+      <a href="svt.html">SVT</a>
       <a href="about.html">About</a>
     </div>
   </div>
 
-  <a href="/2bac-study/" class="brand">
+  <a href="index.html" class="brand">
     <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
     <span>2bac-study</span>
   </a>
@@ -208,8 +205,8 @@ body{
     <h3>⚡ Physique</h3>
     <div class="lessons">
       <div class="lesson" onclick="location.href='onde-mecanique-progressive.html'">
-  Les ondes mécaniques progressives
-</div>
+        Les ondes mécaniques progressives
+      </div>
       <div class="lesson">Les ondes mécaniques progressives périodiques</div>
       <div class="lesson">Propagation des ondes lumineuses</div>
       <div class="lesson">Dipôle RC</div>
@@ -274,47 +271,27 @@ function toggleMenu(){
   const m=document.getElementById("menu");
   m.style.display = m.style.display==="flex" ? "none" : "flex";
 }
+
 function toggleDark(){
   document.body.classList.toggle("dark");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
 }
 
-/* ===== LANGUAGE FIX (ONLY JS) ===== */
-function setLang(lang){
-  localStorage.setItem("lang", lang);
-  document.documentElement.lang = lang;
-
-  if(lang === "ar"){
-    document.documentElement.dir = "rtl";
-    document.title = "PC | 2bac-study";
-  }else{
-    document.documentElement.dir = "ltr";
-    document.title = "PC | 2bac-study";
-  }
+function setLang(l){
+  localStorage.setItem("lang", l);
+  document.documentElement.lang = l;
+  document.documentElement.dir = (l==="ar") ? "rtl" : "ltr";
 }
 
-/* APPLY SAVED LANG */
-const savedLang = localStorage.getItem("lang");
-if(savedLang){
-  setLang(savedLang);
+if(localStorage.getItem("theme")==="dark"){
+  document.body.classList.add("dark");
 }
-</script><script>
-/* ===== LESSON CLICK FIX (بدون لمس HTML) ===== */
-function slugify(text){
-  return text
-    .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // حيد ال accent
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
+if(localStorage.getItem("lang")){
+  setLang(localStorage.getItem("lang"));
 }
-
-document.querySelectorAll(".lesson").forEach(lesson=>{
-  lesson.addEventListener("click", ()=>{
-    const title = lesson.innerText;
-    const page = slugify(title) + ".html";
-    window.location.href = page;
-  });
-});
 </script>
 
 </body>
