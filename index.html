@@ -1,28 +1,27 @@
 <!doctype html>
-<html lang="ar" dir="rtl"> 
-<head> 
-  <meta charset="UTF-8"> 
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
 
-  <!-- ===== SEO 2BAC ===== -->
-  <title>2BAC Study | دروس وملخصات الثانية باكالوريا علوم فيزيائية</title>
+<title>2BAC Study | دروس وملخصات الثانية باكالوريا علوم فيزيائية</title>
 
-  <meta name="description" content="2BAC Study منصة تعليمية لتلاميذ الثانية باكالوريا علوم فيزيائية بالمغرب: دروس، ملخصات، تمارين محلولة في الفيزياء، الرياضيات وSVT وفق المنهاج المغربي.">
-
-  <meta name="keywords" content="2bac, 2bac maroc, 2bac sciences physiques, 2bac pc, 2bac math, 2bac svt, دروس 2 باك, ملخصات 2 باك, تمارين 2 باك, الثانية باكالوريا علوم فيزيائية">
-
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="2BAC Study">
-
-  <meta property="og:title" content="2BAC Study | Prep & Success">
-  <meta property="og:description" content="منصة تعليمية ذكية لتلاميذ الثانية باكالوريا علوم فيزيائية.">
-  <meta property="og:url" content="https://aizen01-rgb.github.io/2bac-study/">
-  <meta property="og:type" content="website">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="2BAC Study منصة تعليمية لتلاميذ الثانية باكالوريا علوم فيزيائية بالمغرب">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.png">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',Tahoma;
+  max-width:100%;
+}
+
+html,body{
+  width:100%;
+  overflow-x:hidden;
+}
 
 :root{
   --bg-main:linear-gradient(135deg,#e0f7f4,#eef2ff);
@@ -41,32 +40,40 @@ body.dark{
   --muted:#94a3b8;
 }
 
-html, body{
-  margin:0;
-  padding:0;
-  width:100%;
-}
-
 body{
   min-height:100vh;
   background:var(--bg-main);
   color:var(--text);
   padding:24px 14px;
-  overflow-x:hidden;
   overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:none;
+  touch-action:pan-y;
 }
 
-/* ===== BACKGROUND SHAPES ===== */
-.bg-shape{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;animation:float 12s infinite}
-.shape1{width:180px;height:180px;background:linear-gradient(135deg,#34d399,#60a5fa);top:70%;right:-60px}
-.shape2{width:140px;height:140px;background:linear-gradient(135deg,#a78bfa,#22d3ee);top:15%;left:-50px;animation-delay:3s}
-.shape3{width:90px;height:90px;background:linear-gradient(135deg,#facc15,#fb7185);bottom:15%;left:40%;animation-delay:6s}
+/* الخلفية */
+.bg-shape{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(2px);
+  opacity:.35;
+  animation:float 12s infinite;
+  pointer-events:none;
+  z-index:0;
+}
+.shape1{width:180px;height:180px;background:linear-gradient(135deg,#34d399,#60a5fa);bottom:10%;right:-60px}
+.shape2{width:140px;height:140px;background:linear-gradient(135deg,#a78bfa,#22d3ee);top:15%;left:-50px}
+.shape3{width:90px;height:90px;background:linear-gradient(135deg,#facc15,#fb7185);bottom:15%;left:40%}
 @keyframes float{50%{transform:translateY(-25px)}}
 
-.app{width:100%;max-width:430px;margin:0 auto;position:relative;z-index:1}
+.app{
+  width:100%;
+  max-width:430px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
+}
 
-/* ===== TOP MENU ===== */
+/* TOP MENU */
 .top-menu{
   background:var(--glass);
   backdrop-filter:blur(16px);
@@ -77,11 +84,7 @@ body{
   justify-content:space-between;
   box-shadow:var(--shadow);
   margin-bottom:26px;
-  position:relative;
-  z-index:50;
 }
-
-.menu-left{position:relative}
 
 .menu-btn{
   width:48px;height:48px;
@@ -93,44 +96,19 @@ body{
   justify-content:center;
   align-items:center;
   gap:6px;
-  cursor:pointer;
 }
-.menu-btn span{width:22px;height:4px;background:#fff;border-radius:4px}
-
-.dropdown{
-  position:absolute;
-  top:60px;
-  right:50%;
-  transform:translateX(50%);
-  background:var(--glass);
-  backdrop-filter:blur(16px);
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  padding:12px;
-  display:none;
-  flex-direction:column;
-  gap:10px;
-  min-width:160px;
-  z-index:9999;
+.menu-btn span{
+  width:22px;height:4px;
+  background:#fff;border-radius:4px;
 }
 
-.dropdown a{
-  text-decoration:none;
-  color:var(--text);
-  font-weight:600;
-  padding:8px 14px;
-  border-radius:12px;
-}
-.dropdown a:hover{background:rgba(255,255,255,.5)}
-
-/* ===== BRAND (قابلة للكليك) ===== */
+/* BRAND */
 .brand{
   display:flex;
   align-items:center;
   gap:8px;
   text-decoration:none;
   color:inherit;
-  cursor:pointer;
 }
 .brand span{
   font-weight:900;
@@ -139,16 +117,20 @@ body{
   -webkit-text-fill-color:transparent;
 }
 
+/* ACTIONS (لغات + دارك) */
+.actions{
+  display:flex;
+  gap:6px;
+}
 .actions button{
   border:none;
   background:rgba(255,255,255,.6);
-  padding:7px 10px;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:600;
+  padding:6px 9px;
+  border-radius:10px;
+  font-weight:700;
 }
 
-/* ===== HERO ===== */
+/* HERO */
 .hero{
   background:var(--glass);
   backdrop-filter:blur(18px);
@@ -157,10 +139,8 @@ body{
   text-align:center;
   box-shadow:var(--shadow);
 }
-
 .hero h1{font-size:26px;margin-bottom:14px}
 .hero p{color:var(--muted);margin-bottom:26px;line-height:1.6}
-
 .hero .btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
 .hero button{
   border:none;
@@ -169,19 +149,13 @@ body{
   background:linear-gradient(135deg,#10b981,#34d399);
   color:#fff;
   font-weight:800;
-  cursor:pointer;
 }
 .hero .secondary{background:#2563eb}
 
-/* ===== REVEAL ===== */
-.reveal{opacity:0;transform:translateY(30px);transition:.6s ease}
-.reveal.show{opacity:1;transform:none}
-
-/* ===== CARDS ===== */
+/* CARDS */
 .cards{margin-top:34px;display:grid;gap:18px}
 .card{
   background:var(--glass);
-  backdrop-filter:blur(14px);
   border-radius:26px;
   padding:22px;
   display:flex;
@@ -190,9 +164,12 @@ body{
   box-shadow:var(--shadow);
 }
 .icon-3d{
-  width:44px;height:44px;border-radius:14px;
+  width:44px;height:44px;
+  border-radius:14px;
   background:linear-gradient(135deg,#10b981,#2563eb);
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   color:#fff;
 }
 
@@ -202,37 +179,84 @@ body{
   color:var(--muted);
   font-size:14px;
 }
-</style>
-</head> 
 
-<body> 
+/* SIDEBAR */
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:none;
+  z-index:998;
+}
+
+#menu{
+  position:fixed;
+  top:0;
+  right:-260px;
+  width:240px;
+  height:100%;
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  border-radius:20px 0 0 20px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  transition:.4s ease;
+  z-index:999;
+}
+#menu.active{right:0}
+
+#menu a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:700;
+  padding:14px;
+  border-radius:14px;
+}
+#menu a:hover{
+  background:var(--primary);
+  color:#fff;
+}
+.menu-icon{
+  font-size:20px;
+}
+</style>
+</head>
+
+<body>
 
 <div class="bg-shape shape1"></div>
 <div class="bg-shape shape2"></div>
 <div class="bg-shape shape3"></div>
 
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- SIDEBAR MENU -->
+<div id="menu">
+  <a href="index.html"><span class="menu-icon">🏠</span> Home</a>
+  <a href="subjects.html"><span class="menu-icon">📚</span> Subjects</a>
+  <a href="resume.html"><span class="menu-icon">🧠</span> Resume</a>
+  <a href="exams.html"><span class="menu-icon">📝</span> Exams</a>
+  <a href="about.html"><span class="menu-icon">ℹ️</span> About</a>
+</div>
+
 <div class="app">
 
   <div class="top-menu">
-    <div class="menu-left">
-      <button class="menu-btn" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="dropdown" id="menu">
-        <a href="index.html">Home</a>
-        <a href="subjects.html">Subjects</a>
-        <a href="resume.html">Resume</a>
-        <a href="exams.html">Exams</a>
-        <a href="about.html">About</a>
-      </div>
-    </div>
+    <button class="menu-btn" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
 
-    <!-- ✅ BRAND قابل للكليك ويرجع للهوم -->
     <a href="/2bac-study/" class="brand">
       <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
       <span>2bac-study</span>
     </a>
 
+    <!-- أزرار اللغة رجعات -->
     <div class="actions">
       <button onclick="setLang('ar')">AR</button>
       <button onclick="setLang('fr')">FR</button>
@@ -241,29 +265,29 @@ body{
     </div>
   </div>
 
-  <section class="hero reveal">
+  <section class="hero">
     <h1 data-key="title">🎓 طريقك نحو التفوق في البكالوريا</h1>
     <p data-key="desc">منصة تعليمية ذكية لطلبة الثانية باكالوريا<br>دروس • ملخصات • تمارين محلولة</p>
     <div class="btns">
-      <button onclick="location.href='subjects.html'">ابدأ الآن 🚀</button>
-      <button class="secondary" onclick="location.href='about.html'">لماذا 2bac-study؟</button>
+      <button>ابدأ الآن 🚀</button>
+      <button class="secondary">لماذا 2bac-study؟</button>
     </div>
   </section>
 
-  <section class="cards reveal">
-    <div class="card"><div class="icon-3d">📘</div><h3>دروس مرتبة حسب المنهاج المغربي</h3></div>
-    <div class="card"><div class="icon-3d">🧠</div><h3>ملخصات للفهم السريع والمراجعة</h3></div>
-    <div class="card"><div class="icon-3d">✍️</div><h3>تمارين وطنية مصححة خطوة بخطوة</h3></div>
+  <section class="cards">
+    <div class="card"><div class="icon-3d">📘</div>دروس مرتبة حسب المنهاج المغربي</div>
+    <div class="card"><div class="icon-3d">🧠</div>ملخصات للفهم السريع</div>
+    <div class="card"><div class="icon-3d">✍️</div>تمارين وطنية مصححة</div>
   </section>
 
-  <section class="cards reveal">
-    <div class="card"><div class="icon-3d">📚</div><h3>+120 درس وملخص</h3></div>
-    <div class="card"><div class="icon-3d">📝</div><h3>تمارين وطنية وجهوية</h3></div>
-    <div class="card"><div class="icon-3d">🎯</div><h3>موجّهة للنجاح في البكالوريا</h3></div>
+  <section class="cards">
+    <div class="card"><div class="icon-3d">📚</div>+120 درس وملخص</div>
+    <div class="card"><div class="icon-3d">📝</div>تمارين وطنية وجهوية</div>
+    <div class="card"><div class="icon-3d">🎯</div>موجّهة للنجاح في البكالوريا</div>
   </section>
 
   <div class="footer-text">
-    🚀 2bac-study ليست مجرد منصة،<br>بل رفيقك اليومي نحو النجاح في البكالوريا.
+    🚀 2bac-study ليست مجرد منصة، بل رفيقك اليومي نحو النجاح.
   </div>
 
 </div>
@@ -271,29 +295,19 @@ body{
 <script>
 function toggleMenu(){
   const m=document.getElementById("menu");
-  m.style.display = m.style.display==="flex" ? "none" : "flex";
+  const o=document.getElementById("overlay");
+  m.classList.toggle("active");
+  o.style.display = m.classList.contains("active") ? "block" : "none";
 }
 
-document.addEventListener("click", (e)=>{
-  const m=document.getElementById("menu");
-  const b=document.querySelector(".menu-btn");
-  if(!m.contains(e.target) && !b.contains(e.target)){
-    m.style.display="none";
-  }
-});
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
 
-const reveals=document.querySelectorAll(".reveal");
-window.addEventListener("scroll",()=>{
-  reveals.forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight-60){
-      el.classList.add("show");
-    }
-  });
-});
-
+/* اللغات */
 const t={
   ar:{title:"🎓 طريقك نحو التفوق في البكالوريا",desc:"منصة تعليمية ذكية لطلبة الثانية باكالوريا\nدروس • ملخصات • تمارين محلولة"},
-  fr:{title:"🎓 Votre chemin vers la réussite",desc:"Plateforme intelligente pour le Bac\nCours • Résumés • Exercices"},
+  fr:{title:"🎓 Votre chemin vers la réussite",desc:"Plateforme intelligente\nCours • Résumés • Exercices"},
   en:{title:"🎓 Your path to success",desc:"Smart learning platform\nLessons • Summaries • Exercises"}
 };
 
@@ -304,19 +318,7 @@ function setLang(l){
   });
 }
 
-if(localStorage.getItem("theme")==="dark"){
-  document.body.classList.add("dark");
-}
-if(localStorage.getItem("lang")){
-  setLang(localStorage.getItem("lang"));
-}
-
-function toggleDark(){
-  document.body.classList.toggle("dark");
-  localStorage.setItem("theme",
-    document.body.classList.contains("dark")?"dark":"light"
-  );
-}
+if(localStorage.getItem("lang")) setLang(localStorage.getItem("lang"));
 </script>
 
 </body>
