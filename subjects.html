@@ -335,14 +335,18 @@ document.querySelectorAll(".subject").forEach(card=>{
 });
 
 /* ===== REVEAL ===== */
-const reveals=document.querySelectorAll(".reveal");
-window.addEventListener("scroll",()=>{
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnLoad(){
   reveals.forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight-60){
+    if(el.getBoundingClientRect().top < window.innerHeight){
       el.classList.add("show");
     }
   });
-});
+}
+
+window.addEventListener("scroll", revealOnLoad);
+window.addEventListener("load", revealOnLoad);
 
 /* ===== LANG ===== */
 const t={
