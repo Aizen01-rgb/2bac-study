@@ -2,373 +2,680 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>لوحة التحكم | Admin Panel</title>
+<title>لوحة التحكم</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
-/* =================== GLOBAL =================== */
+
+/* ================= RESET ================= */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
   font-family:'Segoe UI',Tahoma;
 }
-
 body{
   background:#0a0215;
-  color:#fff;
-  min-height:100vh;
-  padding:18px;
-}
-
-/* =================== NEON STYLE =================== */
-.glass{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(140,0,255,.3);
-  backdrop-filter:blur(14px);
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 0 25px rgba(140,0,255,.45);
-}
-
-.btn{
-  padding:10px 18px;
-  background:linear-gradient(135deg,#7d2dff,#4e1abf);
-  border:none;
-  border-radius:14px;
-  color:#fff;
-  cursor:pointer;
-  font-weight:700;
-  box-shadow:0 0 12px #7d2dff;
-  transition:.3s;
-}
-.btn:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 20px #9b5cff;
-}
-
-/* =================== TOP BAR =================== */
-.top{
+  color:white;
   display:flex;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* ================= SIDEBAR ================= */
+#sidebar{
+  width:240px;
+  background:#120124;
+  border-right:2px solid rgba(125,45,255,.4);
+  box-shadow:0 0 25px #7d2dff88;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
   justify-content:space-between;
-  align-items:center;
-  margin-bottom:22px;
 }
 
-.langs button{
-  margin-left:6px;
-  background:#2d0066;
-  border:1px solid #7d2dff;
-  padding:6px 10px;
-  border-radius:8px;
-  color:#fff;
-}
-
-/* =================== TABS =================== */
-.tabs{
-  display:flex;
-  gap:12px;
-  margin-bottom:20px;
-}
-.tab-btn{
-  padding:12px 20px;
-  background:#2d0066;
-  border:1px solid #7d2dff;
-  color:#fff;
-  border-radius:12px;
-  cursor:pointer;
+#sidebar .logo{
+  font-size:22px;
   font-weight:700;
+  color:#d4b3ff;
+  margin-bottom:20px;
+  text-shadow:0 0 8px #7d2dff;
+}
+
+#sidebar .menu li{
+  list-style:none;
+  padding:12px;
+  margin-bottom:8px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(125,45,255,.4);
+  border-radius:10px;
+  cursor:pointer;
   transition:.3s;
 }
-.tab-btn.active{
+#sidebar .menu li:hover{
+  background:rgba(125,45,255,.35);
+  box-shadow:0 0 12px #7d2dff;
+}
+#sidebar .menu li.active{
   background:#7d2dff;
-  box-shadow:0 0 18px #7d2dff;
+  color:#fff;
+  box-shadow:0 0 16px #7d2dff;
 }
 
-/* =================== PAGES =================== */
+.lang-box{
+  margin-top:20px;
+  display:flex;
+  gap:6px;
+}
+.lang-box button{
+  flex:1;
+  padding:8px;
+  background:#2d0066;
+  border:1px solid #7d2dff;
+  border-radius:8px;
+  color:white;
+  font-size:13px;
+  cursor:pointer;
+}
+.lang-box button:hover{
+  background:#7d2dff;
+}
+
+/* ================= MAIN ================= */
+#main{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+}
+
+/* ================= PAGE ================= */
 .page{
   display:none;
+  animation:fade .4s;
 }
 .page.active{
   display:block;
 }
 
-/* =================== DASHBOARD =================== */
-.stats{
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ================= DASHBOARD ================= */
+.stats-box{
   display:grid;
-  gap:16px;
-}
-.stat-box{
-  padding:18px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(125,45,255,.4);
-  box-shadow:0 0 15px #7d2dff55;
-}
-.stat-box h3{margin-bottom:8px;color:#cfaaff}
-
-.add-btn-big{
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:18px;
   margin-top:20px;
-  width:100%;
-  padding:18px;
-  font-size:18px;
 }
 
-/* =================== LESSON LIST =================== */
+.stat-item{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(125,45,255,.4);
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 0 15px #7d2dff55;
+  text-align:center;
+}
+.stat-item h3{
+  color:#d5b4ff;
+  margin-bottom:10px;
+  text-shadow:0 0 8px #7d2dff;
+}
+.stat-item p{
+  font-size:24px;
+  font-weight:700;
+}
+
+/* ================= MATERIAL TABS ================= */
+.sem-tabs{
+  margin:18px 0;
+  display:flex;
+  gap:10px;
+}
+.sem-btn{
+  padding:10px 18px;
+  background:#2d0066;
+  border:1px solid #7d2dff;
+  border-radius:10px;
+  color:#fff;
+  cursor:pointer;
+  transition:.3s;
+}
+.sem-btn.active{
+  background:#7d2dff;
+  box-shadow:0 0 18px #7d2dff;
+}
+
+/* ================= LESSONS LIST ================= */
+.lessons-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
 .lesson-card{
   background:rgba(255,255,255,0.06);
   border:1px solid rgba(125,45,255,.4);
   padding:16px;
-  border-radius:18px;
-  margin-bottom:14px;
-  box-shadow:0 0 15px #7d2dff55;
+  border-radius:12px;
+  box-shadow:0 0 12px #7d2dff55;
+  cursor:grab;
 }
-.lesson-card h3{
-  margin-bottom:6px;
-  color:#d5b4ff;
-}
-.lesson-actions{
-  margin-top:10px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.small-btn{
-  padding:7px 12px;
-  background:#4e1abf;
-  border:none;
-  color:white;
-  border-radius:8px;
-  font-size:13px;
+.lesson-card:active{
+  cursor:grabbing;
 }
 
-/* =================== ADD LESSON FORM =================== */
-.form-group{
-  margin-bottom:16px;
-}
-.form-group label{
-  display:block;
+.lesson-title{
+  font-size:18px;
+  color:#d8b8ff;
   margin-bottom:6px;
-  color:#cfaaff;
 }
-.form-group input, .form-group select, .form-group textarea{
-  width:100%;
-  padding:10px;
+.lesson-desc{
+  color:#c7a3ff;
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+.lesson-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.lesson-actions button{
+  padding:6px 12px;
+  border:none;
+  border-radius:8px;
+  background:#4e1abf;
+  color:white;
+  cursor:pointer;
+  font-size:12px;
+}
+.lesson-actions button:hover{
+  background:#7d2dff;
+  box-shadow:0 0 8px #7d2dff;
+}
+
+/* ================= ADD LESSON FORM ================= */
+#addForm{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  margin-top:20px;
+}
+
+#addForm label{
+  color:#d8b8ff;
+  margin-bottom:6px;
+}
+#addForm input, #addForm textarea, #addForm select{
+  padding:12px;
   background:#2d0050;
   border:1px solid #7d2dff;
   border-radius:10px;
-  color:#fff;
+  color:white;
 }
-textarea{min-height:90px;}
+#addForm textarea{
+  min-height:80px;
+}
+
+#addForm button{
+  padding:12px;
+  background:#7d2dff;
+  border:none;
+  border-radius:12px;
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:10px;
+  box-shadow:0 0 14px #7d2dff;
+}
+#addForm button:hover{
+  transform:scale(1.03);
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:780px){
+  #sidebar{
+    width:180px;
+  }
+  .stat-item{
+    padding:16px;
+  }
+}
+@media(max-width:560px){
+  body{
+    flex-direction:column;
+  }
+  #sidebar{
+    width:100%;
+    height:auto;
+    display:flex;
+    flex-direction:column;
+  }
+  #main{
+    height:auto;
+  }
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- ================= TOP BAR ================= -->
-<div class="top">
-  <h2 id="t_title">لوحة التحكم</h2>
+<!-- ======================= SIDEBAR ======================= -->
+<div id="sidebar">
 
-  <div class="langs">
-    <button onclick="setLang('ar')">AR</button>
-    <button onclick="setLang('fr')">FR</button>
-    <button onclick="setLang('en')">EN</button>
+  <h2 class="logo">لوحة التحكم</h2>
+
+  <ul class="menu">
+
+    <li data-page="dashboard">📊 الرئيسية</li>
+
+    <li data-page="math">📐 الرياضيات</li>
+
+    <li data-page="pc">💻 الفيزياء والكيمياء</li>
+
+    <li data-page="svt">🧬 علوم الحياة والأرض</li>
+
+    <li data-page="english">🇬🇧 الإنجليزية</li>
+
+    <li data-page="philo">🧠 الفلسفة</li>
+
+    <li data-page="add">➕ إضافة درس</li>
+
+  </ul>
+
+  <!-- languages -->
+  <div class="lang-box">
+    <button data-lang="ar">AR</button>
+    <button data-lang="fr">FR</button>
+    <button data-lang="en">EN</button>
   </div>
-</div>
-
-<!-- =============== TABS ==================== -->
-<div class="tabs">
-  <button class="tab-btn active" onclick="openTab('dash')">📊 الرئيسية</button>
-  <button class="tab-btn" onclick="openTab('list')">📚 الدروس</button>
-  <button class="tab-btn" onclick="openTab('add')">➕ إضافة درس</button>
-</div>
-
-<!-- ================== DASHBOARD ================== -->
-<div id="dash" class="page active glass">
-
-  <div class="stats">
-    <div class="stat-box">
-      <h3>عدد الدروس</h3>
-      <p id="stat_total">0</p>
-    </div>
-
-    <div class="stat-box">
-      <h3>دروس الدورة الأولى</h3>
-      <p id="stat_s1">0</p>
-    </div>
-
-    <div class="stat-box">
-      <h3>دروس الدورة الثانية</h3>
-      <p id="stat_s2">0</p>
-    </div>
-
-    <div class="stat-box">
-      <h3>ملفات PDF</h3>
-      <p id="stat_pdf">0</p>
-    </div>
-  </div>
-
-  <button class="btn add-btn-big" onclick="openTab('add')">➕ إضافة درس جديد</button>
-</div>
-
-<!-- ================== LESSONS LIST ================== -->
-<div id="list" class="page glass"></div>
-
-
-<!-- ================== ADD LESSON PAGE ================== -->
-<div id="add" class="page glass">
-
-  <h3 style="margin-bottom:20px;">إضافة درس جديد</h3>
-
-  <div class="form-group">
-    <label>عنوان الدرس</label>
-    <input id="lesson_title">
-  </div>
-
-  <div class="form-group">
-    <label>وصف الدرس</label>
-    <textarea id="lesson_desc"></textarea>
-  </div>
-
-  <div class="form-group">
-    <label>الدورة</label>
-    <select id="lesson_sem">
-      <option value="s1">الدورة الأولى</option>
-      <option value="s2">الدورة الثانية</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label>رابط صفحة الدرس</label>
-    <input id="lesson_link" placeholder="ex: lessons/continuite.html">
-  </div>
-
-  <button class="btn" onclick="saveLesson()">💾 حفظ الدرس</button>
 
 </div>
 
+<!-- ======================= MAIN CONTENT ======================= -->
+<div id="main">
+
+  <!-- ================= DASHBOARD ================== -->
+  <div class="page" id="dashboard">
+    <h1>📊 الإحصائيات العامة</h1>
+
+    <div class="stats-box">
+      <div class="stat-item">
+        <h3>عدد الدروس</h3>
+        <p id="stat_total">0</p>
+      </div>
+
+      <div class="stat-item">
+        <h3>دروس الدورة الأولى</h3>
+        <p id="stat_s1">0</p>
+      </div>
+
+      <div class="stat-item">
+        <h3>دروس الدورة الثانية</h3>
+        <p id="stat_s2">0</p>
+      </div>
+
+      <div class="stat-item">
+        <h3>ملفات PDF</h3>
+        <p id="stat_pdf">0</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= MATERIAL TEMPLATES ================== -->
+
+  <!-- MATH -->
+  <div class="page" id="math">
+    <h1>📐 دروس الرياضيات</h1>
+
+    <div class="sem-tabs">
+      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
+      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+    </div>
+
+    <div class="lessons-list" id="math_s1"></div>
+    <div class="lessons-list" id="math_s2" style="display:none;"></div>
+
+  </div>
+
+  <!-- PC -->
+  <div class="page" id="pc">
+    <h1>💻 دروس الفيزياء والكيمياء</h1>
+
+    <div class="sem-tabs">
+      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
+      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+    </div>
+
+    <div class="lessons-list" id="pc_s1"></div>
+    <div class="lessons-list" id="pc_s2" style="display:none;"></div>
+  </div>
+
+  <!-- SVT -->
+  <div class="page" id="svt">
+    <h1>🧬 دروس علوم الحياة والأرض</h1>
+
+    <div class="sem-tabs">
+      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
+      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+    </div>
+
+    <div class="lessons-list" id="svt_s1"></div>
+    <div class="lessons-list" id="svt_s2" style="display:none;"></div>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="page" id="english">
+    <h1>🇬🇧 دروس الإنجليزية</h1>
+
+    <div class="sem-tabs">
+      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
+      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+    </div>
+
+    <div class="lessons-list" id="eng_s1"></div>
+    <div class="lessons-list" id="eng_s2" style="display:none;"></div>
+  </div>
+
+  <!-- PHILOSOPHY -->
+  <div class="page" id="philo">
+    <h1>🧠 دروس الفلسفة</h1>
+
+    <div class="sem-tabs">
+      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
+      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+    </div>
+
+    <div class="lessons-list" id="philo_s1"></div>
+    <div class="lessons-list" id="philo_s2" style="display:none;"></div>
+  </div>
+
+  <!-- ================= ADD LESSON ================== -->
+  <div class="page" id="add">
+    <h1>➕ إضافة درس جديد</h1>
+
+    <form id="addForm">
+
+      <label>اختر المادة:</label>
+      <select id="add_subject">
+        <option value="math">الرياضيات</option>
+        <option value="pc">الفيزياء والكيمياء</option>
+        <option value="svt">علوم الحياة والأرض</option>
+        <option value="english">الإنجليزية</option>
+        <option value="philo">الفلسفة</option>
+      </select>
+
+      <label>اختر الدورة:</label>
+      <select id="add_sem">
+        <option value="s1">S1</option>
+        <option value="s2">S2</option>
+      </select>
+
+      <label>عنوان الدرس:</label>
+      <input id="add_title" type="text">
+
+      <label>وصف الدرس:</label>
+      <textarea id="add_desc"></textarea>
+
+      <label>رابط صفحة الدرس:</label>
+      <input id="add_link" type="text" placeholder="ex: lessons/lesson1.html">
+
+      <label>ملف PDF (اختياري):</label>
+      <input id="add_pdf" type="file">
+
+      <button type="button" id="saveLessonBtn">حفظ الدرس</button>
+
+    </form>
+
+  </div>
+
+</div>
 <script>
-// =========================================
-//         LOCAL STORAGE MEMORY
-// =========================================
+// =============================================
+//         1) SWITCH BETWEEN SIDEBAR PAGES
+// =============================================
+
+const pages = document.querySelectorAll(".page");
+const menuItems = document.querySelectorAll("#sidebar .menu li");
+
+menuItems.forEach(item => {
+  item.addEventListener("click", () => {
+    // remove active class from all
+    menuItems.forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+
+    const pageId = item.getAttribute("data-page");
+
+    // hide all pages
+    pages.forEach(p => p.classList.remove("active"));
+
+    // show selected page
+    document.getElementById(pageId).classList.add("active");
+  });
+});
+
+// Default open dashboard
+document.querySelector('[data-page="dashboard"]').classList.add("active");
+document.getElementById("dashboard").classList.add("active");
+
+
+// =============================================
+//      2) SEMESTER TABS SWITCH (S1 / S2)
+// =============================================
+
+document.querySelectorAll(".sem-tabs").forEach(tabSection => {
+
+  const btns = tabSection.querySelectorAll(".sem-btn");
+
+  btns.forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+      // remove active
+      btns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const sem = btn.getAttribute("data-sem");
+      const parentPage = btn.closest(".page").id; // example: math, pc ...
+
+      // hide all lists inside this page
+      document.querySelectorAll(`#${parentPage} .lessons-list`)
+        .forEach(list => list.style.display = "none");
+
+      // show the right list
+      document.querySelector(`#${parentPage}_${sem}`).style.display = "block";
+
+    });
+
+  });
+
+});
+
+
+// =============================================
+//       3) BASIC DATA STRUCTURE preparation
+// =============================================
+
+// lessons array (will fill later step by step)
 let lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
 
-function saveLesson(){
-  const title = lesson_title.value.trim();
-  const desc = lesson_desc.value.trim();
-  const sem  = lesson_sem.value;
-  const link = lesson_link.value.trim();
+// Function to refresh stats (later we will update this)
+function updateStats() {
+  const total = lessons.length;
+  const s1 = lessons.filter(l => l.sem === "s1").length;
+  const s2 = lessons.filter(l => l.sem === "s2").length;
+  const pdfCount = lessons.filter(l => l.pdf !== null).length;
 
-  if(!title || !desc || !link){
-    alert("عافاك عَمّر جميع الخانات");
+  document.getElementById("stat_total").textContent = total;
+  document.getElementById("stat_s1").textContent = s1;
+  document.getElementById("stat_s2").textContent = s2;
+  document.getElementById("stat_pdf").textContent = pdfCount;
+}
+// =============================================
+//      5) RENDER LESSONS IN EACH SUBJECT + S1/S2
+// =============================================
+
+function renderLessons() {
+  
+  // clear all lists
+  document.querySelectorAll(".lessons-list").forEach(list => list.innerHTML = "");
+
+  lessons
+    .sort((a,b) => a.order - b.order) // ترتيب حسب order
+    .forEach(lesson => {
+
+      // target container
+      const box = document.getElementById(`${lesson.subject}_${lesson.sem}`);
+
+      if (!box) return;
+
+      box.innerHTML += `
+        <div class="lesson-card" draggable="true" data-id="${lesson.id}">
+          <div class="lesson-title">${lesson.title}</div>
+          <div class="lesson-desc">${lesson.desc}</div>
+
+          <div class="lesson-actions">
+            <button onclick="openLesson('${lesson.link}')">فتح</button>
+            <button onclick="editLesson(${lesson.id})">تعديل</button>
+            <button onclick="deleteLesson(${lesson.id})">حذف</button>
+            <button onclick="uploadPDF(${lesson.id})">PDF</button>
+          </div><button onclick="openPDF('${lesson.pdf}')">عرض PDF</button>
+        </div>
+      `;
+    });
+
+  enableDragDrop();
+}
+
+renderLessons();
+updateStats();
+// =============================================
+//      4) ADD LESSON + SAVE TO LOCALSTORAGE
+// =============================================
+
+document.getElementById("saveLessonBtn").addEventListener("click", () => {
+
+  const subject = document.getElementById("add_subject").value;
+  const sem = document.getElementById("add_sem").value;
+  const title = document.getElementById("add_title").value.trim();
+  const desc = document.getElementById("add_desc").value.trim();
+  const link = document.getElementById("add_link").value.trim();
+
+  if (!title || !desc || !link) {
+    alert("عافاك عمر جميع الخانات 👌");
     return;
   }
 
-  lessons.push({title,desc,sem,link,pdf:null});
-  localStorage.setItem("lessons",JSON.stringify(lessons));
-  loadLessons();
+  const newLesson = {
+    id: Date.now(),
+    subject: subject,   // math, pc, svt, english, philo
+    sem: sem,           // s1 or s2
+    title: title,
+    desc: desc,
+    link: link,
+    pdf: null,
+    order: lessons.filter(l => l.subject === subject && l.sem === sem).length + 1
+  };
+
+  lessons.push(newLesson);
+  localStorage.setItem("lessons", JSON.stringify(lessons));
+
+  alert("✔️ تم حفظ الدرس بنجاح!");
+
+  // refresh UI
   updateStats();
-  openTab("list");
+  renderLessons();
+
+  // go to subject page automatically
+  document.querySelector(`[data-page="${subject}"]`).click();
+
+  // reset form
+  document.getElementById("add_title").value = "";
+  document.getElementById("add_desc").value = "";
+  document.getElementById("add_link").value = "";
+});
+// =============================================
+//                  6) DELETE LESSON
+// =============================================
+
+function deleteLesson(id) {
+  if (!confirm("بغيت بالفعل تحذف هاد الدرس؟")) return;
+
+  lessons = lessons.filter(l => l.id !== id);
+  localStorage.setItem("lessons", JSON.stringify(lessons));
+
+  renderLessons();
+  updateStats();
 }
 
-// ========== Load Lessons in Page ==========
-function loadLessons(){
-  const box = document.getElementById("list");
-  box.innerHTML = "";
+// =============================================
+//                  7) OPEN LESSON PAGE
+// =============================================
 
-  lessons.forEach((l,i)=>{
-    box.innerHTML += `
-      <div class="lesson-card">
-        <h3>${l.title}</h3>
-        <p>${l.sem === "s1"?"الدورة الأولى":"الدورة الثانية"}</p>
-
-        <div class="lesson-actions">
-          <button class="small-btn" onclick="editLesson(${i})">تعديل</button>
-          <button class="small-btn" onclick="deleteLesson(${i})">حذف</button>
-          <button class="small-btn" onclick="uploadPDF(${i})">رفع PDF</button>
-          <button class="small-btn" onclick="openLesson('${l.link}')">فتح الصفحة</button>
-        </div>
-      </div>
-    `;
-  });
+function openLesson(link) {
+  window.location.href = link;
 }
 
-function deleteLesson(i){
-  if(confirm("متأكد بغيتي تحذف الدرس؟")){
-    lessons.splice(i,1);
-    localStorage.setItem("lessons",JSON.stringify(lessons));
-    loadLessons();
+// =============================================
+//                  8) EDIT LESSON (BASIC)
+// =============================================
+
+function editLesson(id) {
+  const l = lessons.find(x => x.id == id);
+
+  document.getElementById("add_subject").value = l.subject;
+  document.getElementById("add_sem").value = l.sem;
+  document.getElementById("add_title").value = l.title;
+  document.getElementById("add_desc").value = l.desc;
+  document.getElementById("add_link").value = l.link;
+
+  // remove old version
+  lessons = lessons.filter(x => x.id != id);
+  localStorage.setItem("lessons", JSON.stringify(lessons));
+
+  // go to add page
+  document.querySelector('[data-page="add"]').click();
+}
+// =============================================
+//           9) UPLOAD PDF (TEMP LINK)
+// =============================================
+
+function uploadPDF(id) {
+  // create file input dynamically
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "application/pdf";
+
+  input.onchange = () => {
+    const file = input.files[0];
+    if (!file) return;
+
+    // create temp PDF URL
+    const pdfUrl = URL.createObjectURL(file);
+
+    // update lesson
+    const l = lessons.find(x => x.id == id);
+    l.pdf = pdfUrl;
+
+    localStorage.setItem("lessons", JSON.stringify(lessons));
+
+    alert("✔️ تم رفع PDF بنجاح!");
+
+    renderLessons();
     updateStats();
-  }
-}
+  };
 
-function editLesson(i){
-  const l = lessons[i];
-  lesson_title.value = l.title;
-  lesson_desc.value  = l.desc;
-  lesson_sem.value   = l.sem;
-  lesson_link.value  = l.link;
-
-  lessons.splice(i,1);
-  localStorage.setItem("lessons",JSON.stringify(lessons));
-  loadLessons();
-  openTab("add");
-}
-
-function uploadPDF(i){
-  alert("دابا غير نخليوها Placeholder حتى نربطو Firebase ❤️");
-}
-
-function openLesson(link){
-  location.href = link;
-}
-
-// ========== Dashboard Numbers ==========
-function updateStats(){
-  stat_total.innerText = lessons.length;
-  stat_s1.innerText    = lessons.filter(l=>l.sem==="s1").length;
-  stat_s2.innerText    = lessons.filter(l=>l.sem==="s2").length;
-  stat_pdf.innerText   = lessons.filter(l=>l.pdf!==null).length;
-}
-
-loadLessons();
-updateStats();
-
-// =========================================
-//            TABS
-// =========================================
-function openTab(name){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(name).classList.add("active");
-
-  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-  event.target.classList.add("active");
-}
-
-// =========================================
-//              LANGUAGES
-// =========================================
-const t={
-  ar:{
-    t_title:"لوحة التحكم",
-  },
-  fr:{
-    t_title:"Panneau d'administration",
-  },
-  en:{
-    t_title:"Admin Panel",
-  }
-};
-
-function setLang(lang){
-  localStorage.setItem("admin_lang",lang);
-  document.getElementById("t_title").innerText = t[lang].t_title;
-}
-
-if(localStorage.getItem("admin_lang")){
-  setLang(localStorage.getItem("admin_lang"));
+  // click input
+  input.click();
+}function openPDF(url) {
+  if (!url) return alert("ماكاين حتى PDF لهاذ الدرس!");
+  window.open(url, "_blank");
 }
 </script>
-
 </body>
 </html>
