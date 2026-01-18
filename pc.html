@@ -6,21 +6,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
+/* ===== GLOBAL ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',Tahoma;
+  max-width:100%;
+}
+html,body{width:100%;overflow-x:hidden;}
 
 :root{
   --bg-main:linear-gradient(135deg,#e0f7f4,#eef2ff);
   --glass:rgba(255,255,255,.78);
   --text:#1e293b;
   --muted:#64748b;
-  --primary:#10b981;
-  --secondary:#2563eb;
   --shadow:0 25px 60px rgba(0,0,0,.18);
+  --primary:#10b981; --secondary:#2563eb;
 }
-
 body.dark{
   --bg-main:linear-gradient(135deg,#020617,#0f172a);
-  --glass:rgba(2,6,23,.8);
+  --glass:rgba(2,6,23,.78);
   --text:#e5e7eb;
   --muted:#94a3b8;
 }
@@ -30,23 +36,27 @@ body{
   background:var(--bg-main);
   display:flex;
   justify-content:center;
-  padding:20px 12px;
+  padding:24px 14px;
   color:var(--text);
-  overflow-x:hidden;
-  overflow-y:auto;
-  position:relative;
 }
 
-/* BACKGROUND */
-.bg-shape{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;animation:float 12s infinite}
-.shape1{width:180px;height:180px;background:linear-gradient(135deg,#34d399,#60a5fa);top:70%;right:-60px}
+/* ===== BG SHAPES ===== */
+.bg-shape{
+  position:fixed;
+  border-radius:50%;
+  opacity:.35;
+  filter:blur(3px);
+  animation:float 12s infinite;
+  pointer-events:none;
+}
+.shape1{width:180px;height:180px;background:linear-gradient(135deg,#34d399,#60a5fa);bottom:10%;right:-60px}
 .shape2{width:140px;height:140px;background:linear-gradient(135deg,#a78bfa,#22d3ee);top:15%;left:-50px;animation-delay:3s}
 .shape3{width:90px;height:90px;background:linear-gradient(135deg,#facc15,#fb7185);bottom:15%;left:40%;animation-delay:6s}
 @keyframes float{50%{transform:translateY(-25px)}}
 
-.app{width:100%;max-width:440px;position:relative;z-index:1}
+.app{width:100%;max-width:430px;z-index:1;}
 
-/* TOP MENU */
+/* ===== TOP MENU ===== */
 .top-menu{
   background:var(--glass);
   backdrop-filter:blur(16px);
@@ -55,108 +65,105 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  box-shadow:var(--shadow);
   margin-bottom:26px;
-  position:relative;
-  z-index:1000;
-}
-
-.menu-left{position:relative}
-.hamburger{
-  width:46px;height:46px;
-  background:#2ecf8f;
-  border:none;
-  border-radius:16px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:6px;
-  cursor:pointer;
-}
-.hamburger span{width:22px;height:4px;background:#fff;border-radius:4px}
-
-.dropdown{
-  position:absolute;
-  top:60px;
-  right:50%;
-  transform:translateX(50%);
-  background:var(--glass);
-  backdrop-filter:blur(16px);
-  border-radius:18px;
   box-shadow:var(--shadow);
-  padding:12px;
-  display:none;
-  flex-direction:column;
-  gap:10px;
-  min-width:160px;
-  z-index:2000;
 }
-.dropdown a{
-  text-decoration:none;
-  color:var(--text);
-  font-weight:600;
-  padding:8px 14px;
-  border-radius:12px;
+.menu-btn{
+  width:46px;height:46px;background:#2ecf8f;border:none;
+  border-radius:16px;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;gap:6px;cursor:pointer;
 }
-.dropdown a:hover{background:rgba(255,255,255,.5)}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  text-decoration:none;
-}
+.menu-btn span{width:22px;height:4px;background:#fff;border-radius:4px;}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
 .brand span{
   font-weight:900;
   background:linear-gradient(135deg,#10b981,#2563eb);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-
 .actions button{
   border:none;
-  background:rgba(255,255,255,.6);
-  padding:6px 9px;
-  border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
-  margin-left:4px;
+  background:rgba(255,255,255,.5);
+  padding:7px 10px;
+  border-radius:12px;
+  font-weight:600;
 }
 
-/* SECTIONS */
-.section{
+/* ===== PAGE TITLE ===== */
+.page-title{
   background:var(--glass);
-  backdrop-filter:blur(16px);
+  backdrop-filter:blur(18px);
+  padding:30px 22px;
   border-radius:30px;
-  padding:22px;
-  box-shadow:var(--shadow);
-  margin-bottom:26px;
-}
-
-.section-title{
-  font-size:20px;
-  font-weight:900;
-  margin-bottom:18px;
   text-align:center;
+  margin-bottom:28px;
+  box-shadow:var(--shadow);
+}
+.page-title h1{font-size:24px;margin-bottom:8px}
+.page-title p{font-size:14px;color:var(--muted)}
+
+/* ===== SUBJECT CARDS ===== */
+.sec-title{
+  font-size:20px;
+  margin:12px 0;
+  font-weight:700;
+}
+.subject-list{
+  display:grid;
+  gap:16px;
+  margin-bottom:25px;
 }
 
-.subject{margin-bottom:22px}
-.subject h3{color:var(--secondary);margin-bottom:12px}
-
-.lessons{display:grid;gap:12px}
-.lesson{
-  background:rgba(255,255,255,.65);
-  padding:14px 16px;
-  border-radius:18px;
-  box-shadow:0 14px 30px rgba(0,0,0,.12);
+.subject-card{
+  background:var(--glass);
+  backdrop-filter:blur(14px);
+  padding:18px;
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  display:flex;
+  gap:16px;
   cursor:pointer;
-  transition:.35s;
+  transition:.3s;
 }
-.lesson:hover{
-  transform:translateY(-6px);
-  box-shadow:0 25px 45px rgba(0,0,0,.22);
+.subject-card:hover{transform:translateY(-6px);}
+.subject-card .icon{
+  width:50px;height:50px;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  border-radius:16px;
+  display:flex;justify-content:center;align-items:center;
+  font-size:24px;color:#fff;
 }
+.subject-card h3{font-size:18px;margin-bottom:6px}
+.subject-card p{font-size:13px;color:var(--muted)}
+.subject-card button{
+  margin-top:8px;
+  background:var(--primary);
+  border:none;
+  padding:6px 10px;
+  color:#fff;
+  border-radius:8px;
+  font-size:12px;
+}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(25px);transition:.6s}
+.reveal.show{opacity:1;transform:none}
+
+/* SIDEBAR */
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:998}
+#menu{
+  position:fixed;top:0;right:-260px;width:240px;height:100%;
+  background:var(--glass);backdrop-filter:blur(20px);
+  padding:20px;display:flex;flex-direction:column;gap:12px;
+  border-radius:20px 0 0 20px;transition:.4s;z-index:999;
+}
+#menu.active{right:0}
+#menu a{
+  padding:14px;border-radius:14px;
+  background:transparent;text-decoration:none;
+  font-weight:700;color:var(--text);
+}
+#menu a:hover{background:var(--primary);color:#fff;}
 </style>
 </head>
 
@@ -166,26 +173,26 @@ body{
 <div class="bg-shape shape2"></div>
 <div class="bg-shape shape3"></div>
 
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<div id="menu">
+  <a href="index.html">🏠 Home</a>
+  <a href="subjects.html">📚 Subjects</a>
+  <a href="exams.html">📝 Exams</a>
+  <a href="itar.html">📄 الإطار المرجعي</a>
+  <a href="about.html">ℹ️ About</a>
+</div>
+
 <div class="app">
 
-<!-- MENU -->
+<!-- TOP MENU -->
 <div class="top-menu">
-  <div class="menu-left">
-    <button class="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="dropdown" id="menu">
-      <a href="index.html">Home</a>
-      <a href="subjects.html">Subjects</a>
-      <a href="pc.html">PC</a>
-      <a href="math.html">Math</a>
-      <a href="svt.html">SVT</a>
-      <a href="about.html">About</a>
-    </div>
-  </div>
+  <button class="menu-btn" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 
-  <a href="index.html" class="brand">
-    <img src="logo.png" style="width:28px;height:28px;border-radius:50%">
+  <a class="brand" href="/2bac-study/">
+    <img src="logo.png" style="height:30px;width:30px;border-radius:50%">
     <span>2bac-study</span>
   </a>
 
@@ -197,101 +204,103 @@ body{
   </div>
 </div>
 
-<!-- ===== الدورة الأولى ===== -->
-<div class="section">
-  <div class="section-title">📘 الدورة الأولى</div>
-
-  <div class="subject">
-    <h3>⚡ Physique</h3>
-    <div class="lessons">
-      <div class="lesson" onclick="location.href='onde-mecanique-progressive.html'">
-        Les ondes mécaniques progressives
-      </div>
-      <div class="lesson">Les ondes mécaniques progressives périodiques</div>
-      <div class="lesson">Propagation des ondes lumineuses</div>
-      <div class="lesson">Dipôle RC</div>
-      <div class="lesson">Dipôle RL</div>
-      <div class="lesson">Oscillations libres RLC</div>
-      <div class="lesson">RLC sinusoïdal forcé</div>
-      <div class="lesson">Ondes électromagnétiques</div>
-      <div class="lesson">Modulation d’amplitude</div>
-      <div class="lesson">Décroissance radioactive</div>
-      <div class="lesson">Noyaux, masse et énergie</div>
-    </div>
-  </div>
-
-  <div class="subject">
-    <h3>🧪 Chimie</h3>
-    <div class="lessons">
-      <div class="lesson">Transformations lentes et rapides</div>
-      <div class="lesson">Suivi temporel</div>
-      <div class="lesson">Transformations chimiques réversibles</div>
-      <div class="lesson">État d’équilibre</div>
-      <div class="lesson">Réactions acide-base</div>
-      <div class="lesson">Dosage acido-basique</div>
-    </div>
-  </div>
+<!-- TITLE -->
+<div class="page-title reveal">
+  <h1 data-key="pctitle">💻 الفيزياء والكيمياء</h1>
+  <p data-key="pcdesc">دروس الدورة الأولى والثانية</p>
 </div>
 
-<!-- ===== الدورة الثانية ===== -->
-<div class="section">
-  <div class="section-title">📕 الدورة الثانية</div>
+<!-- NEW: S1 / S2 DYNAMIC -->
+<h2 class="sec-title">📘 الدورة الأولى (S1)</h2>
+<div id="s1_list" class="subject-list"></div>
 
-  <div class="subject">
-    <h3>⚙️ Physique – Mécanique</h3>
-    <div class="lessons">
-      <div class="lesson">Lois de Newton</div>
-      <div class="lesson">Chute libre</div>
-      <div class="lesson">Mouvements plans</div>
-      <div class="lesson">Satellites et planètes</div>
-      <div class="lesson">Rotation d’un solide</div>
-      <div class="lesson">Systèmes oscillants</div>
-      <div class="lesson">Aspects énergétiques</div>
-      <div class="lesson">Atome et mécanique de Newton</div>
-    </div>
-  </div>
-
-  <div class="subject">
-    <h3>🧪 Chimie</h3>
-    <div class="lessons">
-      <div class="lesson">Dosage acido-basique</div>
-      <div class="lesson">Évolution spontanée</div>
-      <div class="lesson">Piles et énergie</div>
-      <div class="lesson">Électrolyse</div>
-      <div class="lesson">Estérification & hydrolyse</div>
-      <div class="lesson">Contrôle de l’évolution</div>
-    </div>
-  </div>
-</div>
+<h2 class="sec-title">📗 الدورة الثانية (S2)</h2>
+<div id="s2_list" class="subject-list"></div>
 
 </div>
 
 <script>
+// MENU
 function toggleMenu(){
   const m=document.getElementById("menu");
-  m.style.display = m.style.display==="flex" ? "none" : "flex";
+  const o=document.getElementById("overlay");
+  m.classList.toggle("active");
+  o.style.display=m.classList.contains("active")?"block":"none";
 }
 
+// DARK MODE
 function toggleDark(){
   document.body.classList.toggle("dark");
-  localStorage.setItem(
-    "theme",
-    document.body.classList.contains("dark") ? "dark" : "light"
-  );
+  localStorage.setItem("theme",
+    document.body.classList.contains("dark")?"dark":"light");
 }
 
+// LANG
+const t={
+  ar:{pctitle:"💻 الفيزياء والكيمياء",pcdesc:"دروس الدورة الأولى والثانية"},
+  fr:{pctitle:"💻 Physique & Chimie",pcdesc:"Cours Semestre 1 et 2"},
+  en:{pctitle:"💻 Physics & Chemistry",pcdesc:"Semester 1 & 2 Lessons"}
+};
 function setLang(l){
-  localStorage.setItem("lang", l);
-  document.documentElement.lang = l;
-  document.documentElement.dir = (l==="ar") ? "rtl" : "ltr";
+  localStorage.setItem("lang",l);
+  document.querySelectorAll("[data-key]").forEach(e=>{
+    e.innerText=t[l][e.dataset.key];
+  });
+}
+if(localStorage.getItem("theme")==="dark") document.body.classList.add("dark");
+if(localStorage.getItem("lang")) setLang(localStorage.getItem("lang"));
+
+
+// ==========================================
+// LOAD DYNAMIC LESSONS
+// ==========================================
+let lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
+const SUBJECT = "pc";  // 🔥 مهم!
+
+function renderSubject() {
+  let s1 = document.getElementById("s1_list");
+  let s2 = document.getElementById("s2_list");
+
+  s1.innerHTML = "";
+  s2.innerHTML = "";
+
+  lessons
+    .filter(l => l.subject === SUBJECT)
+    .sort((a,b)=>a.order-b.order)
+    .forEach(l => {
+      const card = `
+        <div class="subject-card reveal" onclick="openLesson('${l.link}')">
+          <div class="icon">📘</div>
+          <div class="info">
+            <h3>${l.title}</h3>
+            <p>${l.desc}</p>
+            ${l.pdf ? `<button onclick="event.stopPropagation();openPDF('${l.pdf}')">PDF</button>` : ""}
+          </div>
+        </div>
+      `;
+
+      if(l.sem === "s1") s1.innerHTML += card;
+      else s2.innerHTML += card;
+    });
+
+  reveal();
 }
 
-if(localStorage.getItem("theme")==="dark"){
-  document.body.classList.add("dark");
+function openLesson(link){ window.location.href = link; }
+function openPDF(url){
+  if(!url) return alert("لا يوجد PDF!");
+  window.open(url,"_blank");
 }
-if(localStorage.getItem("lang")){
-  setLang(localStorage.getItem("lang"));
+
+// Reveal
+function reveal(){
+  const r=document.querySelectorAll(".reveal");
+  r.forEach((el,i)=>{
+    setTimeout(()=>{el.classList.add("show")},i*120);
+  });
 }
+
+renderSubject();
 </script>
 
 </body>
