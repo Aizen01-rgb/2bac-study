@@ -1,178 +1,372 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>Admin Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>لوحة التحكم | Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body{
+/* =================== GLOBAL =================== */
+*{
   margin:0;
-  font-family:Arial;
-  background:linear-gradient(135deg,#020617,#0f172a);
-  color:#e5e7eb;
-}
-.hidden{display:none}
-
-.login, .dashboard{
-  max-width:900px;
-  margin:40px auto;
-  background:rgba(255,255,255,.05);
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 25px 50px rgba(0,0,0,.4);
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',Tahoma;
 }
 
-h1,h2{color:#38bdf8}
+body{
+  background:#0a0215;
+  color:#fff;
+  min-height:100vh;
+  padding:18px;
+}
 
-input,select,button{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border-radius:10px;
+/* =================== NEON STYLE =================== */
+.glass{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(140,0,255,.3);
+  backdrop-filter:blur(14px);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 0 25px rgba(140,0,255,.45);
+}
+
+.btn{
+  padding:10px 18px;
+  background:linear-gradient(135deg,#7d2dff,#4e1abf);
   border:none;
-  outline:none;
-}
-
-button{
-  background:#38bdf8;
-  color:#020617;
-  font-weight:bold;
+  border-radius:14px;
+  color:#fff;
   cursor:pointer;
+  font-weight:700;
+  box-shadow:0 0 12px #7d2dff;
+  transition:.3s;
+}
+.btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px #9b5cff;
 }
 
-.card{
-  background:rgba(255,255,255,.06);
-  padding:15px;
-  border-radius:15px;
+/* =================== TOP BAR =================== */
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+}
+
+.langs button{
+  margin-left:6px;
+  background:#2d0066;
+  border:1px solid #7d2dff;
+  padding:6px 10px;
+  border-radius:8px;
+  color:#fff;
+}
+
+/* =================== TABS =================== */
+.tabs{
+  display:flex;
+  gap:12px;
   margin-bottom:20px;
 }
-
-.lesson{
-  padding:10px;
-  border-bottom:1px solid rgba(255,255,255,.1)
+.tab-btn{
+  padding:12px 20px;
+  background:#2d0066;
+  border:1px solid #7d2dff;
+  color:#fff;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+  transition:.3s;
 }
+.tab-btn.active{
+  background:#7d2dff;
+  box-shadow:0 0 18px #7d2dff;
+}
+
+/* =================== PAGES =================== */
+.page{
+  display:none;
+}
+.page.active{
+  display:block;
+}
+
+/* =================== DASHBOARD =================== */
+.stats{
+  display:grid;
+  gap:16px;
+}
+.stat-box{
+  padding:18px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(125,45,255,.4);
+  box-shadow:0 0 15px #7d2dff55;
+}
+.stat-box h3{margin-bottom:8px;color:#cfaaff}
+
+.add-btn-big{
+  margin-top:20px;
+  width:100%;
+  padding:18px;
+  font-size:18px;
+}
+
+/* =================== LESSON LIST =================== */
+.lesson-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(125,45,255,.4);
+  padding:16px;
+  border-radius:18px;
+  margin-bottom:14px;
+  box-shadow:0 0 15px #7d2dff55;
+}
+.lesson-card h3{
+  margin-bottom:6px;
+  color:#d5b4ff;
+}
+.lesson-actions{
+  margin-top:10px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.small-btn{
+  padding:7px 12px;
+  background:#4e1abf;
+  border:none;
+  color:white;
+  border-radius:8px;
+  font-size:13px;
+}
+
+/* =================== ADD LESSON FORM =================== */
+.form-group{
+  margin-bottom:16px;
+}
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  color:#cfaaff;
+}
+.form-group input, .form-group select, .form-group textarea{
+  width:100%;
+  padding:10px;
+  background:#2d0050;
+  border:1px solid #7d2dff;
+  border-radius:10px;
+  color:#fff;
+}
+textarea{min-height:90px;}
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div class="login" id="loginBox">
-  <h1>🔐 Admin Login</h1>
-  <input id="adminUser" placeholder="Username">
-  <input id="adminPass" placeholder="Password">
-  <button onclick="adminLogin()">دخول</button>
+<!-- ================= TOP BAR ================= -->
+<div class="top">
+  <h2 id="t_title">لوحة التحكم</h2>
+
+  <div class="langs">
+    <button onclick="setLang('ar')">AR</button>
+    <button onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
 </div>
 
-<!-- DASHBOARD -->
-<div class="dashboard hidden" id="dash">
-
-<h1>⚙️ Admin Dashboard</h1>
-
-<!-- USERS -->
-<div class="card">
-<h2>👤 إضافة User Code</h2>
-<input id="newCode" placeholder="كود التلميذ">
-<button onclick="addUser()">إضافة</button>
+<!-- =============== TABS ==================== -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="openTab('dash')">📊 الرئيسية</button>
+  <button class="tab-btn" onclick="openTab('list')">📚 الدروس</button>
+  <button class="tab-btn" onclick="openTab('add')">➕ إضافة درس</button>
 </div>
 
-<!-- LESSON -->
-<div class="card">
-<h2>📚 إضافة درس</h2>
-<input id="title" placeholder="عنوان الدرس">
-<select id="subject">
-  <option value="pc">PC</option>
-  <option value="math">Math</option>
-  <option value="svt">SVT</option>
-</select>
-<input type="file" id="pdf">
-<button onclick="addLesson()">إضافة الدرس</button>
+<!-- ================== DASHBOARD ================== -->
+<div id="dash" class="page active glass">
+
+  <div class="stats">
+    <div class="stat-box">
+      <h3>عدد الدروس</h3>
+      <p id="stat_total">0</p>
+    </div>
+
+    <div class="stat-box">
+      <h3>دروس الدورة الأولى</h3>
+      <p id="stat_s1">0</p>
+    </div>
+
+    <div class="stat-box">
+      <h3>دروس الدورة الثانية</h3>
+      <p id="stat_s2">0</p>
+    </div>
+
+    <div class="stat-box">
+      <h3>ملفات PDF</h3>
+      <p id="stat_pdf">0</p>
+    </div>
+  </div>
+
+  <button class="btn add-btn-big" onclick="openTab('add')">➕ إضافة درس جديد</button>
 </div>
 
-<!-- LIST -->
-<div class="card">
-<h2>📄 الدروس</h2>
-<div id="lessons"></div>
-</div>
+<!-- ================== LESSONS LIST ================== -->
+<div id="list" class="page glass"></div>
+
+
+<!-- ================== ADD LESSON PAGE ================== -->
+<div id="add" class="page glass">
+
+  <h3 style="margin-bottom:20px;">إضافة درس جديد</h3>
+
+  <div class="form-group">
+    <label>عنوان الدرس</label>
+    <input id="lesson_title">
+  </div>
+
+  <div class="form-group">
+    <label>وصف الدرس</label>
+    <textarea id="lesson_desc"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>الدورة</label>
+    <select id="lesson_sem">
+      <option value="s1">الدورة الأولى</option>
+      <option value="s2">الدورة الثانية</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>رابط صفحة الدرس</label>
+    <input id="lesson_link" placeholder="ex: lessons/continuite.html">
+  </div>
+
+  <button class="btn" onclick="saveLesson()">💾 حفظ الدرس</button>
 
 </div>
 
 <script>
-const SUPABASE_URL = "PASTE_PROJECT_URL";
-const SUPABASE_KEY = "PASTE_ANON_KEY";
+// =========================================
+//         LOCAL STORAGE MEMORY
+// =========================================
+let lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
 
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+function saveLesson(){
+  const title = lesson_title.value.trim();
+  const desc = lesson_desc.value.trim();
+  const sem  = lesson_sem.value;
+  const link = lesson_link.value.trim();
 
-// ADMIN LOGIN
-async function adminLogin(){
-  const u = adminUser.value;
-  const p = adminPass.value;
-
-  const { data } = await supabase
-    .from("admins")
-    .select("*")
-    .eq("username",u)
-    .eq("password",p)
-    .eq("active",true)
-    .single();
-
-  if(data){
-    loginBox.classList.add("hidden");
-    dash.classList.remove("hidden");
-    loadLessons();
-  }else{
-    alert("معلومات غير صحيحة");
+  if(!title || !desc || !link){
+    alert("عافاك عَمّر جميع الخانات");
+    return;
   }
-}
 
-// ADD USER
-async function addUser(){
-  await supabase.from("users").insert({
-    code:newCode.value,
-    active:true
-  });
-  alert("تمت إضافة User");
-}
-
-// ADD LESSON
-async function addLesson(){
-  const file = pdf.files[0];
-  const path = Date.now()+"_"+file.name;
-
-  await supabase.storage.from("pdfs").upload(path,file);
-
-  const url = supabase.storage
-    .from("pdfs")
-    .getPublicUrl(path).data.publicUrl;
-
-  await supabase.from("lessons").insert({
-    title:title.value,
-    subject:subject.value,
-    pdf_url:url
-  });
-
-  alert("تمت إضافة الدرس");
+  lessons.push({title,desc,sem,link,pdf:null});
+  localStorage.setItem("lessons",JSON.stringify(lessons));
   loadLessons();
+  updateStats();
+  openTab("list");
 }
 
-// LOAD LESSONS
-async function loadLessons(){
-  const { data } = await supabase.from("lessons").select("*");
-  lessons.innerHTML="";
-  data.forEach(l=>{
-    lessons.innerHTML+=`
-      <div class="lesson">
-        <b>${l.title}</b> - ${l.subject}
+// ========== Load Lessons in Page ==========
+function loadLessons(){
+  const box = document.getElementById("list");
+  box.innerHTML = "";
+
+  lessons.forEach((l,i)=>{
+    box.innerHTML += `
+      <div class="lesson-card">
+        <h3>${l.title}</h3>
+        <p>${l.sem === "s1"?"الدورة الأولى":"الدورة الثانية"}</p>
+
+        <div class="lesson-actions">
+          <button class="small-btn" onclick="editLesson(${i})">تعديل</button>
+          <button class="small-btn" onclick="deleteLesson(${i})">حذف</button>
+          <button class="small-btn" onclick="uploadPDF(${i})">رفع PDF</button>
+          <button class="small-btn" onclick="openLesson('${l.link}')">فتح الصفحة</button>
+        </div>
       </div>
     `;
   });
+}
+
+function deleteLesson(i){
+  if(confirm("متأكد بغيتي تحذف الدرس؟")){
+    lessons.splice(i,1);
+    localStorage.setItem("lessons",JSON.stringify(lessons));
+    loadLessons();
+    updateStats();
+  }
+}
+
+function editLesson(i){
+  const l = lessons[i];
+  lesson_title.value = l.title;
+  lesson_desc.value  = l.desc;
+  lesson_sem.value   = l.sem;
+  lesson_link.value  = l.link;
+
+  lessons.splice(i,1);
+  localStorage.setItem("lessons",JSON.stringify(lessons));
+  loadLessons();
+  openTab("add");
+}
+
+function uploadPDF(i){
+  alert("دابا غير نخليوها Placeholder حتى نربطو Firebase ❤️");
+}
+
+function openLesson(link){
+  location.href = link;
+}
+
+// ========== Dashboard Numbers ==========
+function updateStats(){
+  stat_total.innerText = lessons.length;
+  stat_s1.innerText    = lessons.filter(l=>l.sem==="s1").length;
+  stat_s2.innerText    = lessons.filter(l=>l.sem==="s2").length;
+  stat_pdf.innerText   = lessons.filter(l=>l.pdf!==null).length;
+}
+
+loadLessons();
+updateStats();
+
+// =========================================
+//            TABS
+// =========================================
+function openTab(name){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(name).classList.add("active");
+
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  event.target.classList.add("active");
+}
+
+// =========================================
+//              LANGUAGES
+// =========================================
+const t={
+  ar:{
+    t_title:"لوحة التحكم",
+  },
+  fr:{
+    t_title:"Panneau d'administration",
+  },
+  en:{
+    t_title:"Admin Panel",
+  }
+};
+
+function setLang(lang){
+  localStorage.setItem("admin_lang",lang);
+  document.getElementById("t_title").innerText = t[lang].t_title;
+}
+
+if(localStorage.getItem("admin_lang")){
+  setLang(localStorage.getItem("admin_lang"));
 }
 </script>
 
