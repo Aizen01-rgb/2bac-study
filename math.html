@@ -102,32 +102,37 @@ body{
 .page-title h1{font-size:24px;margin-bottom:8px}
 .page-title p{font-size:14px;color:var(--muted)}
 
-/* ===== LESSON CARDS ===== */
-.section-title{
-  font-size:20px;
-  margin:12px 0;
-  font-weight:700;
+/* ===== SUBJECT CARDS (DYNAMIC CARDS) ===== */
+.subject-list{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  margin:20px 0;
 }
 
-.lessons{
-  display:grid;
-  gap:16px;
-}
-
-.lesson{
+.subject-card{
   background:var(--glass);
-  backdrop-filter:blur(14px);
   padding:18px;
   border-radius:22px;
+  display:flex;
+  gap:16px;
+  align-items:center;
   box-shadow:var(--shadow);
-  transition:.3s;
   cursor:pointer;
+  transition:.3s;
 }
-.lesson:hover{transform:translateY(-6px);}
-.lesson h3{font-size:17px;margin-bottom:5px}
-.lesson span{font-size:13px;color:var(--muted)}
+.subject-card:hover{transform:translateY(-6px);}
+.subject-card .icon{
+  width:50px;height:50px;
+  background:linear-gradient(135deg,#10b981,#2563eb);
+  border-radius:16px;
+  display:flex;justify-content:center;align-items:center;
+  font-size:24px;color:white;
+}
+.subject-card h3{margin:0}
+.subject-card p{margin:4px 0 0;font-size:14px;color:var(--muted)}
 
-/* animation */
+/* REVEAL ANIMATION */
 .reveal{opacity:0;transform:translateY(25px);transition:.6s;}
 .reveal.show{opacity:1;transform:none}
 
@@ -192,78 +197,13 @@ body{
   <p data-key="mdesc">دروس الدورة الأولى والثانية</p>
 </div>
 
-<!-- SEMESTER 1 -->
-<h2 class="section-title">📘 الدورة الأولى</h2>
-<div class="lessons">
+<!-- S1 -->
+<h2 class="section-title">📘 الدورة الأولى (S1)</h2>
+<div id="s1_list" class="subject-list"></div>
 
-  <div class="lesson reveal" data-link="lessons/continuite.html">
-    <h3>Continuité d'une fonction numérique</h3>
-    <span>Cours + Exercices</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/derivabilite.html">
-    <h3>Dérivabilité</h3>
-    <span>Cours + Exercices</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/etude-fct.html">
-    <h3>Étude d’une fonction</h3>
-    <span>Résumé + TD</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/primitives.html">
-    <h3>Primitives</h3>
-    <span>Cours + Exercices</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/suites.html">
-    <h3>Suites numériques</h3>
-    <span>Leçons + Applications</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/logarithme.html">
-    <h3>Fonction logarithme</h3>
-    <span>Cours complet</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/complexes.html">
-    <h3>Nombre complexe</h3>
-    <span>Cours + Exercices</span>
-  </div>
-
-</div>
-
-
-<!-- SEMESTER 2 -->
-<h2 class="section-title" style="margin-top:25px">📗 الدورة الثانية</h2>
-<div class="lessons">
-
-  <div class="lesson reveal" data-link="lessons/exponentielle.html">
-    <h3>Fonctions exponentielles</h3>
-    <span>Cours + TD</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/differentielles.html">
-    <h3>Équations différentielles</h3>
-    <span>Résumé + Exercices</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/integrales.html">
-    <h3>Calcul des intégrales</h3>
-    <span>Cours complet</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/espace.html">
-    <h3>Géométrie dans l'espace</h3>
-    <span>Leçons + TD</span>
-  </div>
-
-  <div class="lesson reveal" data-link="lessons/probabilites.html">
-    <h3>Calcul des probabilités</h3>
-    <span>Cours + Exercices</span>
-  </div>
-
-</div>
+<!-- S2 -->
+<h2 class="section-title" style="margin-top:25px">📗 الدورة الثانية (S2)</h2>
+<div id="s2_list" class="subject-list"></div>
 
 </div>
 
@@ -281,21 +221,7 @@ function toggleDark(){
     document.body.classList.contains("dark")?"dark":"light");
 }
 
-document.querySelectorAll(".lesson").forEach(card=>{
-  card.addEventListener("click",()=>location.href=card.dataset.link);
-});
-
-const reveals=document.querySelectorAll(".reveal");
-function revealOnLoad(){
-  reveals.forEach(el=>{
-    if(el.getBoundingClientRect().top<window.innerHeight){
-      el.classList.add("show");
-    }
-  });
-}
-window.addEventListener("scroll",revealOnLoad);
-window.addEventListener("load",revealOnLoad);
-
+/* LANG */
 const t={
   ar:{mtitle:"📐 الرياضيات",mdesc:"دروس الدورة الأولى والثانية"},
   fr:{mtitle:"📐 Mathématiques",mdesc:"Cours Semestre 1 et 2"},
@@ -310,20 +236,12 @@ function setLang(l){
 }
 if(localStorage.getItem("theme")==="dark") document.body.classList.add("dark");
 if(localStorage.getItem("lang")) setLang(localStorage.getItem("lang"));
-<script>
-// =============================================
-// 1) Load lessons from LocalStorage
-// =============================================
 
+/* ===================== */
+/*   LOAD DYNAMIC DATA   */
+/* ===================== */
 let lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
-
-// هادي المادة ديال هاد الصفحة
-const SUBJECT = "math";  // ← فـ pc.html بدّلها لـ pc, svt, english, philo
-
-
-// =============================================
-// 2) Render lessons in this subject
-// =============================================
+const SUBJECT = "math";  
 
 function renderSubject() {
 
@@ -357,35 +275,23 @@ function renderSubject() {
   reveal();
 }
 
-
-// =============================================
-// 3) Open Lesson Page
-// =============================================
 function openLesson(link){
   window.location.href = link;
 }
 
-// PDF opener
 function openPDF(url){
   if(!url) return alert("لا يوجد PDF بعد!");
   window.open(url, "_blank");
 }
 
-
-// =============================================
-// 4) Reveal Animation
-// =============================================
 function reveal(){
-  const reveals = document.querySelectorAll(".reveal");
+  const reveals=document.querySelectorAll(".reveal");
   reveals.forEach((el,i)=>{
-    setTimeout(()=>{
-      el.classList.add("show");
-    }, 100 * i);
+    setTimeout(()=>{el.classList.add("show");},100*i);
   });
 }
 
 renderSubject();
-</script>
 </script>
 
 </body>
