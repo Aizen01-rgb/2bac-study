@@ -748,7 +748,167 @@ function saveOrder() {
   });
 
   localStorage.setItem("lessons", JSON.stringify(lessons));
+}// =============================================
+//                11) MULTILANGUAGE
+// =============================================
+
+// 🟣 جميع النصوص هنا
+const langData = {
+
+  ar: {
+    dashboard: "📊 الرئيسية",
+    math: "📐 الرياضيات",
+    pc: "💻 الفيزياء والكيمياء",
+    svt: "🧬 علوم الحياة والأرض",
+    english: "🇬🇧 الإنجليزية",
+    philo: "🧠 الفلسفة",
+    add: "➕ إضافة درس",
+
+    stats_title: "📊 الإحصائيات العامة",
+    total_lessons: "عدد الدروس",
+    s1_lessons: "دروس الدورة الأولى",
+    s2_lessons: "دروس الدورة الثانية",
+    pdf_count: "ملفات PDF",
+
+    math_title: "📐 دروس الرياضيات",
+    pc_title: "💻 دروس الفيزياء والكيمياء",
+    svt_title: "🧬 دروس علوم الحياة والأرض",
+    eng_title: "🇬🇧 دروس الإنجليزية",
+    philo_title: "🧠 دروس الفلسفة",
+
+    s1: "الدورة الأولى (S1)",
+    s2: "الدورة الثانية (S2)",
+
+    add_title: "➕ إضافة درس جديد",
+    choose_subject: "اختر المادة:",
+    choose_sem: "اختر الدورة:",
+    lesson_title: "عنوان الدرس:",
+    lesson_desc: "وصف الدرس:",
+    lesson_link: "رابط صفحة الدرس:",
+    lesson_pdf: "ملف PDF (اختياري):",
+    save_btn: "💾 حفظ الدرس"
+  },
+
+  fr: {
+    dashboard: "📊 Tableau de bord",
+    math: "📐 Math",
+    pc: "💻 Physique/Chimie",
+    svt: "🧬 SVT",
+    english: "🇬🇧 Anglais",
+    philo: "🧠 Philosophie",
+    add: "➕ Ajouter un cours",
+
+    stats_title: "📊 Statistiques générales",
+    total_lessons: "Total des cours",
+    s1_lessons: "Cours S1",
+    s2_lessons: "Cours S2",
+    pdf_count: "Fichiers PDF",
+
+    math_title: "📐 Cours de Math",
+    pc_title: "💻 Cours de Physique/Chimie",
+    svt_title: "🧬 Cours de SVT",
+    eng_title: "🇬🇧 Cours d'Anglais",
+    philo_title: "🧠 Cours de Philosophie",
+
+    s1: "Semestre 1 (S1)",
+    s2: "Semestre 2 (S2)",
+
+    add_title: "➕ Ajouter un cours",
+    choose_subject: "Choisir la matière:",
+    choose_sem: "Choisir le semestre:",
+    lesson_title: "Titre du cours:",
+    lesson_desc: "Description:",
+    lesson_link: "Lien de la page:",
+    lesson_pdf: "Fichier PDF (optionnel):",
+    save_btn: "💾 Enregistrer"
+  },
+
+  en: {
+    dashboard: "📊 Dashboard",
+    math: "📐 Math",
+    pc: "💻 Physics/Chemistry",
+    svt: "🧬 Biology",
+    english: "🇬🇧 English",
+    philo: "🧠 Philosophy",
+    add: "➕ Add Lesson",
+
+    stats_title: "📊 General Statistics",
+    total_lessons: "Total Lessons",
+    s1_lessons: "Semester 1 Lessons",
+    s2_lessons: "Semester 2 Lessons",
+    pdf_count: "PDF Files",
+
+    math_title: "📐 Math Lessons",
+    pc_title: "💻 Physics/Chemistry Lessons",
+    svt_title: "🧬 Biology Lessons",
+    eng_title: "🇬🇧 English Lessons",
+    philo_title: "🧠 Philosophy Lessons",
+
+    s1: "Semester 1 (S1)",
+    s2: "Semester 2 (S2)",
+
+    add_title: "➕ Add New Lesson",
+    choose_subject: "Choose subject:",
+    choose_sem: "Choose semester:",
+    lesson_title: "Lesson Title:",
+    lesson_desc: "Lesson Description:",
+    lesson_link: "Lesson Page URL:",
+    lesson_pdf: "PDF File (optional):",
+    save_btn: "💾 Save Lesson"
+  }
+
+};
+
+
+// =============================================
+//             APPLY LANGUAGE TEXT
+// =============================================
+function applyLanguage(lang){
+
+  // sidebar
+  document.querySelector('[data-page="dashboard"]').innerText = langData[lang].dashboard;
+  document.querySelector('[data-page="math"]').innerText = langData[lang].math;
+  document.querySelector('[data-page="pc"]').innerText = langData[lang].pc;
+  document.querySelector('[data-page="svt"]').innerText = langData[lang].svt;
+  document.querySelector('[data-page="english"]').innerText = langData[lang].english;
+  document.querySelector('[data-page="philo"]').innerText = langData[lang].philo;
+  document.querySelector('[data-page="add"]').innerText = langData[lang].add;
+
+  // page titles
+  document.querySelector("#dashboard h1").innerText = langData[lang].stats_title;
+
+  document.querySelector("#math h1").innerText = langData[lang].math_title;
+  document.querySelector("#pc h1").innerText = langData[lang].pc_title;
+  document.querySelector("#svt h1").innerText = langData[lang].svt_title;
+  document.querySelector("#english h1").innerText = langData[lang].eng_title;
+  document.querySelector("#philo h1").innerText = langData[lang].philo_title;
+
+  // semester buttons
+  document.querySelectorAll(".sem-btn[data-sem='s1']").forEach(btn => btn.innerText = langData[lang].s1);
+  document.querySelectorAll(".sem-btn[data-sem='s2']").forEach(btn => btn.innerText = langData[lang].s2);
+
+  // add lesson page
+  document.querySelector("#add h1").innerText = langData[lang].add_title;
+  document.querySelector("label[for='add_subject']")?.innerText = langData[lang].choose_subject;
 }
+
+
+// =============================================
+//               LANGUAGE BUTTONS
+// =============================================
+document.querySelectorAll(".lang-box button").forEach(btn => {
+
+  btn.addEventListener("click", () => {
+    const lang = btn.dataset.lang;
+    localStorage.setItem("admin_lang", lang);
+    applyLanguage(lang);
+  });
+
+});
+
+// load saved language
+let savedLang = localStorage.getItem("admin_lang") || "ar";
+applyLanguage(savedLang);
 </script>
 </body>
 </html>
