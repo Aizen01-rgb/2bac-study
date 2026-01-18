@@ -310,6 +310,82 @@ function setLang(l){
 }
 if(localStorage.getItem("theme")==="dark") document.body.classList.add("dark");
 if(localStorage.getItem("lang")) setLang(localStorage.getItem("lang"));
+<script>
+// =============================================
+// 1) Load lessons from LocalStorage
+// =============================================
+
+let lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
+
+// هادي المادة ديال هاد الصفحة
+const SUBJECT = "math";  // ← فـ pc.html بدّلها لـ pc, svt, english, philo
+
+
+// =============================================
+// 2) Render lessons in this subject
+// =============================================
+
+function renderSubject() {
+
+  let s1box = document.getElementById("s1_list");
+  let s2box = document.getElementById("s2_list");
+
+  s1box.innerHTML = "";
+  s2box.innerHTML = "";
+
+  lessons
+    .filter(l => l.subject === SUBJECT)
+    .sort((a,b)=>a.order-b.order)
+    .forEach(l => {
+
+      const card = `
+        <div class="subject-card reveal" onclick="openLesson('${l.link}')">
+          <div class="icon">📘</div>
+          <div class="info">
+            <h3>${l.title}</h3>
+            <p>${l.desc}</p>
+            ${l.pdf ? `<button onclick="event.stopPropagation(); openPDF('${l.pdf}')">PDF</button>` : ""}
+          </div>
+        </div>
+      `;
+
+      if (l.sem === "s1") s1box.innerHTML += card;
+      else s2box.innerHTML += card;
+
+    });
+
+  reveal();
+}
+
+
+// =============================================
+// 3) Open Lesson Page
+// =============================================
+function openLesson(link){
+  window.location.href = link;
+}
+
+// PDF opener
+function openPDF(url){
+  if(!url) return alert("لا يوجد PDF بعد!");
+  window.open(url, "_blank");
+}
+
+
+// =============================================
+// 4) Reveal Animation
+// =============================================
+function reveal(){
+  const reveals = document.querySelectorAll(".reveal");
+  reveals.forEach((el,i)=>{
+    setTimeout(()=>{
+      el.classList.add("show");
+    }, 100 * i);
+  });
+}
+
+renderSubject();
+</script>
 </script>
 
 </body>
