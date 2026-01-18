@@ -675,6 +675,79 @@ function uploadPDF(id) {
 }function openPDF(url) {
   if (!url) return alert("ماكاين حتى PDF لهاذ الدرس!");
   window.open(url, "_blank");
+}// =============================================
+//              10) DRAG & DROP ORDER
+// =============================================
+
+function enableDragDrop() {
+  const cards = document.querySelectorAll(".lesson-card");
+
+  let dragged = null;
+
+  cards.forEach(card => {
+
+    card.addEventListener("dragstart", () => {
+      dragged = card;
+      card.style.opacity = ".4";
+    });
+
+    card.addEventListener("dragend", () => {
+      dragged.style.opacity = "1";
+      dragged = null;
+      saveOrder();
+    });
+
+    card.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      card.style.border = "1px dashed #9b5cff";
+    });
+
+    card.addEventListener("dragleave", () => {
+      card.style.border = "1px solid rgba(125,45,255,.4)";
+    });
+
+    card.addEventListener("drop", () => {
+      card.style.border = "1px solid rgba(125,45,255,.4)";
+
+      if (dragged !== card) {
+        // move card
+        let parent = card.parentNode;
+        let draggedIndex = Array.from(parent.children).indexOf(dragged);
+        let targetIndex = Array.from(parent.children).indexOf(card);
+
+        if (draggedIndex < targetIndex) {
+          parent.insertBefore(dragged, card.nextSibling);
+        } else {
+          parent.insertBefore(dragged, card);
+        }
+
+        saveOrder();
+      }
+    });
+
+  });
+
+}
+
+// ============ Save Order In LocalStorage ============
+function saveOrder() {
+  // loop on each list
+  document.querySelectorAll(".lessons-list").forEach(list => {
+
+    const subject_sem = list.id; // example: math_s1
+    const [subject, sem] = subject_sem.split("_");
+
+    const ids = Array.from(list.children).map(card => card.getAttribute("data-id"));
+
+    // update order values
+    ids.forEach((id, index) => {
+      let lesson = lessons.find(l => l.id == id && l.subject == subject && l.sem == sem);
+      if (lesson) lesson.order = index + 1;
+    });
+
+  });
+
+  localStorage.setItem("lessons", JSON.stringify(lessons));
 }
 </script>
 </body>
