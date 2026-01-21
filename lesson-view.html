@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>الدرس</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',Tahoma;
+}
+
+body{
+  background:#0a0215;
+  color:white;
+  padding:20px;
+  transition:.3s;
+}
+
+/* LIGHT MODE */
+body.light{
+  background:#f5f5f5;
+  color:#222;
+}
+
+.container{
+  max-width:800px;
+  margin:auto;
+  padding:20px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid #7d2dffaa;
+  box-shadow:0 0 20px #7d2dff44;
+}
+
+/* LIGHT MODE */
+body.light .container{
+  background:white;
+  border:1px solid #ccc;
+  box-shadow:0 0 15px #ddd;
+}
+
+.lesson-img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:20px;
+  border:2px solid #7d2dff88;
+}
+
+h1{
+  margin-bottom:10px;
+  color:#d4b3ff;
+}
+
+/* LIGHT MODE */
+body.light h1{
+  color:#333;
+}
+
+.desc{
+  line-height:1.7;
+  margin-bottom:20px;
+  font-size:17px;
+}
+
+.btn{
+  display:block;
+  width:100%;
+  margin:10px 0;
+  padding:12px;
+  text-align:center;
+  border:none;
+  border-radius:10px;
+  background:#7d2dff;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.btn:hover{
+  opacity:.85;
+}
+
+.back-btn{
+  margin-top:20px;
+  background:#444;
+}
+
+/* LIGHT MODE */
+body.light .btn{
+  background:#5a3fff;
+  color:#fff;
+}
+
+.toggle{
+  position:fixed;
+  top:15px;
+  left:15px;
+  background:#7d2dff;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  color:white;
+  border:none;
+}
+
+/* LIGHT MODE */
+body.light .toggle{
+  background:#333;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<button class="toggle" onclick="toggleMode()">🌙</button>
+
+<div class="container">
+
+  <h1 id="lesson_title">...</h1>
+
+  <img id="lesson_img" class="lesson-img" style="display:none;">
+
+  <p class="desc" id="lesson_desc">...</p>
+
+  <button class="btn" id="btn_pdf_lesson" style="display:none;">📄 تحميل PDF الدرس</button>
+  <button class="btn" id="btn_pdf_ex" style="display:none;">📄 تحميل PDF التمارين</button>
+
+  <button class="btn back-btn" onclick="history.back()">رجوع</button>
+
+</div>
+
+
+<script>
+// ================================
+// 1) الحصول على ID من الرابط
+// ================================
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+if (!id) {
+  alert("خطأ: لا يوجد ID للدرس");
+}
+
+
+// ================================
+// 2) جلب الدروس من LocalStorage
+// ================================
+let lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
+let lesson = lessons.find(l => l.id == id);
+
+if (!lesson) {
+  alert("الدرس غير موجود!");
+}
+
+
+// ================================
+// 3) عرض بيانات الدرس
+// ================================
+document.getElementById("lesson_title").innerText = lesson.title;
+document.getElementById("lesson_desc").innerText = lesson.desc;
+
+// الصورة
+if (lesson.img) {
+  const img = document.getElementById("lesson_img");
+  img.src = lesson.img;
+  img.style.display = "block";
+}
+
+// PDF الدرس
+if (lesson.pdf_lesson) {
+  const b1 = document.getElementById("btn_pdf_lesson");
+  b1.style.display = "block";
+  b1.onclick = () => window.open(lesson.pdf_lesson, "_blank");
+}
+
+// PDF التمارين
+if (lesson.pdf_ex) {
+  const b2 = document.getElementById("btn_pdf_ex");
+  b2.style.display = "block";
+  b2.onclick = () => window.open(lesson.pdf_ex, "_blank");
+}
+
+
+// ================================
+// 4) DARK / LIGHT MODE
+// ================================
+function toggleMode(){
+  document.body.classList.toggle("light");
+
+  // حفظ الوضع
+  if (document.body.classList.contains("light")) {
+    localStorage.setItem("lesson_mode", "light");
+  } else {
+    localStorage.setItem("lesson_mode", "dark");
+  }
+}
+
+// تحميل الوضع عند الدخول
+let saved = localStorage.getItem("lesson_mode");
+if (saved === "light") {
+  document.body.classList.add("light");
+}
+</script>
+
+</body>
+</html>
