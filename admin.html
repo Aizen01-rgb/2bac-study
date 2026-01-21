@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <title>لوحة التحكم</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
 
-/* ================= RESET ================= */
+<style>
 *{
   margin:0;
   padding:0;
@@ -20,8 +19,6 @@ body{
   height:100vh;
   overflow:hidden;
 }
-
-/* ================= SIDEBAR ================= */
 #sidebar{
   width:240px;
   background:#120124;
@@ -32,7 +29,6 @@ body{
   flex-direction:column;
   justify-content:space-between;
 }
-
 #sidebar .logo{
   font-size:22px;
   font-weight:700;
@@ -40,7 +36,6 @@ body{
   margin-bottom:20px;
   text-shadow:0 0 8px #7d2dff;
 }
-
 #sidebar .menu li{
   list-style:none;
   padding:12px;
@@ -60,7 +55,6 @@ body{
   color:#fff;
   box-shadow:0 0 16px #7d2dff;
 }
-
 .lang-box{
   margin-top:20px;
   display:flex;
@@ -76,18 +70,11 @@ body{
   font-size:13px;
   cursor:pointer;
 }
-.lang-box button:hover{
-  background:#7d2dff;
-}
-
-/* ================= MAIN ================= */
 #main{
   flex:1;
   padding:20px;
   overflow-y:auto;
 }
-
-/* ================= PAGE ================= */
 .page{
   display:none;
   animation:fade .4s;
@@ -95,20 +82,16 @@ body{
 .page.active{
   display:block;
 }
-
 @keyframes fade{
   from{opacity:0;transform:translateY(10px);}
   to{opacity:1;transform:translateY(0);}
 }
-
-/* ================= DASHBOARD ================= */
 .stats-box{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
   gap:18px;
   margin-top:20px;
 }
-
 .stat-item{
   background:rgba(255,255,255,0.06);
   border:1px solid rgba(125,45,255,.4);
@@ -120,14 +103,11 @@ body{
 .stat-item h3{
   color:#d5b4ff;
   margin-bottom:10px;
-  text-shadow:0 0 8px #7d2dff;
 }
 .stat-item p{
   font-size:24px;
   font-weight:700;
 }
-
-/* ================= MATERIAL TABS ================= */
 .sem-tabs{
   margin:18px 0;
   display:flex;
@@ -144,16 +124,12 @@ body{
 }
 .sem-btn.active{
   background:#7d2dff;
-  box-shadow:0 0 18px #7d2dff;
 }
-
-/* ================= LESSONS LIST ================= */
 .lessons-list{
   display:flex;
   flex-direction:column;
   gap:14px;
 }
-
 .lesson-card{
   background:rgba(255,255,255,0.06);
   border:1px solid rgba(125,45,255,.4);
@@ -162,21 +138,15 @@ body{
   box-shadow:0 0 12px #7d2dff55;
   cursor:grab;
 }
-.lesson-card:active{
-  cursor:grabbing;
-}
-
 .lesson-title{
   font-size:18px;
   color:#d8b8ff;
-  margin-bottom:6px;
 }
 .lesson-desc{
   color:#c7a3ff;
   font-size:14px;
   margin-bottom:10px;
 }
-
 .lesson-actions{
   display:flex;
   gap:8px;
@@ -191,22 +161,11 @@ body{
   cursor:pointer;
   font-size:12px;
 }
-.lesson-actions button:hover{
-  background:#7d2dff;
-  box-shadow:0 0 8px #7d2dff;
-}
-
-/* ================= ADD LESSON FORM ================= */
 #addForm{
   display:flex;
   flex-direction:column;
   gap:16px;
   margin-top:20px;
-}
-
-#addForm label{
-  color:#d8b8ff;
-  margin-bottom:6px;
 }
 #addForm input, #addForm textarea, #addForm select{
   padding:12px;
@@ -218,7 +177,6 @@ body{
 #addForm textarea{
   min-height:80px;
 }
-
 #addForm button{
   padding:12px;
   background:#7d2dff;
@@ -229,65 +187,26 @@ body{
   font-weight:700;
   cursor:pointer;
   margin-top:10px;
-  box-shadow:0 0 14px #7d2dff;
 }
-#addForm button:hover{
-  transform:scale(1.03);
-}
-
-/* ================= MOBILE ================= */
-@media(max-width:780px){
-  #sidebar{
-    width:180px;
-  }
-  .stat-item{
-    padding:16px;
-  }
-}
-@media(max-width:560px){
-  body{
-    flex-direction:column;
-  }
-  #sidebar{
-    width:100%;
-    height:auto;
-    display:flex;
-    flex-direction:column;
-  }
-  #main{
-    height:auto;
-  }
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- ======================= SIDEBAR ======================= -->
 <div id="sidebar">
 
-  <h2 class="logo">لوحة التحكم</h2>
+  <h2 class="logo">لوحة التحكم</hh2>
 
   <ul class="menu">
-
     <li data-page="dashboard">📊 الرئيسية</li>
-
     <li data-page="math">📐 الرياضيات</li>
-
     <li data-page="pc">💻 الفيزياء والكيمياء</li>
-
     <li data-page="svt">🧬 علوم الحياة والأرض</li>
-
     <li data-page="english">🇬🇧 الإنجليزية</li>
-
     <li data-page="philo">🧠 الفلسفة</li>
-
     <li data-page="add">➕ إضافة درس</li>
-
   </ul>
 
-  <!-- languages -->
   <div class="lang-box">
     <button data-lang="ar">AR</button>
     <button data-lang="fr">FR</button>
@@ -296,106 +215,64 @@ body{
 
 </div>
 
-<!-- ======================= MAIN CONTENT ======================= -->
 <div id="main">
 
-  <!-- ================= DASHBOARD ================== -->
   <div class="page" id="dashboard">
     <h1>📊 الإحصائيات العامة</h1>
 
     <div class="stats-box">
-      <div class="stat-item">
-        <h3>عدد الدروس</h3>
-        <p id="stat_total">0</p>
-      </div>
-
-      <div class="stat-item">
-        <h3>دروس الدورة الأولى</h3>
-        <p id="stat_s1">0</p>
-      </div>
-
-      <div class="stat-item">
-        <h3>دروس الدورة الثانية</h3>
-        <p id="stat_s2">0</p>
-      </div>
-
-      <div class="stat-item">
-        <h3>ملفات PDF</h3>
-        <p id="stat_pdf">0</p>
-      </div>
+      <div class="stat-item"><h3>عدد الدروس</h3><p id="stat_total">0</p></div>
+      <div class="stat-item"><h3>دروس S1</h3><p id="stat_s1">0</p></div>
+      <div class="stat-item"><h3>دروس S2</h3><p id="stat_s2">0</p></div>
+      <div class="stat-item"><h3>PDF</h3><p id="stat_pdf">0</p></div>
     </div>
-
   </div>
 
-  <!-- ================= MATERIAL TEMPLATES ================== -->
-
-  <!-- MATH -->
-  <div class="page" id="math">
-    <h1>📐 دروس الرياضيات</h1>
-
+  <div class="page" id="math"><h1>📐 دروس الرياضيات</h1>
     <div class="sem-tabs">
-      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
-      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+      <button class="sem-btn active" data-sem="s1">S1</button>
+      <button class="sem-btn" data-sem="s2">S2</button>
     </div>
-
     <div class="lessons-list" id="math_s1"></div>
     <div class="lessons-list" id="math_s2" style="display:none;"></div>
-
   </div>
 
-  <!-- PC -->
-  <div class="page" id="pc">
-    <h1>💻 دروس الفيزياء والكيمياء</h1>
-
+  <div class="page" id="pc"><h1>💻 دروس الفيزياء والكيمياء</h1>
     <div class="sem-tabs">
-      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
-      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+      <button class="sem-btn active" data-sem="s1">S1</button>
+      <button class="sem-btn" data-sem="s2">S2</button>
     </div>
-
     <div class="lessons-list" id="pc_s1"></div>
     <div class="lessons-list" id="pc_s2" style="display:none;"></div>
   </div>
 
-  <!-- SVT -->
-  <div class="page" id="svt">
-    <h1>🧬 دروس علوم الحياة والأرض</h1>
-
+  <div class="page" id="svt"><h1>🧬 دروس علوم الحياة والأرض</h1>
     <div class="sem-tabs">
-      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
-      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+      <button class="sem-btn active" data-sem="s1">S1</button>
+      <button class="sem-btn" data-sem="s2">S2</button>
     </div>
-
     <div class="lessons-list" id="svt_s1"></div>
     <div class="lessons-list" id="svt_s2" style="display:none;"></div>
   </div>
 
-  <!-- ENGLISH -->
-  <div class="page" id="english">
-    <h1>🇬🇧 دروس الإنجليزية</h1>
-
+  <div class="page" id="english"><h1>🇬🇧 دروس الإنجليزية</h1>
     <div class="sem-tabs">
-      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
-      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+      <button class="sem-btn active" data-sem="s1">S1</button>
+      <button class="sem-btn" data-sem="s2">S2</button>
     </div>
-
     <div class="lessons-list" id="eng_s1"></div>
     <div class="lessons-list" id="eng_s2" style="display:none;"></div>
   </div>
 
-  <!-- PHILOSOPHY -->
-  <div class="page" id="philo">
-    <h1>🧠 دروس الفلسفة</h1>
-
+  <div class="page" id="philo"><h1>🧠 دروس الفلسفة</h1>
     <div class="sem-tabs">
-      <button data-sem="s1" class="sem-btn active">الدورة الأولى (S1)</button>
-      <button data-sem="s2" class="sem-btn">الدورة الثانية (S2)</button>
+      <button class="sem-btn active" data-sem="s1">S1</button>
+      <button class="sem-btn" data-sem="s2">S2</button>
     </div>
-
     <div class="lessons-list" id="philo_s1"></div>
     <div class="lessons-list" id="philo_s2" style="display:none;"></div>
   </div>
 
-  <!-- ================= ADD LESSON ================== -->
   <div class="page" id="add">
     <h1>➕ إضافة درس جديد</h1>
 
@@ -423,12 +300,18 @@ body{
       <textarea id="add_desc"></textarea>
 
       <label for="add_link">رابط صفحة الدرس:</label>
-      <input id="add_link" type="text" placeholder="ex: lessons/lesson1.html">
+      <input id="add_link" type="text">
 
-      <label for="add_pdf">ملف PDF (اختياري):</label>
-      <input id="add_pdf" type="file">
+      <label for="add_img">🖼 صورة الدرس:</label>
+      <input id="add_img" type="file" accept="image/*">
 
-      <button type="button" id="saveLessonBtn">حفظ الدرس</button>
+      <label for="add_pdf_lesson">📄 PDF الدرس:</label>
+      <input id="add_pdf_lesson" type="file" accept="application/pdf">
+
+      <label for="add_pdf_ex">📄 PDF التمارين:</label>
+      <input id="add_pdf_ex" type="file" accept="application/pdf">
+
+      <button type="button" id="saveLessonBtn">💾 حفظ الدرس</button>
 
     </form>
 
@@ -436,11 +319,10 @@ body{
 
 </div>
 
-<script>
-// =============================================
+<!-- 🟣 JavaScript سيجي فالرسالة الثانية -->
+<script>// ==========================
 // 1) SWITCH BETWEEN PAGES
-// =============================================
-
+// ==========================
 const pages = document.querySelectorAll(".page");
 const menuItems = document.querySelectorAll("#sidebar .menu li");
 
@@ -455,54 +337,76 @@ menuItems.forEach(item => {
   });
 });
 
+// افتح Dashboard افتراضياً
 document.querySelector('[data-page="dashboard"]').classList.add("active");
 document.getElementById("dashboard").classList.add("active");
 
-// =============================================
-// 2) SEMESTER SWITCH
-// =============================================
 
-document.querySelectorAll(".sem-tabs").forEach(tabSection => {
-  const btns = tabSection.querySelectorAll(".sem-btn");
-
+// ==========================
+// 2) SEMESTER SWITCH (S1/S2)
+// ==========================
+document.querySelectorAll(".sem-tabs").forEach(section => {
+  const btns = section.querySelectorAll(".sem-btn");
   btns.forEach(btn => {
     btn.addEventListener("click", () => {
-      btns.forEach(b => b.classList.remove("active"));
+      btns.forEach(x => x.classList.remove("active"));
       btn.classList.add("active");
 
-      const sem = btn.getAttribute("data-sem");
-      const parentPage = btn.closest(".page").id;
+      const sem = btn.dataset.sem;
+      const page = btn.closest(".page").id;
 
-      document.querySelectorAll(`#${parentPage} .lessons-list`)
-        .forEach(list => list.style.display = "none");
-
-      document.querySelector(`#${parentPage}_${sem}`).style.display = "block";
+      document.querySelectorAll(`#${page} .lessons-list`).forEach(l => l.style.display = "none");
+      document.querySelector(`#${page}_${sem}`).style.display = "block";
     });
   });
 });
 
-// =============================================
-// 3) LOCAL STORAGE
-// =============================================
 
+// ==========================
+// 3) DATA STORAGE
+// ==========================
 let lessons = JSON.parse(localStorage.getItem("lessons") || "[]");
 
+// تحديث الإحصائيات
 function updateStats() {
-  const total = lessons.length;
-  const s1 = lessons.filter(l => l.sem === "s1").length;
-  const s2 = lessons.filter(l => l.sem === "s2").length;
-  const pdfCount = lessons.filter(l => l.pdf !== null).length;
-
-  document.getElementById("stat_total").textContent = total;
-  document.getElementById("stat_s1").textContent = s1;
-  document.getElementById("stat_s2").textContent = s2;
-  document.getElementById("stat_pdf").textContent = pdfCount;
+  document.getElementById("stat_total").textContent = lessons.length;
+  document.getElementById("stat_s1").textContent = lessons.filter(l => l.sem === "s1").length;
+  document.getElementById("stat_s2").textContent = lessons.filter(l => l.sem === "s2").length;
+  document.getElementById("stat_pdf").textContent = lessons.filter(l => l.pdf_lesson !== null).length;
 }
 
-// =============================================
-// 4) ADD LESSON
-// =============================================
+// ==========================
+// 4) RENDER LESSONS
+// ==========================
+function renderLessons() {
+  document.querySelectorAll(".lessons-list").forEach(l => l.innerHTML = "");
 
+  lessons.sort((a,b) => a.order - b.order).forEach(lesson => {
+
+    const target = document.getElementById(`${lesson.subject}_${lesson.sem}`);
+    if (!target) return;
+
+    target.innerHTML += `
+      <div class="lesson-card" draggable="true" data-id="${lesson.id}">
+        <div class="lesson-title">${lesson.title}</div>
+        <div class="lesson-desc">${lesson.desc}</div>
+
+        <div class="lesson-actions">
+          <button onclick="openLesson(${lesson.id})">فتح</button>
+          <button onclick="editLesson(${lesson.id})">تعديل</button>
+          <button onclick="deleteLesson(${lesson.id})">حذف</button>
+        </div>
+      </div>
+    `;
+  });
+
+  enableDragDrop();
+}
+
+renderLessons();
+updateStats();// ==========================
+// 5) SAVE NEW LESSON
+// ==========================
 document.getElementById("saveLessonBtn").addEventListener("click", () => {
 
   const subject = document.getElementById("add_subject").value;
@@ -511,11 +415,12 @@ document.getElementById("saveLessonBtn").addEventListener("click", () => {
   const desc = document.getElementById("add_desc").value.trim();
   const link = document.getElementById("add_link").value.trim();
 
-  if (!title || !desc || !link) {
-    alert("عافاك عمر جميع الخانات 👌");
+  if (!title || !desc) {
+    alert("عافاك عمر الحقول المطلوبين");
     return;
   }
 
+  // إعداد الدرس الجديد
   const newLesson = {
     id: Date.now(),
     subject,
@@ -523,67 +428,60 @@ document.getElementById("saveLessonBtn").addEventListener("click", () => {
     title,
     desc,
     link,
-    pdf: null,
+
+    img: null,
+    pdf_lesson: null,
+    pdf_ex: null,
+
     order: lessons.filter(l => l.subject === subject && l.sem === sem).length + 1
   };
 
+  // ========== حفظ صورة الدرس ==========
+  const imgFile = document.getElementById("add_img").files[0];
+  if (imgFile) {
+    newLesson.img = "images/" + imgFile.name.replace(/\s+/g, "_");
+  }
+
+  // ========== PDF الدرس ==========
+  const pdfLesson = document.getElementById("add_pdf_lesson").files[0];
+  if (pdfLesson) {
+    newLesson.pdf_lesson = "pdf/" + pdfLesson.name.replace(/\s+/g, "_");
+  }
+
+  // ========== PDF التمارين ==========
+  const pdfEx = document.getElementById("add_pdf_ex").files[0];
+  if (pdfEx) {
+    newLesson.pdf_ex = "pdf/" + pdfEx.name.replace(/\s+/g, "_");
+  }
+
+  // حفظ في localStorage
   lessons.push(newLesson);
   localStorage.setItem("lessons", JSON.stringify(lessons));
 
-  alert("✔️ تم حفظ الدرس بنجاح!");
+  alert("✔ تم حفظ الدرس.\n⚠ لا تنسى رفع الملفات إلى GitHub داخل مجلد images/ و pdf/");
 
-  updateStats();
+  // إعادة تحديث
   renderLessons();
+  updateStats();
 
+  // فتح المادة مباشرة
   document.querySelector(`[data-page="${subject}"]`).click();
 
+  // تصفير الحقول
   document.getElementById("add_title").value = "";
   document.getElementById("add_desc").value = "";
   document.getElementById("add_link").value = "";
+  document.getElementById("add_img").value = "";
+  document.getElementById("add_pdf_lesson").value = "";
+  document.getElementById("add_pdf_ex").value = "";
 });
 
-// =============================================
-// 5) RENDER
-// =============================================
 
-function renderLessons() {
-  document.querySelectorAll(".lessons-list").forEach(list => list.innerHTML = "");
-
-  lessons
-    .sort((a,b) => a.order - b.order)
-    .forEach(lesson => {
-
-      const box = document.getElementById(`${lesson.subject}_${lesson.sem}`);
-      if (!box) return;
-
-      box.innerHTML += `
-        <div class="lesson-card" draggable="true" data-id="${lesson.id}">
-          <div class="lesson-title">${lesson.title}</div>
-          <div class="lesson-desc">${lesson.desc}</div>
-
-          <div class="lesson-actions">
-            <button onclick="openLesson('${lesson.link}')">فتح</button>
-            <button onclick="editLesson(${lesson.id})">تعديل</button>
-            <button onclick="deleteLesson(${lesson.id})">حذف</button>
-            <button onclick="uploadPDF(${lesson.id})">PDF</button>
-          </div>
-          <button onclick="openPDF('${lesson.pdf}')">عرض PDF</button>
-        </div>
-      `;
-    });
-
-  enableDragDrop();
-}
-
-renderLessons();
-updateStats();
-
-// =============================================
-// 6) DELETE
-// =============================================
-
+// ==========================
+// 6) DELETE LESSON
+// ==========================
 function deleteLesson(id) {
-  if (!confirm("بغيت بالفعل تحذف هاد الدرس؟")) return;
+  if (!confirm("بغيت تحذف هذا الدرس؟")) return;
 
   lessons = lessons.filter(l => l.id !== id);
   localStorage.setItem("lessons", JSON.stringify(lessons));
@@ -592,73 +490,40 @@ function deleteLesson(id) {
   updateStats();
 }
 
-// =============================================
-// 7) OPEN LESSON
-// =============================================
 
-function openLesson(link) {
-  window.location.href = link;
-}
-
-// =============================================
-// 8) EDIT
-// =============================================
-
+// ==========================
+// 7) EDIT LESSON
+// ==========================
 function editLesson(id) {
-  const l = lessons.find(x => x.id == id);
+  const L = lessons.find(l => l.id == id);
 
-  document.getElementById("add_subject").value = l.subject;
-  document.getElementById("add_sem").value = l.sem;
-  document.getElementById("add_title").value = l.title;
-  document.getElementById("add_desc").value = l.desc;
-  document.getElementById("add_link").value = l.link;
+  document.getElementById("add_subject").value = L.subject;
+  document.getElementById("add_sem").value = L.sem;
+  document.getElementById("add_title").value = L.title;
+  document.getElementById("add_desc").value = L.desc;
+  document.getElementById("add_link").value = L.link;
 
-  lessons = lessons.filter(x => x.id != id);
+  // إزالة القديم
+  lessons = lessons.filter(l => l.id != id);
   localStorage.setItem("lessons", JSON.stringify(lessons));
 
   document.querySelector('[data-page="add"]').click();
 }
 
-// =============================================
-// 9) PDF
-// =============================================
 
-function uploadPDF(id) {
-  const input = document.createElement("input");
-  input.type = "file";
-  input.accept = "application/pdf";
-
-  input.onchange = () => {
-    const file = input.files[0];
-    if (!file) return;
-
-    const pdfUrl = URL.createObjectURL(file);
-
-    const l = lessons.find(x => x.id == id);
-    l.pdf = pdfUrl;
-
-    localStorage.setItem("lessons", JSON.stringify(lessons));
-
-    alert("✔️ تم رفع PDF بنجاح!");
-    renderLessons();
-    updateStats();
-  };
-
-  input.click();
+// ==========================
+// 8) OPEN LESSON PAGE
+// ==========================
+function openLesson(id) {
+  window.location.href = `lesson-view.html?id=${id}`;
 }
 
-function openPDF(url) {
-  if (!url) return alert("ماكاين حتى PDF لهاذ الدرس!");
-  window.open(url, "_blank");
-}
 
-// =============================================
-// 10) DRAG & DROP
-// =============================================
-
+// ==========================
+// 9) DRAG & DROP
+// ==========================
 function enableDragDrop() {
   const cards = document.querySelectorAll(".lesson-card");
-
   let dragged = null;
 
   cards.forEach(card => {
@@ -669,12 +534,12 @@ function enableDragDrop() {
     });
 
     card.addEventListener("dragend", () => {
-      dragged.style.opacity = "1";
+      card.style.opacity = "1";
       dragged = null;
       saveOrder();
     });
 
-    card.addEventListener("dragover", (e) => {
+    card.addEventListener("dragover", e => {
       e.preventDefault();
       card.style.border = "1px dashed #9b5cff";
     });
@@ -687,7 +552,7 @@ function enableDragDrop() {
       card.style.border = "1px solid rgba(125,45,255,.4)";
 
       if (dragged !== card) {
-        let parent = card.parentNode;
+        const parent = card.parentNode;
         let draggedIndex = Array.from(parent.children).indexOf(dragged);
         let targetIndex = Array.from(parent.children).indexOf(card);
 
@@ -700,33 +565,31 @@ function enableDragDrop() {
         saveOrder();
       }
     });
-
   });
-
 }
 
+
+// ==========================
+// 10) SAVE ORDER
+// ==========================
 function saveOrder() {
   document.querySelectorAll(".lessons-list").forEach(list => {
 
-    const subject_sem = list.id;
-    const [subject, sem] = subject_sem.split("_");
+    let [subject, sem] = list.id.split("_");
 
-    const ids = Array.from(list.children).map(card => card.getAttribute("data-id"));
+    const ids = Array.from(list.children).map(c => c.dataset.id);
 
     ids.forEach((id, index) => {
-      let lesson = lessons.find(l => l.id == id && l.subject == subject && l.sem == sem);
-      if (lesson) lesson.order = index + 1;
+      const l = lessons.find(x => x.id == id && x.subject == subject && x.sem == sem);
+      if (l) l.order = index + 1;
     });
 
   });
 
   localStorage.setItem("lessons", JSON.stringify(lessons));
-}
-
-// =============================================
-// 11) MULTILANGUAGE
-// =============================================
-
+}// ==========================
+// 11) MULTILANGUAGE SUPPORT
+// ==========================
 const langData = {
 
   ar: {
@@ -739,27 +602,17 @@ const langData = {
     add: "➕ إضافة درس",
 
     stats_title: "📊 الإحصائيات العامة",
-    total_lessons: "عدد الدروس",
-    s1_lessons: "دروس الدورة الأولى",
-    s2_lessons: "دروس الدورة الثانية",
-    pdf_count: "ملفات PDF",
-
-    math_title: "📐 دروس الرياضيات",
-    pc_title: "💻 دروس الفيزياء والكيمياء",
-    svt_title: "🧬 دروس علوم الحياة والأرض",
-    eng_title: "🇬🇧 دروس الإنجليزية",
-    philo_title: "🧠 دروس الفلسفة",
-
     s1: "الدورة الأولى (S1)",
     s2: "الدورة الثانية (S2)",
 
-    add_title: "➕ إضافة درس جديد",
     choose_subject: "اختر المادة:",
     choose_sem: "اختر الدورة:",
     lesson_title: "عنوان الدرس:",
     lesson_desc: "وصف الدرس:",
     lesson_link: "رابط صفحة الدرس:",
-    lesson_pdf: "ملف PDF (اختياري):",
+    lesson_image: "صورة الدرس:",
+    lesson_pdf_l: "PDF الدرس:",
+    lesson_pdf_e: "PDF التمارين:",
     save_btn: "💾 حفظ الدرس"
   },
 
@@ -773,27 +626,17 @@ const langData = {
     add: "➕ Ajouter un cours",
 
     stats_title: "📊 Statistiques générales",
-    total_lessons: "Total des cours",
-    s1_lessons: "Cours S1",
-    s2_lessons: "Cours S2",
-    pdf_count: "Fichiers PDF",
-
-    math_title: "📐 Cours de Math",
-    pc_title: "💻 Cours de Physique/Chimie",
-    svt_title: "🧬 Cours de SVT",
-    eng_title: "🇬🇧 Cours d'Anglais",
-    philo_title: "🧠 Cours de Philosophie",
-
     s1: "Semestre 1 (S1)",
     s2: "Semestre 2 (S2)",
 
-    add_title: "➕ Ajouter un cours",
     choose_subject: "Choisir la matière:",
     choose_sem: "Choisir le semestre:",
     lesson_title: "Titre du cours:",
-    lesson_desc: "Description:",
+    lesson_desc: "Description du cours:",
     lesson_link: "Lien de la page:",
-    lesson_pdf: "Fichier PDF (optionnel):",
+    lesson_image: "Image du cours:",
+    lesson_pdf_l: "PDF du cours:",
+    lesson_pdf_e: "PDF des exercices:",
     save_btn: "💾 Enregistrer"
   },
 
@@ -807,38 +650,28 @@ const langData = {
     add: "➕ Add Lesson",
 
     stats_title: "📊 General Statistics",
-    total_lessons: "Total Lessons",
-    s1_lessons: "Semester 1 Lessons",
-    s2_lessons: "Semester 2 Lessons",
-    pdf_count: "PDF Files",
-
-    math_title: "📐 Math Lessons",
-    pc_title: "💻 Physics/Chemistry Lessons",
-    svt_title: "🧬 Biology Lessons",
-    eng_title: "🇬🇧 English Lessons",
-    philo_title: "🧠 Philosophy Lessons",
-
     s1: "Semester 1 (S1)",
     s2: "Semester 2 (S2)",
 
-    add_title: "➕ Add New Lesson",
     choose_subject: "Choose subject:",
     choose_sem: "Choose semester:",
     lesson_title: "Lesson Title:",
     lesson_desc: "Lesson Description:",
-    lesson_link: "Lesson Page URL:",
-    lesson_pdf: "PDF File (optional):",
+    lesson_link: "Lesson page link:",
+    lesson_image: "Lesson Image:",
+    lesson_pdf_l: "Lesson PDF:",
+    lesson_pdf_e: "Exercises PDF:",
     save_btn: "💾 Save Lesson"
   }
-
 };
 
-// =============================================
-// APPLY LANGUAGE
-// =============================================
 
+// ==========================
+// APPLY LANGUAGE
+// ==========================
 function applyLanguage(lang){
 
+  // Sidebar
   document.querySelector('[data-page="dashboard"]').innerText = langData[lang].dashboard;
   document.querySelector('[data-page="math"]').innerText = langData[lang].math;
   document.querySelector('[data-page="pc"]').innerText = langData[lang].pc;
@@ -847,31 +680,30 @@ function applyLanguage(lang){
   document.querySelector('[data-page="philo"]').innerText = langData[lang].philo;
   document.querySelector('[data-page="add"]').innerText = langData[lang].add;
 
+  // Titles
   document.querySelector("#dashboard h1").innerText = langData[lang].stats_title;
 
-  document.querySelector("#math h1").innerText = langData[lang].math_title;
-  document.querySelector("#pc h1").innerText = langData[lang].pc_title;
-  document.querySelector("#svt h1").innerText = langData[lang].svt_title;
-  document.querySelector("#english h1").innerText = langData[lang].eng_title;
-  document.querySelector("#philo h1").innerText = langData[lang].philo_title;
-
+  // Semester buttons
   document.querySelectorAll(".sem-btn[data-sem='s1']").forEach(btn => btn.innerText = langData[lang].s1);
   document.querySelectorAll(".sem-btn[data-sem='s2']").forEach(btn => btn.innerText = langData[lang].s2);
 
+  // Add Page Labels
   document.querySelector("label[for='add_subject']").innerText = langData[lang].choose_subject;
   document.querySelector("label[for='add_sem']").innerText = langData[lang].choose_sem;
   document.querySelector("label[for='add_title']").innerText = langData[lang].lesson_title;
   document.querySelector("label[for='add_desc']").innerText = langData[lang].lesson_desc;
   document.querySelector("label[for='add_link']").innerText = langData[lang].lesson_link;
-  document.querySelector("label[for='add_pdf']").innerText = langData[lang].lesson_pdf;
+  document.querySelector("label[for='add_img']").innerText = langData[lang].lesson_image;
+  document.querySelector("label[for='add_pdf_lesson']").innerText = langData[lang].lesson_pdf_l;
+  document.querySelector("label[for='add_pdf_ex']").innerText = langData[lang].lesson_pdf_e;
 
-  document.querySelector("#saveLessonBtn").innerText = langData[lang].save_btn;
+  document.getElementById("saveLessonBtn").innerText = langData[lang].save_btn;
 }
 
-// =============================================
-// LANGUAGE BUTTONS
-// =============================================
 
+// ==========================
+// LANGUAGE BUTTONS
+// ==========================
 document.querySelectorAll(".lang-box button").forEach(btn => {
   btn.addEventListener("click", () => {
     const lang = btn.dataset.lang;
@@ -880,9 +712,14 @@ document.querySelectorAll(".lang-box button").forEach(btn => {
   });
 });
 
+// Load saved language
 let savedLang = localStorage.getItem("admin_lang") || "ar";
 applyLanguage(savedLang);
 
+
+// ==========================
+// END OF SCRIPT
+// ==========================
 </script>
 
 </body>
